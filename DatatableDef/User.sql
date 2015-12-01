@@ -1,0 +1,12 @@
+CREATE TABLE user (
+  userId INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (userId) USING BTREE,
+  userName VARCHAR(30) NOT NULL,
+  password VARCHAR(30) NOT NULL,
+  cellPhone VARCHAR(30) NOT NULL,
+  UNIQUE KEY UNI_CELLPHONE (cellPhone),
+  address VARCHAR(50),
+  authenticated INT(1),
+  pictureId VARCHAR(20),
+  telephone VARCHAR(15)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+ 
+   <bean id="cropDao" class="com.dasinong.farmerClub.dao.CropDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="fieldDao" class="com.dasinong.farmerClub.dao.FieldDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="locationDao" class="com.dasinong.farmerClub.dao.LocationDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="natDisDao" class="com.dasinong.farmerClub.dao.NatDisDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="natDisSpecDao" class="com.dasinong.farmerClub.dao.NatDisSpecDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="petDisDao" class="com.dasinong.farmerClub.dao.PetDisDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="petDisSpecDao" class="com.dasinong.farmerClub.dao.PetDisSpecDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="petSoluDao" class="com.dasinong.farmerClub.dao.PetSoluDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="qualityItemDao" class="com.dasinong.farmerClub.dao.QualityItemDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="qualityItemValueDao" class="com.dasinong.farmerClub.dao.QualityItemValueDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="stepDao" class="com.dasinong.farmerClub.dao.StepDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="subStageDao" class="com.dasinong.farmerClub.dao.SubStageDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="taskDao" class="com.dasinong.farmerClub.dao.TaskDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="taskSpecDao" class="com.dasinong.farmerClub.dao.TaskSpecDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="userDao" class="com.dasinong.farmerClub.dao.UserDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="varietyDao" class="com.dasinong.farmerClub.dao.VarietyDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="cPProductDao" class="com.dasinong.farmerClub.dao.CPProductDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="soilTestReportDao" class="com.dasinong.farmerClub.dao.SoilTestReportDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="subScribeListDao" class="com.dasinong.farmerClub.dao.SubScribeListDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+	<bean id="disasterReportDao" class="com.dasinong.farmerClub.dao.DisasterReportDao" >
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="proverbDao" class="com.dasinong.farmerClub.dao.ProverbDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="varietyBrowseDao" class="com.dasinong.farmerClub.dao.VarietyBrowseDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="cPProductBrowseDao" class="com.dasinong.farmerClub.dao.CPProductBrowseDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="petDisSpecBrowseDao" class="com.dasinong.farmerClub.dao.PetDisSpecBrowseDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="fertilizerDao" class="com.dasinong.farmerClub.dao.FertilizerDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+    <bean id="taskRegionDao" class="com.dasinong.farmerClub.dao.TaskRegionDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+    <bean id="stepRegionDao" class="com.dasinong.farmerClub.dao.StepRegionDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="weatherSubscriptionDao" class="com.dasinong.farmerClub.dao.WeatherSubscriptionDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="institutionDao" class="com.dasinong.farmerClub.dao.InstitutionDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="monitorLocationDao" class="com.dasinong.farmerClub.dao.MonitorLocationDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="dasinongAppDao" class="com.dasinong.farmerClub.dao.DasinongAppDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="userAccessTokenDao" class="com.dasinong.farmerClub.dao.UserAccessTokenDao" >
+   		<property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="storeDao" class="com.dasinong.farmerClub.dao.StoreDao" >
+        <property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="securityCodeDao" class="com.dasinong.farmerClub.dao.SecurityCodeDao" >
+        <property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="institutionEmployeeApplicationDao" class="com.dasinong.farmerClub.dao.InstitutionEmployeeApplicationDao" >
+        <property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+   <bean id="systemMessageDao" class="com.dasinong.farmerClub.dao.SystemMessageDao" >
+        <property name="sessionFactory" ref="mySessionFactory"></property>
+   </bean>
+</beans>

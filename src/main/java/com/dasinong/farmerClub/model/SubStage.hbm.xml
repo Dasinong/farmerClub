@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.SubStage" table="subStage" catalog="farmer_club">
+        <cache usage="read-only"></cache>
+        <id name="subStageId" type="java.lang.Long">
+            <column name="subStageId" />
+            <generator class="identity" />
+        </id>
+        <property name="subStageName" type="string">
+            <column name="subStageName" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="stageName" type="string">
+            <column name="stageName" length="30" not-null="true" />
+        </property>
+        <set name="varieties" table="variety_subStage" cascade="all" inverse="false" lazy="false" fetch="join">
+            <cache usage="read-only"></cache>
+        	<key column = "subStageId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.Variety" column="varietyId"></many-to-many>
+        </set>
+        <set name="natDisSpecs" table="subStage_natDisSpec" cascade="all" inverse="false" lazy="false">
+            <cache usage="read-only"></cache>
+        	<key column = "subStageId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.NatDisSpec" column="natDisSpecId"></many-to-many>
+        </set>
+        <set name="petDisSpecs" table="subStage_petDisSpec" cascade="all" inverse="false" lazy="false">
+            <cache usage="read-only"></cache>
+        	<key column = "subStageId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.PetDisSpec" column="petDisSpecId"></many-to-many>
+        </set>
+        <set name="taskSpecs" table="taskSpec" inverse="false" lazy="false" fetch="select">
+            <cache usage="read-only"></cache>
+        	<key>
+        		<column name="subStageId" not-null="true" />
+        	</key>
+        	<one-to-many class="com.dasinong.farmerClub.model.TaskSpec"></one-to-many>
+        </set>
+        
+        
+        <property name="triggerAccumulatedTemp" type="int">
+            <column name="triggerAccumulatedTemp" length="10"/>
+        </property>
+        <property name="reqMinTemp" type="int">
+            <column name="reqMinTemp" length="10"/>
+        </property>
+        <property name="reqAvgTemp" type="int">
+            <column name="reqAvgTemp" length="10"/>
+        </property>
+        <property name="maxFieldHumidity" type="int">
+            <column name="maxFieldHumidity" length="10"/>
+        </property>
+        <property name="minFieldHumidity" type="int">
+            <column name="minFieldHumidity" length="10"/>
+        </property>
+        <property name="durationLow" type="double">
+            <column name="durationLow" length="10"/>
+        </property>
+        <property name="durationMid" type="double">
+            <column name="durationMid" length="10"/>
+        </property>
+        <property name="durationHigh" type="double">
+            <column name="durationHigh" length="10"/>
+        </property>
+    </class>
+</hibernate-mapping>

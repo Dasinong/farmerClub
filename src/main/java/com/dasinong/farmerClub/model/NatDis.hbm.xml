@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.NatDis" table="natDis" catalog="farmer_club">
+        <id name="natDisId" type="java.lang.Long">
+            <column name="natDisId" />
+            <generator class="identity" />
+        </id>
+        <property name="natDisSpecId" type="java.lang.Long">
+            <column name="natDisSpecId" />
+        </property>
+        <property name="fieldId" type="java.lang.Long">
+            <column name="fieldId" />
+        </property>
+        <property name="natDisStatus" type="java.lang.Boolean">
+            <column name="natDisStatus" />
+        </property>
+
+    </class>
+</hibernate-mapping>

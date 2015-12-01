@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	       		 	   http://www.springframework.org/schema/tx
+        		 	   http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	    <property name="dataSource">
+    	  <ref bean="dataSource"/>
+    	</property>
+ 
+  	   <property name="hibernateProperties">
+     	  <props>
+        	 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+         	 <prop key="hibernate.show_sql">false</prop>
+         	 <prop key="use_outer_join">true</prop>
+	         <prop key="hibernate.jdbc.batch_size">25</prop>
+	         <prop key="hibernate.cache.use_second_level_cache">true</prop>
+	         <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+       	  </props>
+     	</property>
+
+     	<property name="mappingResources">
+			<list>
+        	   <value>/com/dasinong/farmerClub/model/Field.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/Variety.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/Crop.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/Location.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/SubStage.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/NatDisSpec.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/PetDisSpec.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/QualityItem.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/TaskSpec.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/Step.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/QualityItemValue.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/Task.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/PetDis.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/NatDis.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/PetSolu.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/User.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/CPProduct.hbm.xml</value>
+        	   <value>/com/dasinong/farmerClub/model/SoilTestReport.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/SubScribeList.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/DisasterReport.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/Proverb.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/VarietyBrowse.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/PetDisSpecBrowse.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/CPProductBrowse.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/Fertilizer.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/TaskRegion.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/StepRegion.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/WeatherSubscription.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/Institution.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/MonitorLocation.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/DasinongApp.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/UserAccessToken.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/Store.hbm.xml</value>
+			   <value>/com/dasinong/farmerClub/model/SecurityCode.hbm.xml</value>
+               <value>/com/dasinong/farmerClub/model/InstitutionEmployeeApplication.hbm.xml</value>
+               <value>/com/dasinong/farmerClub/model/SystemMessage.hbm.xml</value>
+			</list>
+    	</property>	
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+	<!-- enable transaction annotation support -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>

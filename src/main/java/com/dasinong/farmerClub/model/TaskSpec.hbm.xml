@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.TaskSpec" table="taskSpec" catalog="farmer_club">
+    	<cache usage="read-only"></cache>
+        <id name="taskSpecId" type="java.lang.Long">
+            <column name="taskSpecId" />
+            <generator class="identity" />
+        </id>
+        <property name="taskSpecName" type="string">
+            <column name="taskSpecName" length="30" not-null="true" unique="true" />
+        </property>
+        <many-to-one name="subStage" class="com.dasinong.farmerClub.model.SubStage" fetch="select">
+        	<column name="subStageId" not-null="true"></column>
+        </many-to-one>
+        <list name="steps" table="step" cascade="all" fetch="select">
+       		<cache usage="read-only"></cache>
+        	<key>
+        		<column name="taskSpecId" not-null="true" />
+        	</key>
+        	<list-index column="idx"></list-index>
+        	<one-to-many class="com.dasinong.farmerClub.model.Step"></one-to-many>
+        </list>
+        <property name="type" type="string">
+            <column name="type" length="10"/>
+        </property>
+         <property name="fitRegion" type="string">
+            <column name="fitRegion" length="10"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,271 @@
+body {
+  background-color: rgb(255, 255, 255);
+  font: 400 1em/1.38 Roboto;
+  color: rgb(0, 0, 0);
+}
+
+.tip-1 p {
+  margin-bottom: 1em;
+}
+
+.cpproductname {
+  float: left;
+  width: 100%;
+}
+
+.cpproductname .cpproductname {
+  min-height: 86px;
+  padding-top: 30px;
+  padding-bottom: 15px;
+  padding-left: 30px;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.38;
+  color: rgb(0, 0, 0);
+}
+
+.actingtitle,
+.distitle,
+.dostitle,
+.factitle,
+.formtitle,
+.labeltitle,
+.regidtitle,
+.usetitle {
+  float: left;
+  display: inline;
+}
+
+.actingtitle .actingtitle,
+.distitle .distitle,
+.dostitle .dostitle,
+.factitle .factitle,
+.formtitle .formtitle,
+.labeltitle .labeltitle,
+.regidtitle .regidtitle,
+.usetitle .usetitle {
+  width: 100%;
+  padding-left: 30px;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 1.38;
+  color: rgb(0, 0, 0);
+  float: left;
+}
+
+.actingredient,  .dosage, .factory, .form, .label, .regid, .usage {
+  float: left;
+  display: inline;
+}
+
+.tip {
+  float: left;
+}
+
+.actingredient .actingredient,
+.disease .disease,
+.dosage .dosage,
+.factory .factory,
+.form .form,
+.label .label,
+.regid .regid,
+.tip .tip,
+.usage .usage {
+  padding-right: 30px;
+  padding-left: 30px;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.38;
+  color: rgb(0, 0, 0);
+  display: inline;
+  float: left;
+  word-break: break-all;
+}
+
+.tiptitle {
+  float: left;
+  width: 100%;
+}
+
+.tiptitle .tiptitle {
+  padding-left: 30px;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 1.38;
+  color: rgb(0, 0, 0);
+}
+
+.actingredient-1 {
+  position: relative;
+  z-index: 3;
+  /* width: 85.9722222222%; */
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.actingtitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 5;
+  width: 100px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.disease-1 {
+  position: relative;
+  z-index: 17;
+  /* width: 85.9722222222%; */
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.distitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 15;
+  width: 100px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.dosage-1 {
+  position: relative;
+  z-index: 21;
+  /* width: 85.9722222222%; */
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.dostitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 19;
+  width: 100px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.factitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 31;
+  width: 100px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.factory-1 {
+  position: relative;
+  z-index: 33;
+  /* width: 85.9722222222%; */
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.form-1 {
+  position: relative;
+  z-index: 13;
+  /* width: 85.9722222222%; */
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.formtitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 11;
+  width: 100px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.label-1 {
+  position: relative;
+  z-index: 9;
+  /* width: 85.9722222222%; */
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.labeltitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 7;
+  width: 100px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.regid-1 {
+  position: relative;
+  z-index: 29;
+  /* width: 85.9722222222%; */
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.regidtitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 27;
+  width: 100px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.tip-1 {
+  clear: both;
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.tiptitle-1 {
+  clear: both;
+  padding-top: 15px;
+  /* padding-bottom: 15px; */
+}
+
+.usage-1 {
+  position: relative;
+  z-index: 25;
+  /* width: 85.9722222222%; */
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.usetitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 23;
+  width: 100px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.cpproductname strong {
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-color: transparent;
+  border-style: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: transparent;
+  font-family: inherit;
+  font-style: normal;
+  font-size: 1.7em;
+  font-weight: 700;
+  text-transform: inherit;
+  text-decoration: inherit;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+  color: inherit;
+  opacity: 1;
+  word-break: normal;
+  word-wrap: normal;
+  white-space: normal;
+}

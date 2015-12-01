@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.Variety" table="variety" catalog="farmer_club">
+        <cache usage="read-only"></cache>
+        <id name="varietyId" type="java.lang.Long">
+            <column name="varietyId" />
+            <generator class="identity" />
+        </id>
+        <property name="varietyName" type="string">
+            <column name="varietyName" length="50" not-null="true"/>
+        </property>
+        <property name="subId" type="string">
+            <column name="subId" length="50"/>
+        </property>
+        <property name="registerationId" type="string">
+            <column name="registerationId" length="30" not-null="true" unique="true" />
+        </property>
+        <set name="fields" table="field" inverse="true" fetch="select">
+        	<key>
+        		<column name="varietyId" not-null="true" />
+        	</key>
+        	<one-to-many class="com.dasinong.farmerClub.model.Field"></one-to-many>
+        </set>
+        <set name="subStages" table="variety_subStage" cascade="save-update" inverse="true" fetch="join">
+            <cache usage="read-only"></cache>
+        	<key>
+        		<column name="varietyId" not-null="true" />
+        	</key>
+        	<many-to-many class="com.dasinong.farmerClub.model.SubStage" column="subStageId"></many-to-many>
+        </set>
+        
+        <many-to-one name="crop" class="com.dasinong.farmerClub.model.Crop" fetch="select">
+        	<column name="cropId" not-null="true"></column>
+        </many-to-one>
+        
+        <map name="qualityItemValues" cascade="all">
+        	<key column="varietyId"/>
+        	<index column="qualityItemId" type="java.lang.Long"></index>
+        	<one-to-many class="com.dasinong.farmerClub.model.QualityItemValue"></one-to-many>
+        </map>
+       <property name="yearofReg" type="int">
+            <column name="yearofReg" length="6"/>
+        </property>
+        <property name="issuedBy" type="string">
+            <column name="issuedBy" length="5000" />
+        </property>
+        <property name="owner" type="string">
+            <column name="owner" length="5000" />
+        </property>
+        <property name="varietySource" type="string">
+            <column name="varietySource" length="5000" />
+        </property>
+        <property name="isTransgenic" type="java.lang.Boolean">
+            <column name="isTransgenic" />
+        </property>
+        <property name="suitableArea" type="string">
+            <column name="suitableArea" length="5000" />
+        </property>
+        <property name="characteristics" type="string">
+            <column name="characteristics" />
+        </property>
+        <property name="yieldPerformance" type="string">
+            <column name="yieldPerformance" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="10"/>
+        </property>
+        <property name="genoType" type="string">
+            <column name="genoType" length="10"/>
+        </property>
+        <property name="maturityType" type="string">
+            <column name="maturityType" length="20"/>
+        </property>
+        <property name="totalAccumulatedTempNeeded" type="int">
+            <column name="totalAccumulatedTempNeeded" length="10"/>
+        </property>
+        <property name="fullCycleDuration" type="double">
+            <column name="fullCycleDuration" length="10"/>
+        </property>
+        <property name="typicalYield" type="int">
+            <column name="typicalYield" length="10"/>
+        </property>
+        <property name="nationalStandard" type="string">
+            <column name="nationalStandard" length="20"/>
+        </property>
+    </class>
+</hibernate-mapping>

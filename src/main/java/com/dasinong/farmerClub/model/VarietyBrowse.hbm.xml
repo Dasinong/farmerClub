@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.dasinong.farmerClub.model.VarietyBrowse" table="varietybrowse" catalog="farmer_club">
+        <id name="varietyId" type="java.lang.Long">
+            <column name="varietyId" />
+            <generator class="identity" />
+        </id>
+        <property name="cropId" type="long">
+        	<column name="cropId" not-null="true"/>
+        </property>
+        <property name="varietyName" type="string">
+            <column name="varietyName" length="50"/>
+        </property>
+        <property name="varietyNamePY" type="string">
+        	<column name="varietyNamePY" length="50"/>
+        </property>
+    </class>
+
+</hibernate-mapping>

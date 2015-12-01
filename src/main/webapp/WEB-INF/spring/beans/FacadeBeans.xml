@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+   <bean id="homeFacade" class="com.dasinong.farmerClub.facade.HomeFacade" >
+   </bean>
+   
+   <bean id="soilFacade" class="com.dasinong.farmerClub.facade.SoilFacade" >
+   </bean>
+   
+   <bean id="subScribeFacade" class="com.dasinong.farmerClub.facade.SubScribeFacade" >
+   </bean>
+ 
+   <bean id="fieldFacade" class="com.dasinong.farmerClub.facade.FieldFacade" >
+   </bean>
+   
+   <bean id="disasterReportFacade" class="com.dasinong.farmerClub.facade.DisasterReportFacade" >
+   </bean>
+   
+   <bean id="taskFacade" class="com.dasinong.farmerClub.facade.TaskFacade" >
+   </bean>
+   
+   <bean id="varietyFacade" class="com.dasinong.farmerClub.facade.VarietyFacade" >
+   </bean>
+   
+   <bean id="baiKeFacade" class="com.dasinong.farmerClub.facade.BaiKeFacade" >
+   </bean>
+   
+   <bean id="taskSpecFacade" class="com.dasinong.farmerClub.facade.TaskSpecFacade" >
+   </bean>
+   
+   <bean id="petDisFacade" class="com.dasinong.farmerClub.facade.PetDisFacade" >
+   </bean>
+   
+   <bean id="petDisSpecFacade" class="com.dasinong.farmerClub.facade.PetDisSpecFacade" >
+   </bean>
+   
+   <bean id="petSoluFacade" class="com.dasinong.farmerClub.facade.PetSoluFacade" >
+   </bean>
+   
+   <bean id="weatherFacade" class="com.dasinong.farmerClub.facade.WeatherFacade" >
+   </bean>
+   
+   <bean id="laoNongFacade" class="com.dasinong.farmerClub.facade.LaoNongFacade" >
+   </bean>
+   
+   <bean id="institutionEmployeeApplicationFacade" class="com.dasinong.farmerClub.facade.InstitutionEmployeeApplicationFacade" >
+   </bean>
+   
+   <bean id="storeFacade" class="com.dasinong.farmerClub.facade.StoreFacade" >
+   </bean>
+   
+</beans>

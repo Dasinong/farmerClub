@@ -1,0 +1,75 @@
+import java.util.Date;
+import com.dasinong.farmerClub.ruleEngine.domain.*;
+
+global java.util.ArrayList recommends;
+global java.util.ArrayList reminders;
+global com.dasinong.farmerClub.ruleEngine.domain.Weather recommendedDate;
+
+rule "instruction1--打开秧棚两头通风降温"
+when
+	Event(type == EventType.LoginHomePage)
+	Stage (type== StageType.seedling)
+	Weather(curTemperature > 33)
+then
+	insert(new Recommendation("应打开秧棚两头通风降温"));
+	insert(new Reminder("下午4-5时关闭通风口"));
+end
+
+rule "instruction2--练苗控长"
+when
+	Event(type == EventType.LoginHomePage)
+	Stage (type== StageType.seedling)
+	eval(!(recommendedDate.getPhenomena().contains(WeatherPhenomena.Sunning)))
+then
+	insert(new Reminder("早8时到下午3时，打开苗棚两头或设通风口，练苗控长"));
+end
+
+rule "instruction3--打药指数"
+when 
+	Event(type == EventType.LoginHomePage)
+	Weather ((curTemperature <12 || >35)||(windSpeed > 3)||isGoingToRainInHours(3))
+then
+	insert(new Recommendation("不宜打药"));
+end
+
+rule "plant date"
+no-loop
+when
+	Event(type == EventType.CompletedVaritySelection)
+	$stage : Stage (type==StageType.plant)
+	Field(greenHouse==true)
+	not Weather(minTemperature <= 0)
+	eval(!(recommendedDate.getPhenomena().contains(WeatherPhenomena.HardRain)))
+then
+    System.out.println("recommended "+recommendedDate.getDate());
+	insert(new Recommendation("The date "+recommendedDate.getDate()+" is recommended"));
+	
+end
+
+rule "Recommends"
+
+when
+	$recomms : ArrayList( )
+              from collect(Recommendation( ))
+then
+	 recommends.addAll($recomms);
+end
+
+rule "Reminders"
+
+when
+	$reminders : ArrayList( )
+              from collect(Reminder( ))
+then
+	 reminders.addAll($reminders);
+end
+
+/*
+query "Recommendation"
+	recomm : Recommendation()
+end
+
+query "Field"
+	field: Field()
+end
+*/

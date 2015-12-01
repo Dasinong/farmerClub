@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.NatDisSpec" table="natDisSpec" catalog="farmer_club">
+    	<cache usage="read-only"></cache>
+        <id name="natDisSpecId" type="java.lang.Long">
+            <column name="natDisSpecId" />
+            <generator class="identity" />
+        </id>
+        <property name="natDisSpecName" type="string">
+            <column name="natDisSpecName" length="30" not-null="true" unique="true" />
+        </property>
+
+        <set name="subStages" table="subStage_natDisSpec" cascade="all" inverse="true">
+            <cache usage="read-only"></cache>
+        	<key column = "natDisSpecId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.SubStage" column="SubStageId"></many-to-many>
+        </set>
+        <set name="locations" table="location_natDisSpec" cascade="all" inverse="true">
+        	<key column = "natDisSpecId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.Location" column="LocationId"></many-to-many>
+        </set>
+        <set name="crops" table="crop_natDisSpec" cascade="all" inverse="true">
+            <cache usage="read-only"></cache>
+        	<key column = "natDisSpecId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.Crop" column="cropId"></many-to-many>
+        </set>
+        
+        <property name="solution" type="string">
+        	<column name="solution" length="200"></column>
+        </property>
+        <property name="alertInfo" type="string">
+        	<column name="alertInfo" length="200"></column>
+        </property>
+    </class>
+</hibernate-mapping>

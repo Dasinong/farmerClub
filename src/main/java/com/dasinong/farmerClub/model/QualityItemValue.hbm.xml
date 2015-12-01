@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.QualityItemValue" table="qualityItemValue" catalog="farmer_club">
+        <id name="qualityItemValueId" type="java.lang.Long">
+            <column name="qualityItemValueId" />
+            <generator class="identity" />
+        </id>
+        <property name="varietyId" type="java.lang.Long">
+            <column name="varietyId"  />
+        </property>
+        <property name="qualityItemId" type="java.lang.Long">
+            <column name="qualityItemId" />
+        </property>
+        <property name="itemValue" type="string">
+            <column name="itemValue" />
+        </property>
+    </class>
+</hibernate-mapping>

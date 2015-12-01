@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.Fertilizer" table="fertilizer" catalog="farmer_club">
+        <id name="fertilizerId" type="java.lang.Integer">
+            <column name="fertilizerId" />
+            <generator class="identity" />
+        </id>
+        <property name="manufacturer" type="string">
+            <column name="manufacturer" length="100" not-null="false"/>
+        </property>
+        <property name="generalName" type="string">
+            <column name="generalName" length="10"/>
+        </property>
+        <property name="merchandiseName" type="string">
+            <column name="merchandiseName" length="50"/>
+        </property>
+        <property name="suitableCrops" type="string">
+            <column name="suitableCrops" length="150"/>
+        </property>
+        <property name="registerationId" type="string">
+            <column name="registerationId" length="30"/>
+        </property>
+        <property name="technicalSpecs" type="string">
+            <column name="technicalSpecs" length="200"/>
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="10"/>
+        </property>
+    </class>
+</hibernate-mapping>

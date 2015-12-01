@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.CPProduct" table="cPProduct" catalog="farmer_club">
+        <cache usage="read-only"></cache>
+        <id name="cPProductId" type="java.lang.Long">
+            <column name="cPProductId" />
+            <generator class="identity" />
+        </id>
+        <property name="cPProductName" type="string">
+            <column name="cPProductName" length="30" />
+        </property>
+        <property name="registerationId" type="string">
+            <column name="registerationId" length="30" not-null="true" unique="true" />
+        </property>
+        <set name="petSolus" table="petSolu_CPProduct" cascade="all" inverse="true">
+            <cache usage="read-only"></cache>
+        	<key column = "cPProductId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.PetSolu" column="petSoluId"></many-to-many>
+        </set>
+        <property name="activeIngredient" type="string">
+            <column name="activeIngredient" length="30"/>
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="10"/>
+        </property>
+        <property name="manufacturer" type="string">
+            <column name="manufacturer" length="100"/>
+        </property>
+        <property name="crop" type="string">
+            <column name="crop" length="30"/>
+        </property>
+        <property name="disease" type="string">
+            <column name="disease" length="1000"/>
+        </property>
+        <property name="volume" type="string">
+            <column name="volume" length="500"/>
+        </property>
+        <property name="method" type="string">
+            <column name="method" length="100"/>
+        </property>
+        <property name="guideline" type="string">
+            <column name="guideline" />
+        </property>
+        <property name="tip" type="string">
+            <column name="tip" />
+        </property>
+        <property name="model" type="string">
+            <column name="model" length="10"/>
+        </property>
+        <property name="priority" type="int">
+        	<column name="priority" length="4" />
+        </property>
+        <property name="telephone" type="string">
+            <column name="telephone" length="30" />
+        </property>
+    </class>
+</hibernate-mapping>

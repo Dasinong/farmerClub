@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.dasinong.farmerClub.model.InstitutionEmployeeApplication"
+		table="institutionemployeeapplication" catalog="farmer_club">
+		<id name="id" type="long">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="contactName" type="string">
+		    <column name="contactName" length="200" />
+		</property>
+		<property name="institutionId" type="long">
+			<column name="institutionId" not-null="true" />
+		</property>
+		<property name="title" type="string">
+			<column name="title" length="100" />
+		</property>
+		<property name="cellphone" type="string">
+			<column name="cellphone" length="30" />
+		</property>
+		<property name="region" type="string">
+			<column name="region" length="100" />
+		</property>
+	</class>
+</hibernate-mapping>

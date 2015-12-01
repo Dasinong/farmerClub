@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.dasinong.farmerClub.model.PetDisSpecBrowse" table="petdisspecBrowse" catalog="farmer_club">
+        <id name="petDisSpecId" type="java.lang.Long">
+            <column name="petDisSpecId" />
+            <generator class="identity" />
+        </id>
+        <property name="type" type="string">
+        	<column name="type" length="20"/>
+        </property>
+        <property name="petDisSpecName" type="string">
+            <column name="petDisSpecName" length="50"/>
+        </property>
+        <property name="petDisSpecNamePY" type="string">
+        	<column name="petDisSpecNamePY" length="50"/>
+        </property>
+        <property name="thumbnailId" type="string">
+        	<column name="thumbnailId" length="500" />
+        </property>
+        <property name="sympthon" type="string">
+        	<column name="sympthon" length="500" />
+        </property>
+    </class>
+
+</hibernate-mapping>

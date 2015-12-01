@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.dasinong.farmerClub.model.Store" table="store"
+		catalog="farmer_club">
+		<id name="id" type="java.lang.Long">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="name" type="string">
+			<column name="name" length="100" not-null="true" />
+		</property>
+		<property name="desc" type="string">
+			<column name='"desc"' length="3000" />
+		</property>
+		<property name="ownerId" type="long">
+			<column name="ownerId" not-null="true" />
+		</property>
+		<property name="contactName" type="string">
+			<column name="contactName" length="3000" />
+		</property>
+		<property name="locationId" type="long">
+			<column name="locationId" not-null="true" />
+		</property>
+		<property name="streetAndNumber" type="string">
+			<column name="streetAndNumber" length="300" />
+		</property>
+		<property name="latitude" type="double">
+			<column name="latitude" />
+		</property>
+		<property name="longtitude" type="double">
+			<column name="longtitude" />
+		</property>
+		<property name="phone" type="string">
+			<column name="phone" length="20" />
+		</property>
+		<property name="cellphone" type="string">
+			<column name="cellphone" length="20" />
+		</property>
+		<property name="type" type="int">
+			<column name="type" not-null="true" />
+		</property>
+		<property name="status" column="status">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.dasinong.farmerClub.model.StoreStatus</param>
+				<param name="useNamed">false</param>
+			</type>
+		</property>
+		<property name="source" column="source">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.dasinong.farmerClub.model.StoreSource</param>
+				<param name="useNamed">false</param>
+			</type>
+		</property>
+		<property name="createdAt" type="timestamp">
+			<column name="createdAt" not-null="true" />
+		</property>
+		<property name="updatedAt" type="timestamp">
+			<column name="updatedAt" not-null="true" />
+		</property>
+	</class>
+</hibernate-mapping>

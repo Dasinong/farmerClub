@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.dasinong.farmerClub.model.SystemMessage"
+		table="systemmessage" catalog="farmer_club">
+		<id name="id" type="java.lang.Long">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+
+		<property name="province" type="string">
+			<column name="province" length="100" />
+		</property>
+		<property name="city" type="string">
+			<column name="city" length="100" />
+		</property>
+		<property name="county" type="string">
+			<column name="county" length="100" />
+		</property>
+		<property name="community" type="string">
+			<column name="community" length="100" />
+		</property>
+		<property name="district" type="string">
+			<column name="district" length="100" />
+		</property>
+		<property name="channel" type="string">
+			<column name="channel" length="20" />
+		</property>
+		<property name="startTime" type="date" column="startTime" />
+		<property name="endTime" type="date" column="endTime" />
+		<property name="picUrl" type="string">
+			<column name="picurl" length="50"></column>
+		</property>
+		<property name="landingUrl" type="string">
+			<column name="landingurl" length="50"></column>
+		</property>
+		<property name="institutionId" type="long">
+			<column name="institutionId" length="50"></column>
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.Location" table="location" catalog="farmer_club">
+        <id name="locationId" type="java.lang.Long">
+            <column name="locationId" />
+            <generator class="identity" />
+        </id>
+        
+        <set name="fields" table="field" inverse="true" lazy="false" fetch="select">
+        	<key>
+        		<column name="locationId" not-null="true" />
+        	</key>
+        	<one-to-many class="com.dasinong.farmerClub.model.Field"></one-to-many>
+        </set>
+        
+        <set name="natDisSpecs" table="location_natDisSpec" cascade="all" inverse="false" lazy="false">
+        	<key column = "locationId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.NatDisSpec" column="natDisSpecId"></many-to-many>
+        </set>
+        <set name="petDisSpecs" table="location_petDisSpec" cascade="all" inverse="false" lazy="false">
+        	<key column = "locationId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.PetDisSpec" column="petDisSpecId"></many-to-many>
+        </set>
+        
+        <property name="region" type="string">
+            <column name="region" length="30"/>
+        </property>
+        <property name="province" type="string">
+            <column name="province" length="20"/>
+        </property>
+        <property name="city" type="string">
+            <column name="city" length="20"/>
+        </property>
+        <property name="country" type="string">
+            <column name="country" length="20"/>
+        </property>
+        <property name="district" type="string">
+            <column name="district" length="20"/>
+        </property>
+        <property name="community" type="string">
+            <column name="community" length="20"/>
+        </property>
+        <property name="latitude" type="double">
+            <column name="latitude" length="20"/>
+        </property>
+        <property name="longtitude" type="double">
+            <column name="longtitude" length="20"/>
+        </property>
+
+    </class>
+</hibernate-mapping>

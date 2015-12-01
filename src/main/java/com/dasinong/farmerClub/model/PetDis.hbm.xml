@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.PetDis" table="petDis" catalog="farmer_club">
+        <id name="petDisId" type="java.lang.Long">
+            <column name="petDisId" />
+            <generator class="identity" />
+        </id>
+        <property name="petDisSpecId" type="java.lang.Long">
+            <column name="petDisSpecId" />
+        </property>
+        <property name="fieldId" type="java.lang.Long">
+            <column name="fieldId" />
+        </property>
+        <property name="petDisStatus" type="java.lang.Boolean">
+            <column name="petDisStatus" />
+        </property>
+    </class>
+</hibernate-mapping>

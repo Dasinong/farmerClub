@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.DisasterReport" table="disasterReport" catalog="farmer_club">
+        <id name="disasterReportId" type="java.lang.Long">
+            <column name="disasterReportId" />
+            <generator class="identity" />
+        </id>
+        <property name="cropName" type="string">
+            <column name="cropName" length="30" not-null="true" />
+        </property>
+        <property name="fieldId" type="java.lang.Long">
+            <column name="fieldId"/>
+        </property>
+        <property name="disasterType" type="string">
+            <column name="disasterType" length="30"/>
+        </property>
+        <property name="disasterName" type="string">
+            <column name="disasterName" length="50"/>
+        </property>
+        <property name="affectedArea" type="string">
+            <column name="affectedArea" length="10"/>
+        </property>
+        <property name="eruptionTime" type="string">
+            <column name="eruptionTime" length="50"/>
+        </property>
+        <property name="disasterDist" type="string">
+            <column name="disasterDist" length="50"/>
+        </property>
+        <property name="fieldOperations" type="string">
+            <column name="fieldOperations" length="100"/>
+        </property>
+        <property name="imageFilenames" type="string"> <!-- 必须有图片，否则前端无法提交灾害报告 -->
+            <column name="imageFilenames" length="200" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

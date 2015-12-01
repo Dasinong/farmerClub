@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<hourly source="forecast" starttime="2015-06-20T08:00:00">
+  <title type="text">Weather Central Dataserver API</title>
+  <rights>Copyright (c) 2012, Weather Central LP</rights>
+  <location areaid="101291605">
+    <step time="2015-06-20 08:00:00.0">
+      <Temperature unit="℃">17.3</Temperature>
+      <RelativeHumidity unit="">94</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="WSW">253</WindDirection_10m>
+      <WindSpeed_10m unit="mps">2.0</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 09:00:00.0">
+      <Temperature unit="℃">17.6</Temperature>
+      <RelativeHumidity unit="">94</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="W">262</WindDirection_10m>
+      <WindSpeed_10m unit="mps">1.8</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 10:00:00.0">
+      <Temperature unit="℃">17.6</Temperature>
+      <RelativeHumidity unit="">93</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="W">270</WindDirection_10m>
+      <WindSpeed_10m unit="mps">1.4</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 11:00:00.0">
+      <Temperature unit="℃">17.6</Temperature>
+      <RelativeHumidity unit="">93</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="W">273</WindDirection_10m>
+      <WindSpeed_10m unit="mps">1.0</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 12:00:00.0">
+      <Temperature unit="℃">17.6</Temperature>
+      <RelativeHumidity unit="">94</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="WSW">256</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.5</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 13:00:00.0">
+      <Temperature unit="℃">17.7</Temperature>
+      <RelativeHumidity unit="">92</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="WNW">282</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.3</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 14:00:00.0">
+      <Temperature unit="℃">17.9</Temperature>
+      <RelativeHumidity unit="">89</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="WSW">258</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.3</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 15:00:00.0">
+      <Temperature unit="℃">18.0</Temperature>
+      <RelativeHumidity unit="">87</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="W">262</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.2</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 16:00:00.0">
+      <Temperature unit="℃">18.1</Temperature>
+      <RelativeHumidity unit="">86</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="S">183</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.1</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 17:00:00.0">
+      <Temperature unit="℃">18.1</Temperature>
+      <RelativeHumidity unit="">85</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="WSW">244</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.4</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">20</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 18:00:00.0">
+      <Temperature unit="℃">18.0</Temperature>
+      <RelativeHumidity unit="">86</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="SW">225</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.9</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 19:00:00.0">
+      <Temperature unit="℃">17.8</Temperature>
+      <RelativeHumidity unit="">87</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="SW">220</WindDirection_10m>
+      <WindSpeed_10m unit="mps">1.4</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-20 20:00:00.0">
+      <Temperature unit="℃">17.6</Temperature>
+      <RelativeHumidity unit="">87</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="SSW">213</WindDirection_10m>
+      <WindSpeed_10m unit="mps">1.5</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">10</POP>
+      <Icon>mostlycloudynight</Icon>
+    </step>
+    <step time="2015-06-20 21:00:00.0">
+      <Temperature unit="℃">16.8</Temperature>
+      <RelativeHumidity unit="">91</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="SW">214</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.8</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>partlycloudynight</Icon>
+    </step>
+    <step time="2015-06-20 22:00:00.0">
+      <Temperature unit="℃">15.8</Temperature>
+      <RelativeHumidity unit="">94</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="WSW">243</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.4</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>partlycloudynight</Icon>
+    </step>
+    <step time="2015-06-20 23:00:00.0">
+      <Temperature unit="℃">15.2</Temperature>
+      <RelativeHumidity unit="">94</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="SSW">192</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.3</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>partlycloudynight</Icon>
+    </step>
+    <step time="2015-06-21 00:00:00.0">
+      <Temperature unit="℃">14.8</Temperature>
+      <RelativeHumidity unit="">94</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="S">185</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.3</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>partlycloudynight</Icon>
+    </step>
+    <step time="2015-06-21 01:00:00.0">
+      <Temperature unit="℃">14.4</Temperature>
+      <RelativeHumidity unit="">94</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="S">169</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.4</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>partlycloudynight</Icon>
+    </step>
+    <step time="2015-06-21 02:00:00.0">
+      <Temperature unit="℃">14.1</Temperature>
+      <RelativeHumidity unit="">94</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="S">185</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.6</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>mostlycloudynight</Icon>
+    </step>
+    <step time="2015-06-21 03:00:00.0">
+      <Temperature unit="℃">14.3</Temperature>
+      <RelativeHumidity unit="">94</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="WSW">253</WindDirection_10m>
+      <WindSpeed_10m unit="mps">0.9</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>cloudynight</Icon>
+    </step>
+    <step time="2015-06-21 04:00:00.0">
+      <Temperature unit="℃">15.1</Temperature>
+      <RelativeHumidity unit="">94</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="WSW">252</WindDirection_10m>
+      <WindSpeed_10m unit="mps">1.2</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>cloudynight</Icon>
+    </step>
+    <step time="2015-06-21 05:00:00.0">
+      <Temperature unit="℃">15.7</Temperature>
+      <RelativeHumidity unit="">93</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="W">260</WindDirection_10m>
+      <WindSpeed_10m unit="mps">2.0</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>cloudynight</Icon>
+    </step>
+    <step time="2015-06-21 06:00:00.0">
+      <Temperature unit="℃">15.9</Temperature>
+      <RelativeHumidity unit="">93</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="W">268</WindDirection_10m>
+      <WindSpeed_10m unit="mps">2.1</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>cloudynight</Icon>
+    </step>
+    <step time="2015-06-21 07:00:00.0">
+      <Temperature unit="℃">16.0</Temperature>
+      <RelativeHumidity unit="">92</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="W">271</WindDirection_10m>
+      <WindSpeed_10m unit="mps">2.0</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>cloudy</Icon>
+    </step>
+    <step time="2015-06-21 08:00:00.0">
+      <Temperature unit="℃">16.2</Temperature>
+      <RelativeHumidity unit="">90</RelativeHumidity>
+      <WindDirection_10m unit="Degrees" summary="W">277</WindDirection_10m>
+      <WindSpeed_10m unit="mps">2.0</WindSpeed_10m>
+      <AccumRainTotal unit="mm">0.0</AccumRainTotal>
+      <AccumSnowTotal unit="mm">0.0</AccumSnowTotal>
+      <AccumIceTotal unit="mm">0.0</AccumIceTotal>
+      <POP unit="">0</POP>
+      <Icon>cloudy</Icon>
+    </step>
+  </location>
+</hourly>

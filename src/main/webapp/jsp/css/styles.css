@@ -1,0 +1,443 @@
+body {
+  background-color: rgb(255, 255, 255);
+  font: 400 1em/1.2 Roboto;
+  color: rgb(0, 0, 0);
+}
+
+.page-baikecpproduct {
+  line-height: 1.38;
+}
+
+.characteristics-1 p,
+.desciption-1 p,
+.happen-1 p,
+.physical-1 p,
+.symptom-1 p,
+.tip-1 p {
+  margin-bottom: 1em;
+}
+
+.chartitle {
+  float: left;
+  clear: both;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.destitle,
+.phytitle,
+.symtitle {
+  float: left;
+  width: 100%;
+}
+
+.disimg {
+  float: left;
+  clear: both;
+  width: 100%;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  position: relative;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.disimg .countTag {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  opacity: 0.5;
+  background: #000000;
+  color: #FFFFFF;
+  weight: bold;
+  padding: 7px;
+}
+
+.areatitle,
+.distitle,
+.dostitle,
+.factitle,
+.formtitle,
+.labeltitle,
+.owntitle,
+.regidtitle,
+.usetitle,
+.yietitle {
+  float: left;
+}
+
+.actingtitle .actingtitle,
+.alititle .alititle,
+.areatitle .areatitle,
+.distitle .distitle,
+.dostitle .dostitle,
+.factitle .factitle,
+.formtitle .formtitle,
+.labeltitle .labeltitle,
+.numtitle .numtitle,
+.owntitle .owntitle,
+.regidtitle .regidtitle,
+.usetitle .usetitle,
+.yietitle .yietitle {
+  width: 100%;
+  padding-left: 30px;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 1.38;
+  color: #333333;
+}
+
+.disease,
+.dosage,
+.factory,
+.fitarea,
+.form,
+.label,
+.owner,
+.regid,
+.usage,
+.yield {
+  float: left;
+}
+
+.actingredient .actingredient,
+.alias .alias,
+.disease .disease,
+.dosage .dosage,
+.factory .factory,
+.fitarea .fitarea,
+.form .form,
+.label .label,
+.number .number,
+.owner .owner,
+.regid .regid,
+.usage .usage,
+.yield .yield {
+  padding-right: 30px;
+  padding-left: 30px;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.38;
+  color: rgb(0, 0, 0);
+  word-break: break-all;
+}
+
+.haptitle {
+  float: left;
+  clear: both;
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.image {
+  display: block;
+  float: left;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.actingredient,
+.alias,
+.number {
+  float: left;
+  display: inline;
+}
+
+.actingtitle,
+.alititle,
+.numtitle {
+  float: left;
+}
+
+.chatitle,
+.pt {
+  float: left;
+  width: 100%;
+  padding-left: 30px;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 1.38;
+  color: #333333;
+}
+
+.symptom {
+  float: left;
+}
+
+.characteristics,
+.desciption,
+.happen,
+.physical,
+.tip {
+  float: left;
+}
+
+.characteristics .characteristics,
+.desciption .desciption,
+.happen .happen,
+.physical .physical,
+.symptom .symptom,
+.tip .tip {
+  padding-right: 30px;
+  padding-left: 30px;
+  font-size: 1em;
+  font-weight: 400;
+  color: rgb(0, 0, 0);
+}
+
+.tiptitle {
+  float: left;
+  width: 100%;
+}
+
+.destitle .destitle,
+.phytitle .phytitle,
+.symtitle .symtitle,
+.tiptitle .tiptitle {
+  padding-left: 30px;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 1.38;
+  color: #333333;
+}
+
+.cpproductname,
+.disname,
+.varietyname {
+  float: left;
+  width: 100%;
+}
+
+.cpproductname .cpproductname,
+.disname .disname,
+.varietyname .varietyname {
+  padding-top: 50px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  font-size: 1.7em;
+  font-weight: 700;
+  line-height: 1.38;
+  color: rgb(0, 0, 0);
+}
+
+.alias-1 {
+  position: relative;
+  z-index: 3;
+  /* width: 85.9722222222%; */
+  padding-bottom: 15px;
+}
+
+.alititle-1 {
+  position: relative;
+  clear: both;
+  z-index: 5;
+  width: 100px;
+  padding-bottom: 15px;
+}
+
+.areatitle-1,
+.formtitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 11;
+  width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.destitle-1,
+.phytitle-1,
+.symtitle-1 {
+  clear: both;
+  padding-bottom: 15px;
+}
+
+.dosage-1 {
+  position: relative;
+  z-index: 21;
+  width: 85.9722222222%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.dostitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 19;
+  width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.factitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 31;
+  width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.factory-1 {
+  position: relative;
+  z-index: 33;
+  width: 85.9722222222%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.fitarea-1,
+.form-1 {
+  position: relative;
+  z-index: 13;
+  width: 85.9722222222%;
+  padding-top: 1px;
+  padding-bottom: 10px;
+}
+
+.desciption-1,
+.happen-1,
+.physical-1 {
+  clear: both;
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+.actingredient-1,
+.number-1 {
+  position: relative;
+  z-index: 3;
+  /* width: 85.9722222222%; */
+  padding-bottom: 10px;
+}
+
+.actingtitle-1,
+.numtitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 5;
+  width: 100px;
+  padding-bottom: 10px;
+}
+
+.label-1,
+.owner-1 {
+  position: relative;
+  z-index: 9;
+  /* width: 85.9722222222%; */
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.labeltitle-1,
+.owntitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 7;
+  width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.regid-1 {
+  position: relative;
+  z-index: 29;
+  width: 85.9722222222%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.regidtitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 27;
+  width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.symptom-1 {
+  clear: both;
+  width: 100%;
+  height: auto;
+  padding-bottom: 30px;
+}
+
+.characteristics-1,
+.tip-1 {
+  clear: both;
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.tiptitle-1 {
+  clear: both;
+  padding-top: 20px;
+  padding-bottom: 15px;
+}
+
+.usage-1 {
+  position: relative;
+  z-index: 25;
+  width: 85.9722222222%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.usetitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 23;
+  width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.disease-1,
+.yield-1 {
+  position: relative;
+  z-index: 17;
+  /* width: 85.9722222222%; */
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.distitle-1,
+.yietitle-1 {
+  position: relative;
+  clear: both;
+  z-index: 15;
+  width: 100px;
+  padding-top: 10px;
+}
+
+.cpproductname strong,
+.disname strong,
+.varietyname strong {
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-color: transparent;
+  border-style: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: transparent;
+  font-family: inherit;
+  font-style: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-transform: inherit;
+  text-decoration: inherit;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+  color: inherit;
+  opacity: 1;
+  word-break: normal;
+  word-wrap: normal;
+  white-space: normal;
+}

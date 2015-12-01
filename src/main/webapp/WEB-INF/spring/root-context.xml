@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+
+	<!--  <mvc:annotation-driven></mvc:annotation-driven> -->
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<import resource="/database/DataSource.xml"></import>
+	<import resource="/database/Hibernate.xml"></import>
+	<import resource="/beans/ModelBeans.xml"></import>
+	<import resource="/beans/FacadeBeans.xml"></import>
+	
+	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml"/>
+	</bean>
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="cacheManagerFactory"/>
+	</bean>
+
+		<!-- HandlerMapping -->  
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>  
+   
+	<!-- HandlerAdapter -->  
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/> 
+	
+	<!-- ViewResolver -->  
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>  
+    	<property name="prefix" value="/WEB-INF/jsp/"/>  
+    	<property name="suffix" value=".jsp"/>  
+	</bean>  
+	
+	<bean name="startQuertz" lazy-init="true" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="myJobTrigger1" />
+				<ref bean="myJobTrigger2" />
+				<ref bean="myJobTrigger3" />
+				<ref bean="myJobTrigger4" />
+				<ref bean="myJobTrigger5" />
+				<ref bean="myJobTrigger6" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="all24h" class="com.dasinong.farmerClub.weather.All24h" />
+
+	<bean id="myJobTrigger1"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="myJobDetail1" />
+		</property>
+		<property name="cronExpression">
+			<value>0 20 8,20 * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="myJobDetail1"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="all24h" />
+		</property>
+		<property name="targetMethod">
+			<value>updateContent</value>
+		</property>
+	</bean>
+
+
+	<bean id="all7d" class="com.dasinong.farmerClub.weather.All7d" />
+
+
+	<bean id="myJobTrigger2"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="myJobDetail2" />
+		</property>
+		<property name="cronExpression">
+			<value>0 30 10,21 * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="myJobDetail2"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="all7d" />
+		</property>
+		<property name="targetMethod">
+			<value>updateContent</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="all7dHum" class="com.dasinong.farmerClub.weather.All7dHum" />
+
+	<bean id="myJobTrigger3"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="myJobDetail3" />
+		</property>
+		<property name="cronExpression">
+			<value>0 10 9,20 * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="myJobDetail3"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="all7dHum" />
+		</property>
+		<property name="targetMethod">
+			<value>updateContent</value>
+		</property>
+	</bean>
+	
+	<bean id="allCurrentJiwen" class="com.dasinong.farmerClub.weather.AllCurrentJiwen" />
+
+	<bean id="myJobTrigger4"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="myJobDetail4" />
+		</property>
+		<property name="cronExpression">
+			<value>0 40 1 * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="myJobDetail4"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="allCurrentJiwen" />
+		</property>
+		<property name="targetMethod">
+			<value>updateContent</value>
+		</property>
+	</bean>
+	
+	<bean id="alladf" class="com.dasinong.farmerClub.weather.AllAgriDisForcast" />
+	
+	<bean id="myJobTrigger5"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="myJobDetail5" />
+		</property>
+		<property name="cronExpression">
+			<value>0 40 9 * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="myJobDetail5"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="alladf" />
+		</property>
+		<property name="targetMethod">
+			<value>updateContent</value>
+		</property>
+	</bean>
+	
+	<bean id="pre24h" class="com.dasinong.farmerClub.weather.Prepare24h" />
+	
+	<bean id="myJobTrigger6"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="myJobDetail6" />
+		</property>
+		<property name="cronExpression">
+			<value>0 5 8,20 * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="myJobDetail6"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="pre24h" />
+		</property>
+		<property name="targetMethod">
+			<value>update24hFile</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="soilLiq" class="com.dasinong.farmerClub.weather.SoilLiquid" />
+	<bean id="myJobTrigger7"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="myJobDetail7" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 13 * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="myJobDetail7"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="soilLiq" />
+		</property>
+		<property name="targetMethod">
+			<value>updateContent</value>
+		</property>
+	</bean>
+		
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000" />
+	</bean>
+</beans>

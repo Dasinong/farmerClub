@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.Crop" table="crop" catalog="farmer_club">
+        <cache usage="read-only"></cache>
+        <id name="cropId" type="java.lang.Long">
+            <column name="cropId" />
+            <generator class="identity" />
+        </id>
+        <property name="cropName" type="string">
+            <column name="cropName" length="30" not-null="true" unique="true" />
+        </property>
+        <set name="varieties" table="variety" inverse="true" lazy="false" fetch="select">
+            <cache usage="read-only"></cache>
+        	<key>
+        		<column name="cropId" not-null="true" />
+        	</key>
+        	<one-to-many class="com.dasinong.farmerClub.model.Variety"></one-to-many>
+        </set>
+        <set name="qualityItems" table="qualityItem" inverse="true" lazy="false" fetch="select">
+        	<key>
+        		<column name="cropId" not-null="true" />
+        	</key>
+        	<one-to-many class="com.dasinong.farmerClub.model.QualityItem"></one-to-many>
+        </set>
+        <set name="petDisSpecs" table="crop_petDisSpec" cascade="all" inverse="false" lazy="false">
+            <cache usage="read-only"></cache>
+        	<key column = "cropId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.PetDisSpec" column="petDisSpecId"></many-to-many>
+        </set>
+        <set name="natDisSpecs" table="crop_natDisSpec" cascade="all" inverse="false" lazy="false">
+        	<key column = "cropId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.NatDisSpec" column="natDisSpecId"></many-to-many>
+        </set>
+        <property name="type" type="string">
+            <column name="type" length="10"/>
+        </property>
+    </class>
+</hibernate-mapping>

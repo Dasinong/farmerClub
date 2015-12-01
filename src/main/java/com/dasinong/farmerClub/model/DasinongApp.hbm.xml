@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.DasinongApp" table="dasinongapp" catalog="farmer_club">
+        <id name="appId" type="long">
+            <column name="appId" />
+            <generator class="identity" />
+        </id>
+        <property name="appSecret" type="string">
+            <column name="appSecret" not-null="true" />
+        </property>
+        <property name="appName" type="string">
+            <column name="appName" not-null="true" />
+        </property>
+   		<property name="createdAt" type="timestamp" column="createdAt" />
+    </class>
+</hibernate-mapping>

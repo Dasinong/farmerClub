@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.Step" table="step" catalog="farmer_club">
+       <cache usage="read-only"></cache>
+       <id name="stepId" type="java.lang.Long">
+            <column name="stepId" />
+            <generator class="identity" />
+       </id>
+       <property name="stepName" type="string">
+            <column name="stepName" length="30" not-null="true" unique="true" />
+       </property>
+       <many-to-one name="taskSpec" class="com.dasinong.farmerClub.model.TaskSpec" fetch="select">
+        	<column name="taskSpecId" not-null="true" ></column>
+       </many-to-one>
+       <property name="fitRegion" type="string">
+            <column name="fitRegion" length="10"/>
+       </property>
+       <property name="description" type="string">
+            <column name="description" length="2000"></column>
+       </property>
+       <property name="picture" type="string">
+            <column name="picture" length="200"></column>
+       </property>
+       <property name="idx" type="integer">
+            <column name="idx" length="10"></column>
+       </property>
+    </class>
+</hibernate-mapping>

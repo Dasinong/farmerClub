@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.SubScribeList" table="subScribeList" catalog="farmer_club">
+       <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+       </id>
+       
+       <property name="ownerId" type="java.lang.Long">
+            <column name="ownerId" length="10" not-null="true"/>
+       </property>
+       <property name="cropId" type="java.lang.Long">
+            <column name="cropId" length="10" not-null="true"/>
+       </property>
+       <property name="targetName" type="string">
+            <column name="targetName" length="20"></column>
+       </property>
+       <property name="cellphone" type="string">
+            <column name="cellphone" length="20"></column>
+       </property>
+       <property name="province" type="string">
+            <column name="province" length="10"></column>
+       </property>
+       <property name="city" type="string">
+            <column name="city" length="10"></column>
+       </property>
+       <property name="country" type="string">
+            <column name="country" length="10"></column>
+       </property>
+       <property name="district" type="string">
+            <column name="district" length="10"></column>
+       </property>
+       <property name="area" type="double">
+            <column name="area"></column>
+       </property>
+       <property name="isAgriWeather" type="boolean">
+            <column name="isAgriWeather"></column>
+       </property>
+       <property name="isNatAler" type="boolean">
+            <column name="isNatAler"></column>
+       </property>
+       <property name="isRiceHelper" type="boolean">
+            <column name="isRiceHelper"></column>
+       </property>
+    </class>
+</hibernate-mapping>

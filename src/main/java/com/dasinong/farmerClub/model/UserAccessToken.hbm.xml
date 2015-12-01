@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.UserAccessToken" table="useraccesstoken" catalog="farmer_club">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="token" type="string">
+            <column name="token" length="100" />
+        </property>
+        <property name="userId" type="long">
+            <column name="userId" not-null="true" />
+        </property>
+        <property name="appId" type="long">
+            <column name="appId" not-null="true" />
+        </property>
+        <property name="createdAt" type="timestamp" column="createdAt" />
+        <property name="expiredAt" type="timestamp" column="expiredAt" />
+    </class>
+</hibernate-mapping>

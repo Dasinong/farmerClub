@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.PetSolu" table="petSolu" catalog="farmer_club">
+        <cache usage="read-only"></cache>
+        <id name="petSoluId" type="java.lang.Long">
+            <column name="petSoluId" />
+            <generator class="identity" />
+        </id>
+        <property name="petSoluDes" type="string">
+            <column name="petSoluDes" length="2000" not-null="true"/>
+        </property>
+        <many-to-one name="petDisSpec" class="com.dasinong.farmerClub.model.PetDisSpec" fetch="select">
+        	<column name="petDisSpecId" not-null="true"></column>
+        </many-to-one>
+        <set name="cPProducts" table="petSolu_CPProduct" cascade="all" inverse="false" lazy="false">
+            <cache usage="read-only"></cache>
+        	<key column = "petSoluId"></key>
+        	<many-to-many class="com.dasinong.farmerClub.model.CPProduct" column="cPProductId"></many-to-many>
+        </set>
+        
+        <property name="providedBy" type="string">
+            <column name="providedBy" length="50" not-null="true"/>
+        </property>
+        <property name="isRemedy" type="java.lang.Boolean">
+            <column name="isRemedy" />
+        </property>
+        <property name="isCPSolu" type="java.lang.Boolean">
+            <column name="isCPSolu" />
+        </property>
+        <property name="rank" type="int">
+            <column name="rank" />
+        </property>
+        <property name="subStageId" type="string">
+            <column name="subStageId" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

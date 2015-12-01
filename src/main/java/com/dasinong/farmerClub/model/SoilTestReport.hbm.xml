@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.SoilTestReport" table="soilTestReport" catalog="farmer_club">
+        <id name="soilTestReportId" type="java.lang.Long">
+            <column name="soilTestReportId" />
+            <generator class="identity" />
+        </id>
+        <property name="userId" type="java.lang.Long">
+            <column name="userId" />
+        </property>
+        
+        <many-to-one name="field" class="com.dasinong.farmerClub.model.Field" fetch="select">
+        	<column name="fieldId" not-null="true"></column>
+        </many-to-one>
+        
+        <property name="type" type="string">
+            <column name="type" />
+        </property>
+        <property name="color" type="string">
+            <column name="color" />
+        </property>
+        <property name="fertility" type="string">
+            <column name="fertility" />
+        </property>
+        <property name="humidity" type="double">
+            <column name="humidity" />
+        </property>
+        <property name="testDate" type="timestamp">
+            <column name="testDate" />
+        </property>
+        <property name="phValue" type="double">
+            <column name="phValue" />
+        </property>
+        <property name="organic" type="string">
+            <column name="organic" />
+        </property>
+        <property name="an" type="double">
+            <column name="an" />
+        </property>
+        <property name="qn" type="double">
+            <column name="qn" />
+        </property>
+        <property name="p" type="double">
+            <column name="p" />
+        </property>
+        <property name="qK" type="double">
+            <column name="qK" />
+        </property>
+        <property name="sK" type="double">
+            <column name="sK" />
+        </property>
+        <property name="fe" type="double">
+            <column name="fe" />
+        </property>
+                <property name="mn" type="double">
+            <column name="mn" />
+        </property>
+                <property name="cu" type="double">
+            <column name="cu" />
+        </property>
+        <property name="b" type="double">
+            <column name="b" />
+        </property>
+        <property name="mo" type="double">
+            <column name="mo" />
+        </property>
+        <property name="ca" type="double">
+            <column name="ca" />
+        </property>
+        <property name="s" type="double">
+            <column name="s" />
+        </property>
+        <property name="si" type="double">
+            <column name="si" />
+        </property>
+        <property name="mg" type="double">
+            <column name="mg" />
+        </property>
+
+    </class>
+</hibernate-mapping>
+
+

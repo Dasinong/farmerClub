@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.User" table="user" catalog="farmer_club">
+        <id name="userId" type="java.lang.Long">
+            <column name="userId" />
+            <generator class="identity" />
+        </id>
+        <property name="userName" type="string">
+            <column name="userName" length="30" not-null="false"/>
+        </property>
+        <property name="cellPhone" type="string">
+            <column name="cellPhone" length="30" not-null="false"/>
+        </property>        
+        <property name="address" type="string">
+            <column name="address" length="50" not-null="false"/>
+        </property>
+        <set name="fields" table="field" inverse="false" lazy="false" fetch="select">
+        	<key>
+        		<column name="userId" not-null="false" />
+        	</key>
+        	<one-to-many class="com.dasinong.farmerClub.model.Field"></one-to-many>
+        </set>
+        <property name="authenticated" type="boolean">
+        	<column name="authenticated" not-null="false"></column>
+        </property>
+        <property name="pictureId" type="string">
+        	<column name="pictureId" not-null="false"></column>
+        </property>
+        <property name="telephone" type="string">
+        	<column name="telephone" length="15" not-null="false"></column>
+        </property>
+        <property name="isPassSet" type="boolean">
+        	<column name="isPassSet"></column>
+        </property>
+        <property name="qqtoken" type="string">
+        	<column name="qqtoken" length="50" not-null="false"></column>
+        </property>
+        <property name="weixintoken" type="string">
+        	<column name="weixintoken" length="50" not-null="false"></column>
+        </property>
+        <property name="deviceId" type="string">
+        	<column name="deviceid" length="30" not-null="false"></column>
+        </property>
+        <property name="channel" type="string">
+        	<column name="channel" length="20" not-null="false"></column>
+        </property>
+        <property name="createAt" type="timestamp">
+            <column name="createAt"/>
+        </property>
+        <property name="updateAt" type="timestamp">
+            <column name="updateAt"/>
+        </property>
+        <property name="lastLogin" type="timestamp">
+            <column name="lastLogin"/>
+        </property>
+        <property name="refcode" type="string">
+        	<column name="refcode" length="6" not-null="false"></column>
+        </property>
+        <property name="refuid" type="java.lang.Long">
+        	<column name="refuid" length="10" not-null="false"></column>
+        </property>
+        <property name="institutionId" type="java.lang.Long">
+        	<column name="institutionId" length="10" not-null="false"></column>
+        </property>
+        <property name="userType" type="string">
+        	<column name="userType" length="20" not-null="false"></column>
+        </property>
+        <property name="encryptedPassword" type="string">
+        	<column name="encryptedPassword" length="100" not-null="false"></column>
+        </property>
+        <property name="isEmployee" type="boolean">
+            <column name="isEmployee" />
+        </property>
+    </class>
+</hibernate-mapping>

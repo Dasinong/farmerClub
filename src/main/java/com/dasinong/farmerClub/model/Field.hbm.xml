@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.Field" table="field" catalog="farmer_club">
+        <id name="fieldId" type="java.lang.Long">
+            <column name="fieldId" />
+            <generator class="identity" />
+        </id>
+        <property name="fieldName" type="string">
+            <column name="fieldName" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="isActive" type="java.lang.Boolean">
+            <column name="isActive" />
+        </property>
+        <many-to-one name="variety" class="com.dasinong.farmerClub.model.Variety" fetch="select">
+        	<column name="varietyId" not-null="true"></column>
+        </many-to-one>
+        <many-to-one name="user" class="com.dasinong.farmerClub.model.User" fetch="select">
+        	<column name="userId" not-null="true"></column>
+        </many-to-one>
+        <many-to-one name="location" class="com.dasinong.farmerClub.model.Location" fetch="select">
+        	<column name="locationId" not-null="false"></column>
+        </many-to-one>
+        <property name="monitorLocationId" type="long">
+        	<column name="monitorLocationId"/>
+        </property>
+        <map name="tasks" cascade="all" lazy="false" inverse="false">
+         	<key column="fieldId"/>
+        	<index column="taskId" type="java.lang.Long"></index>
+        	<one-to-many class="com.dasinong.farmerClub.model.Task"></one-to-many>
+        </map>
+        <map name="petDiss" cascade="all" lazy="false" inverse="false">
+        	<key column="fieldId"/>
+        	<index column="petDisId" type="java.lang.Long"></index>
+        	<one-to-many class="com.dasinong.farmerClub.model.PetDis"></one-to-many>
+        </map>
+        <map name="natDiss" cascade="all" lazy="false" inverse="false">
+        	<key column="fieldId"/>
+        	<index column="natDisId" type="java.lang.Long"></index>
+        	<one-to-many class="com.dasinong.farmerClub.model.NatDis"></one-to-many>
+        </map>
+        <property name="currentStageID" type="java.lang.Long">
+            <column name="currentStageID" length="10" />
+        </property>
+        <property name="isJustSet" type="java.lang.Boolean">
+            <column name="isJustSet"/>
+        </property>
+        <property name="dayOffset" type="double">
+            <column name="dayOffset" length="10" />
+        </property>
+        <property name="lastForceSet" type="timestamp">
+            <column name="lastForceSet"/>
+        </property>
+        <property name="startDate" type="timestamp">
+            <column name="startDate"/>
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="endDate"/>
+        </property>
+        <property name="yield" type="java.lang.Long">
+            <column name="yield" length="10"/>
+        </property>
+        <property name="area" type="double">
+        	<column name="area" length="10"></column>
+        </property>
+        <property name="seedortrans" type="java.lang.Boolean" >
+        	<column name="seedortrans"></column>
+        </property>
+        <set name="soilTestReports" table="soilTestReport" inverse="true" lazy="false" fetch="select">
+        	<key>
+        		<column name="fieldId" not-null="true" />
+        	</key>
+        	<one-to-many class="com.dasinong.farmerClub.model.SoilTestReport"></one-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.WeatherSubscription" table="weathersubscription" catalog="farmer_club">
+        <id name="weatherSubscriptionId" type="long">
+            <column name="weatherSubscriptionId" />
+            <generator class="identity" />
+        </id>
+        <property name="locationId" type="long">
+            <column name="locationId" not-null="true" />
+        </property>
+        <property name="monitorLocationId" type="long">
+            <column name="monitorLocationId" not-null="true" />
+        </property>
+        <property name="userId" type="long">
+        	<column name="userId" not-null="true" />
+        </property>
+        <property name="locationName" type="string">
+        	<column name="locationName" not-null="true" length="300" />
+        </property>
+        <property name="type" column="type">
+    		<type name="org.hibernate.type.EnumType">
+        		<param name="enumClass">com.dasinong.farmerClub.model.WeatherSubscriptionType</param>
+        		<param name="useNamed">false</param>
+    		</type>
+		</property>
+		<property name="createdAt" type="timestamp" column="createdAt" />
+		<property name="ordering" type="long">
+			<column name="ordering" not-null="true" />
+		</property>
+    </class>
+</hibernate-mapping>

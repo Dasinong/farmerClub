@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.dasinong.farmerClub.model.MonitorLocation" table="monitorLocation" catalog="farmer_club">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="city" type="string">
+        	<column name="city" length="20"/>
+        </property>
+        <property name="postCode" type="java.lang.Integer">
+            <column name="postCode" />
+        </property>
+        <property name="cityDetail" type="string">
+        	<column name="cityDetail" length="30" />
+        </property>
+        <property name="latitude" type="double">
+        	<column name="latitude" />
+        </property>
+        <property name="longitude" type="double">
+        	<column name="longitude" />
+        </property>
+        <property name="code" type="long">
+            <column name="code" />
+        </property>
+        
+    </class>
+
+</hibernate-mapping>
