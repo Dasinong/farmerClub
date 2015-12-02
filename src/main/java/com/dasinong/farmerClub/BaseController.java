@@ -1,5 +1,6 @@
 package com.dasinong.farmerClub;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -158,6 +159,7 @@ public class BaseController {
 	public Object hanleInvalidParameterException(HttpServletRequest req, InvalidParameterException exception) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, String> errorData = exception.getParams();
+		exception.printStackTrace();
 		result.put("respCode", 301);
 		result.put("message", "参数不正确");
 		result.put("data", errorData);
@@ -262,7 +264,7 @@ public class BaseController {
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
 	public Object handleError(HttpServletRequest req, Exception exception) {
-		logger.error("Unknown Exception", exception);
+		logger.error("Unknown Exception: ", exception);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> errorData = new HashMap<String, Object>();

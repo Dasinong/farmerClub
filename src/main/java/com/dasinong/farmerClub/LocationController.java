@@ -28,12 +28,11 @@ import com.dasinong.farmerClub.util.GeoUtil;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
 
 @Controller
-public class LocationController extends RequireUserLoginController {
+public class LocationController extends BaseController {
 
 	@RequestMapping(value = "/getLocation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Object getLocation(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		User user = this.getLoginUser(request);
 		Map<String, Object> result = new HashMap<String, Object>();
 		HttpServletRequestX requestX = new HttpServletRequestX(request);
 
@@ -63,7 +62,6 @@ public class LocationController extends RequireUserLoginController {
 	@RequestMapping(value = "/searchLocation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Object searchLocation(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		User user = this.getLoginUser(request);
 		Map<String, Object> result = new HashMap<String, Object>();
 		HttpServletRequestX requestX = new HttpServletRequestX(request);
 

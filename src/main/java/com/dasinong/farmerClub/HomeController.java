@@ -1,20 +1,13 @@
 package com.dasinong.farmerClub;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
-import com.dasinong.farmerClub.exceptions.InvalidParameterException;
-import com.dasinong.farmerClub.exceptions.UnexpectedLatAndLonException;
 import com.dasinong.farmerClub.facade.IHomeFacade;
 import com.dasinong.farmerClub.facade.ILaoNongFacade;
 import com.dasinong.farmerClub.model.User;
@@ -117,7 +110,12 @@ public class HomeController extends BaseController {
 			return lnf.getLaoNongs(lat, lon, user);
 		}
 
-		Long mlId = requestX.getLong("monitorLocationId");
+		Long mlId = requestX.getLongOptional("monitorLocationId", -1L);
+		if (mlId == -1L) {
+			double lat = requestX.getDouble("lat");
+			double lon = requestX.getDouble("lon");
+			return lnf.getLaoNongs(lat, lon, user);			
+		}
 		return lnf.getLaoNongs(mlId, user);
 	}
 

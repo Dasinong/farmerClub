@@ -80,7 +80,7 @@ public class HttpServletRequestX {
 
 		try {
 			for (int i = 0; i < units.length; i++) {
-				ret[i] = Long.valueOf(ret[i]);
+				ret[i] = Long.valueOf(units[i]);
 			}
 		} catch (Exception ex) {
 			throw new InvalidParameterException(paramName, "Array<Long>");

@@ -41,7 +41,8 @@ public class All24h implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("Initialize 24h failed", e);
 			String content = "Initialize 24h failed on " + new Date() + " with file " + latestSourceFile();
-			SMS.sendSafe(new WeatherDataShortMessage(content), WeatherAdmins.getSubscribers());
+			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			SMS.sendSafe(message);
 		}
 		all24h = this;
 	}
@@ -62,7 +63,8 @@ public class All24h implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("update 24h failed", e);
 			String content = "Update 24h failed on " + new Date() + " with file " + basefolder;
-			SMS.sendSafe(new WeatherDataShortMessage(content), WeatherAdmins.getSubscribers());
+			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			SMS.sendSafe(message);
 		}
 	}
 
@@ -107,7 +109,8 @@ public class All24h implements IWeatherBuffer {
 			}
 		}
 		
-		SMS.sendSafe(new WeatherDataShortMessage(notification.toString()), WeatherAdmins.getSubscribers());
+		WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), notification.toString());
+		SMS.sendSafe(message);
 	}
 
 	HashMap<Long, TwentyFourHourForcast> _all24h;

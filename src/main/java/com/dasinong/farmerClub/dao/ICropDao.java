@@ -10,4 +10,5 @@ public interface ICropDao extends IEntityDao<Crop> {
 
 	List<Crop> findByType(String type);
 
+	List<Crop> findByIds(Long[] ids);
 }

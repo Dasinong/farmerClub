@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.context.ContextLoader;
 
 import com.dasinong.farmerClub.dao.IMonitorLocationDao;
@@ -13,6 +15,7 @@ import com.dasinong.farmerClub.model.MonitorLocation;
 //Used for easy access, read only and does not support dynamic DB change.
 public class AllMonitorLocation {
 	private IMonitorLocationDao monitorLocationDao;
+	private Logger logger = LoggerFactory.getLogger(AllMonitorLocation.class);
 
 	private static Object SynRoot = new Object();
 
@@ -80,6 +83,11 @@ public class AllMonitorLocation {
 				target = ml;
 			}
 		}
+		
+		if (target == null) {
+			logger.error("incorrect location <" + lat + "," + lon + ">");
+		}
+		
 		return target.getCode();
 	}
 

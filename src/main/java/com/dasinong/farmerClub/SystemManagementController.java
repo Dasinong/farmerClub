@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dasinong.farmerClub.exceptions.MissingParameterException;
 
 @Controller
-public class SystemManagement extends BaseController {
+public class SystemManagementController extends BaseController {
 	
 	@RequestMapping(value = "/weatherIssue", produces = "application/json")
 	@ResponseBody

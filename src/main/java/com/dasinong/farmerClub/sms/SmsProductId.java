@@ -5,9 +5,9 @@ package com.dasinong.farmerClub.sms;
  * @author xiahonggao
  *
  * 在51welink上，我们有3个productId，808, 812和818
- * - 808用于验证码
- * - 812用于会员营销
- * - 818用于通知
+ * - 808用于验证码，无时间限制，支持群发
+ * - 812用于营销，发送时间段09:00-18:00，支持群发
+ * - 818用于通知，无时间限制，不支持群发
  */
 public class SmsProductId {
 

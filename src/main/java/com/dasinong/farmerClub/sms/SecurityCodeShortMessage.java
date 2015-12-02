@@ -6,7 +6,15 @@ public class SecurityCodeShortMessage extends PersistentShortMessageBase {
 
 	private String securityCode = null;
 	
-	public SecurityCodeShortMessage(String securityCode) {
+	public SecurityCodeShortMessage(Long senderId, String receiver, String securityCode) {
+		super(senderId, receiver);
+		
+		this.securityCode = securityCode;
+	}
+	
+	public SecurityCodeShortMessage(Long senderId, String[] receivers, String securityCode) {
+		super(senderId, receivers);
+		
 		this.securityCode = securityCode;
 	}
 	
@@ -29,7 +37,7 @@ public class SecurityCodeShortMessage extends PersistentShortMessageBase {
 
 	@Override
 	public String getSmsProductId() {
-		return SmsProductId.SECURITY_CODE;
+		return SmsProductId.NOTIFICATION;// SmsProductId.SECURITY_CODE;
 	}
 
 }

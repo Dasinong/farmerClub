@@ -5,14 +5,14 @@ import java.util.List;
 
 public class WeatherAdmins {
 
-	private static List<String> subscribers = null;
+	private static String[] subscribers = null;
 	
-	public static List<String> getSubscribers() {
+	public static String[] getSubscribers() {
 		if (subscribers == null) {
-			subscribers = new ArrayList<String>();
-			subscribers.add("15311733826");
-			subscribers.add("13162881998");
-			subscribers.add("13137736397");
+			subscribers = new String[3];
+			subscribers[0] = "15311733826";
+			subscribers[1] = "13162881998";
+			subscribers[2] = "13137736397";
 		}
 		
 		return subscribers;

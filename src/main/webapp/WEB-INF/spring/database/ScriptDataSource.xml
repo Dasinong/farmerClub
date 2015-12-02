@@ -6,7 +6,7 @@
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
-			<value>/WEB-INF/spring/properties/database.properties</value>
+			<value>file:./src/main/webapp/WEB-INF/spring/properties/database.properties</value>
 		</property>
 	</bean>
 

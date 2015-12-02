@@ -76,6 +76,7 @@ public class User implements Serializable {
 	public void setAndEncryptPassword(String rawPassword) throws NoSuchAlgorithmException {
 		String encryptedPassword = SHA256.encrypt(rawPassword, this.passwordSalt);
 		this.setEncryptedPassword(encryptedPassword);
+		this.setIsPassSet(true);
 	}
 
 	public void setEncryptedPassword(String encryptedPassword) {
@@ -236,6 +237,7 @@ public class User implements Serializable {
 
 	public boolean validatePassword(String password) throws NoSuchAlgorithmException {
 		String encryptedPassword = SHA256.encrypt(password, User.passwordSalt);
+		System.out.println(encryptedPassword);
 		return encryptedPassword.equals(this.getEncryptedPassword());
 	}
 }

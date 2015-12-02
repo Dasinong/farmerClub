@@ -5,8 +5,11 @@ import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.ContextLoader;
 
+import com.dasinong.farmerClub.dao.IMonitorLocationDao;
 import com.dasinong.farmerClub.datapool.AllMonitorLocation;
+import com.dasinong.farmerClub.model.MonitorLocation;
 import com.dasinong.farmerClub.ruleEngine.rules.Rule;
 import com.dasinong.farmerClub.util.LunarHelper;
 import com.dasinong.farmerClub.weather.All24h;
@@ -17,6 +20,7 @@ import com.dasinong.farmerClub.weather.GetLive7d;
 import com.dasinong.farmerClub.weather.GetLiveWeather;
 import com.dasinong.farmerClub.weather.Live7dFor;
 import com.dasinong.farmerClub.weather.LiveWeatherData;
+import com.dasinong.farmerClub.weather.SoilLiquid;
 import com.dasinong.farmerClub.weather.TwentyFourHourForcast;
 import com.dasinong.farmerClub.weather.SevenDayForcast.ForcastInfo;
 
@@ -24,17 +28,11 @@ public class WeatherFacade implements IWeatherFacade {
 	
 	private Logger logger = LoggerFactory.getLogger(WeatherFacade.class);
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.dasinong.farmerClub.facade.IWeatherFacade#getWeather(double,
-	 * double)
-	 */
 	@Override
 	public Object getWeather(double lat, double lon) {
 		try {
 			Long mlId = AllMonitorLocation.getInstance().getNearest(lat, lon);
-			return getWeather(mlId);
+			return getWeather(mlId, lat, lon);
 		} catch (Exception e) {
 			HashMap<String, Object> result = new HashMap<String, Object>();
 			result.put("respCode", 405);
@@ -43,15 +41,8 @@ public class WeatherFacade implements IWeatherFacade {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.dasinong.farmerClub.facade.IWeatherFacade#getWeather(java.lang.
-	 * Integer)
-	 */
 	@Override
-	public Object getWeather(Long areaId) {
+	public Object getWeather(Long areaId, double lat, double lon) {
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> data = new HashMap<String, Object>();
@@ -130,16 +121,6 @@ public class WeatherFacade implements IWeatherFacade {
 		// 获得7天预测
 		try {
 			if (All7d.getAll7d().get7d(areaId) != null) {
-				// Fix the missing last day data;
-				int i = 0;
-				ForcastInfo lastDay = null;
-				for (ForcastInfo f : All7d.getAll7d().get7d(areaId).aggregateData) {
-					if (f != null) {
-						i++;
-						lastDay = f;
-					}
-				}
-
 				try {
 					Live7dFor l7d = GetLive7d.getAllLive7d().getLive7d(areaId);
 					Long sunrise = l7d.sevenDay[0].sunrise.getTime();
@@ -148,14 +129,8 @@ public class WeatherFacade implements IWeatherFacade {
 					Long sunset = l7d.sevenDay[0].sunset.getTime();
 					if (System.currentTimeMillis() > sunset)
 						sunset = sunset + 24 * 60 * 60 * 1000;
-					result.put("sunrise", sunrise);
-					result.put("sunset", sunset);
 					data.put("sunrise", sunrise);
 					data.put("sunset", sunset);
-					if (lastDay != null) {
-						lastDay.max_temp = l7d.sevenDay[i - 1].dayTemp;
-						lastDay.min_temp = l7d.sevenDay[i - 1].nightTemp;
-					}
 				} catch (Exception e) {
 					this.logger.error("Not able to load normal 7d", e);
 				}
@@ -177,10 +152,32 @@ public class WeatherFacade implements IWeatherFacade {
 			data.put("workable", -1);
 			data.put("sprayable", -1);
 		}
+		
+		double soilHum = 0;
+		try {
+			soilHum = SoilLiquid.getSoilLi().getSoil(lat, lon);
+			soilHum = Math.round(100 * soilHum) / 100.0;
+		} catch (Exception e) {
+			this.logger.error("Load soilHum failed", e);
+		}
+		data.put("soilHum", soilHum);
 
 		data.put("date", LunarHelper.getTodayLunar());
 		result.put("data", data);
 		return result;
-
+	}
+	
+	@Override
+	public Object getWeather(Long areaId) {
+		try {
+			IMonitorLocationDao locDao = (IMonitorLocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("monitorLocationDao");
+			MonitorLocation loc = locDao.findByCode(areaId);
+			return getWeather(areaId, loc.getLatitude(), loc.getLongitude());
+		} catch (Exception e) {
+			HashMap<String, Object> result = new HashMap<String, Object>();
+			result.put("respCode", 405);
+			result.put("message", "初始化检测地址列表出错");
+			return result;
+		}
 	}
 }

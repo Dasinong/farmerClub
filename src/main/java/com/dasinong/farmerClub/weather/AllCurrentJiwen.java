@@ -45,7 +45,8 @@ public class AllCurrentJiwen implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("Initialize current Jiwen failed", e);
 			String content = "Initialize jiwen failed on " + new Date() + " with file " + latestSourceFile();
-			SMS.sendSafe(new WeatherDataShortMessage(content), WeatherAdmins.getSubscribers());
+			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			SMS.sendSafe(message);
 		}
 	}
 
@@ -65,7 +66,8 @@ public class AllCurrentJiwen implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("update jiwen failed", e);
 			String content = "Update jiwen failed on " + new Date() + " with file " + sourceFile;
-			SMS.sendSafe(new WeatherDataShortMessage(content), WeatherAdmins.getSubscribers());
+			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			SMS.sendSafe(message);
 			_allCurrentJiwen = oldJiwen;
 		}
 	}
@@ -112,7 +114,9 @@ public class AllCurrentJiwen implements IWeatherBuffer {
 				notification.append(line.substring(0, Math.min(line.length(), 10)) + " ");
 			}
 		}
-		SMS.sendSafe(new WeatherDataShortMessage(notification.toString()), WeatherAdmins.getSubscribers());
+		
+		WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), notification.toString());
+		SMS.sendSafe(message);
 		br.close();
 		fr.close();
 	}

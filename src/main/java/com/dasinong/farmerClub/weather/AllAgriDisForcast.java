@@ -47,7 +47,8 @@ public class AllAgriDisForcast implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("Initialize agriculture disaster forcast failed. " + latestSourceFile(), e);
 			String content = "Initialize adf failed on " + new Date() + " with file " + latestSourceFile();
-			SMS.sendSafe(new WeatherDataShortMessage(content), WeatherAdmins.getSubscribers());
+			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			SMS.sendSafe(message);
 		}
 	}
 
@@ -67,7 +68,8 @@ public class AllAgriDisForcast implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("update agriculture disaster forcast failed", e);
 			String content = "Update adf failed on " + new Date() + " with file " + sourceFile;
-			SMS.sendSafe(new WeatherDataShortMessage(content), WeatherAdmins.getSubscribers());
+			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			SMS.sendSafe(message);
 			_alladf = oldadf;
 		}
 	}
@@ -123,7 +125,8 @@ public class AllAgriDisForcast implements IWeatherBuffer {
 			}
 		}
 		
-		SMS.sendSafe(new WeatherDataShortMessage(notification.toString()), WeatherAdmins.getSubscribers());
+		WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), notification.toString());
+		SMS.sendSafe(message);
 		reader.close();
 	}
 

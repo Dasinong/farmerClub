@@ -15,127 +15,168 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.ContextLoader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.dasinong.farmerClub.dao.IDasinongAppDao;
+import com.dasinong.farmerClub.dao.IShortMessageRecordDao;
 import com.dasinong.farmerClub.exceptions.SmsProviderException;
 import com.dasinong.farmerClub.exceptions.SmsProviderResponseParseException;
 import com.dasinong.farmerClub.model.Institution;
+import com.dasinong.farmerClub.model.ShortMessageRecord;
+import com.dasinong.farmerClub.model.ShortMessageStatus;
+import com.dasinong.farmerClub.util.StringUtils;
 
 /**
  * 
  * @author xiahonggao
  *
- * SMS是Short Message Service的缩写，用来发送短信。如果短信实现了IPersistentShortMessage
- * 结构，SMS会将短信保存在数据库中，方便以后分析追踪，也方便后台重发失败的短信 
+ *         SMS是Short Message Service的缩写，用来发送短信。如果短信实现了IPersistentShortMessage
+ *         结构，SMS会将短信保存在数据库中，方便以后分析追踪，也方便后台重发失败的短信
  */
 public class SMS {
-	
-	public static final String SIGNATURE = "【今日农事】";
-	public static final String ACCOUNT_NAME = "dldasi00";
-	public static final String PASSWORD = "MF3o9AFn";
+
+	public static final String SIGNATURE = "【大户俱乐部】";
+	public static final String ACCOUNT_NAME = "dldasi01";
+	public static final String PASSWORD = "TJDz75Ec";
 	public static final int maxLength = 120;
-	
+
 	private static Logger logger = LoggerFactory.getLogger(SMS.class);
 
-	public static void send(IShortMessage message, String cellphone) throws Exception {
-		String content = message.getContent();
-		
-		if (message instanceof IPersistentShortMessage) {
-			// TODO (xiahonggao): save <message, cellphone> to db with status=PENDING
-		}
-
-		doSend(message, cellphone);
-
-		if (message instanceof IPersistentShortMessage) {
-			// TODO (xiahonggao): update <message, cellphone> in db with status=SUCCESS
-		}
-	}
-	
-	public static void sendSafe(IShortMessage message, String cellphone) {
-		try {
-			send(message, cellphone);
-		} catch (Exception ex) {
-			// ignore
-		}
-	}
-	
-	public static void send(IShortMessage message, String[] cellphones) throws Exception {
+	public static void send(IShortMessage message) throws Exception {
 		String productId = message.getSmsProductId();
-		
-		// 如果产品id支持群发，直接发送
+
 		if (SmsProductId.canSendMultiple(productId)) {
-			ArrayList<String> numbers = new ArrayList<String>();
-			for (String cellphone : cellphones) {
-				numbers.add(cellphone);
-			}
-			send(message, convertNumbers(numbers));
+			sendMultiple(message);
+		} else {
+			sendOneByOne(message);
+		}
+	}
+
+	private static void sendMultiple(IShortMessage message) throws Exception {
+		IShortMessageRecordDao smrDao = (IShortMessageRecordDao) ContextLoader.getCurrentWebApplicationContext()
+				.getBean("shortMessageRecordDao");
+
+		String productId = message.getSmsProductId();
+		String content = message.getContent();
+		String[] receivers = message.getReceivers();
+
+		ShortMessageRecord smr = new ShortMessageRecord();
+
+		if (message instanceof IPersistentShortMessage) {
+			String data = ((IPersistentShortMessage) message).getSerializedPersistentData();
+			smr.setData(data);
+			smr.setStatus(ShortMessageStatus.PENDING);
+			smr.setSenderId(message.getSenderId());
+			smr.setReceivers(message.getReceivers());
+			smrDao.save(smr);
+		}
+
+		String externalId = null;
+		try {
+			externalId = doSend(content, productId, receivers);
+		} catch (SmsProviderResponseParseException ex) {
+			logger.error("fail to send short message", ex);
+			smr.setStatus(ShortMessageStatus.SHOULD_RETRY);
+			smr.setErrorResponse(ex.getResponse());
+			smrDao.save(smr);
+		} catch (Exception ex) {
+			logger.error("fail to send short message", ex);
+			smr.setStatus(ShortMessageStatus.SHOULD_RETRY);
+			smr.setErrorResponse(ex.getMessage());
+			smrDao.save(smr);
+		}
+		
+		if (externalId == null) {
 			return;
 		}
-		
-		// 如果不支持，则一条条发
+
 		if (message instanceof IPersistentShortMessage) {
-			// TODO (xiahonggao): save all the <message, cellphone> pairs to db with status=PENDING
+			smr.setStatus(ShortMessageStatus.SUCCESS);
+			smr.setExternalId(externalId);
+			smrDao.update(smr);
 		}
-		
-		for (String cellphone : cellphones) {
+	}
+
+	private static void sendOneByOne(IShortMessage message) throws Exception {
+		IShortMessageRecordDao smrDao = (IShortMessageRecordDao) ContextLoader.getCurrentWebApplicationContext()
+				.getBean("shortMessageRecordDao");
+
+		String productId = message.getSmsProductId();
+		String content = message.getContent();
+		String[] receivers = message.getReceivers();
+
+		for (String receiver : receivers) {
 			try {
-				send(message, cellphone);
+				ShortMessageRecord smr = new ShortMessageRecord();
+
 				if (message instanceof IPersistentShortMessage) {
-					// TODO (xiahonggao): update <message, cellphone> in db with status=SUCCESS
+					String data = ((IPersistentShortMessage) message).getSerializedPersistentData();
+					smr.setData(data);
+					smr.setStatus(ShortMessageStatus.PENDING);
+					smr.setSenderId(message.getSenderId());
+					smr.setReceivers(new String[] { receiver });
+					smrDao.save(smr);
+				}
+
+				String externalId = null;
+				try {
+					externalId = doSend(content, productId, receivers);
+				} catch (SmsProviderResponseParseException ex) {
+					logger.error("fail to send short message", ex);
+					
+					smr.setStatus(ShortMessageStatus.SHOULD_RETRY);
+					smr.setErrorResponse(ex.getResponse());
+					smrDao.save(smr);
+				} catch (Exception ex) {
+					logger.error("fail to send short message", ex);
+					smr.setStatus(ShortMessageStatus.SHOULD_RETRY);
+					smr.setErrorResponse(ex.getMessage());
+					smrDao.save(smr);
+				}
+				
+				if (externalId == null) {
+					continue;
+				}
+
+				if (message instanceof IPersistentShortMessage) {
+					smr.setStatus(ShortMessageStatus.SUCCESS);
+					smr.setExternalId(externalId);
+					smrDao.update(smr);
 				}
 			} catch (Exception ex) {
-				// ignore the exception and try the remaining
+				logger.error("fail to send short message", ex);
+				// ignore the exception and try to send the remainings
 			}
 		}
 	}
-	
-	public static void sendSafe(IShortMessage message, String[] cellphones) {
+
+	public static void sendSafe(IShortMessage message) {
 		try {
-			send(message, cellphones);
+			send(message);
 		} catch (Exception ex) {
 			// ignore
 		}
 	}
-	
-	public static void send(IShortMessage message, List<String> cellphones) throws Exception {
-		send(message, convertNumbers(cellphones));
-	}
-	
-	public static void sendSafe(IShortMessage message, List<String> cellphones) {
-		try {
-			send(message, cellphones);
-		} catch (Exception ex) {
-			// ignore
-		}
-	}
-	
-	public static String convertNumbers(List<String> numbers) {
-		String numbersString = "";
-		if (numbers.size() > 0) {
-			for (int i = 0; i < numbers.size() - 1; i++) {
-				numbersString += numbers.get(i).trim() + ",";
-			}
-			numbersString += numbers.get(numbers.size() - 1).trim();
-		}
 
-		return numbersString;
+	private static String doSend(String content, String productId, String[] cellphones) throws Exception {
+		String cellphone = StringUtils.join(",", cellphones);
+		return doSend(content, productId, cellphone);
 	}
 
-	private static void doSend(IShortMessage message, String cellphone) throws Exception {
-		String content = message.getContent();
+	private static String doSend(String content, String productId, String cellphone) throws Exception {
 		if (content.length() > maxLength) {
 			content = content.substring(0, maxLength);
 		}
-		
+
 		// 签名必须要有！
 		content += SMS.SIGNATURE;
-		
-		String productId = message.getSmsProductId();
+
 		String postData = "sname=" + ACCOUNT_NAME + "&spwd=" + PASSWORD + "&scorpid=&sprdid=" + productId + "&sdst="
 				+ cellphone + "&smsg=" + URLEncoder.encode(content, "UTF-8");
-		
+
 		// 发送POST请求
 		URL url = new URL("http://cf.51welink.com/submitdata/Service.asmx/g_Submit");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -155,7 +196,7 @@ public class SMS {
 		if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			throw new SmsProviderException(conn.getResponseCode(), conn.getResponseMessage());
 		}
-		
+
 		// 获取响应内容体
 		String line, result = "";
 		BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
@@ -163,7 +204,7 @@ public class SMS {
 			result += line + "\n";
 		}
 		in.close();
-		
+
 		// 解析响应内容
 		Integer state = null;
 		String msgId = null;
@@ -182,29 +223,32 @@ public class SMS {
 			logger.error("Cannot parse SMS response", ex);
 			throw new SmsProviderResponseParseException(result);
 		}
-		
+
 		if (state != 0) {
 			Exception ex = new SmsProviderResponseParseException(result);
 			logger.error("SMS response state non-zero", ex);
 			throw ex;
 		}
-		
+
 		if ("0".equals(msgId)) {
 			Exception ex = new SmsProviderResponseParseException(result);
 			logger.error("SMS response msgId zero", ex);
 			throw ex;
 		}
+
+		return msgId;
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 		String cellphone = "13681634981";
 		String cellphone2 = "13137736397";
-		String[] cellphones = {cellphone, cellphone2};
-		RefAppShortMessage message1 = new RefAppShortMessage(Institution.DOWS);
-		SecurityCodeShortMessage message2 = new SecurityCodeShortMessage("123456");
-		SMS.send(message1, cellphone);
-		SMS.send(message1, cellphones);
-		SMS.send(message2, cellphone);
-		SMS.send(message2, cellphones);
+		String[] cellphones = { cellphone, cellphone2 };
+		// RefAppShortMessage message1 = new RefAppShortMessage();
+		// SecurityCodeShortMessage message2 = new
+		// SecurityCodeShortMessage("123456");
+		// SMS.send(message1, cellphone);
+		// SMS.send(message1, cellphones);
+		// SMS.send(message2, cellphone);
+		// SMS.send(message2, cellphones);
 	}
 }

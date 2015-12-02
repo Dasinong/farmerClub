@@ -31,7 +31,8 @@ public class ChannelController extends RequireUserLoginController {
 		String cellphone = request.getParameter("cellPhones");
 		if (cellphone != null && !"".equals(cellphone)) {
 			String[] target = cellphone.split(",");
-			SMS.send(new RefAppShortMessage(user.getInstitutionId()), target);
+			RefAppShortMessage msg = new RefAppShortMessage(user.getUserId(), target);
+			SMS.send(msg);
 		}
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("respCode", "200");

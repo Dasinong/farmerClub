@@ -30,4 +30,9 @@ public class CropDao extends EntityHibernateDao<Crop>implements ICropDao {
 		return list;
 	}
 
+	@Override
+	public List<Crop> findByIds(Long[] ids) {
+		return this.getHibernateTemplate().findByNamedParam("from Crop where cropId in (:ids)", "ids", ids);
+	}
+
 }

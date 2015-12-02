@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.dasinong.farmerClub.model.ShortMessageRecord" table="shortMessageRecord" catalog="farmer_club">
+		<id name="id" type="long">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="externalId" type="string">
+			<column name="externalId" length="30" />
+		</property>
+		<property name="status" column="status">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.dasinong.farmerClub.model.ShortMessageStatus</param>
+				<param name="useNamed">false</param>
+			</type>
+		</property>
+		<property name="errorResponse" type="string">
+			<column name="errorResponse" length="3000" />
+		</property>
+		<property name="senderId" type="long">
+			<column name="senderId" />
+		</property>
+		<property name="receivers" type="string">
+			<column name="receivers" length="3000" />
+		</property>
+		<property name="data" type="text">
+			<column name="data" />
+		</property>
+		<property name="createdAt" type="timestamp" column="createdAt" />
+		<property name="retriedAt" type="timestamp" column="retriedAt" />
+		<property name="retriedTimes" type="int">
+			<column name="retriedTimes" />
+		</property>
+	</class>
+</hibernate-mapping>

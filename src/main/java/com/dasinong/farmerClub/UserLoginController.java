@@ -64,7 +64,7 @@ public class UserLoginController extends BaseController {
 		user.setDeviceId(deviceId);
 		user.setChannel(channel);
 		user.setInstitutionId(institutionId);
-		user.setIsPassSet(false);
+		user.setIsPassSet(true);
 		user.setAuthenticated(true);
 		user.setCreateAt(new Date());
 		
@@ -96,6 +96,7 @@ public class UserLoginController extends BaseController {
 	@RequestMapping(value = "/login", produces = "application/json")
 	@ResponseBody
 	public Object login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("/login");
 		ViewerContext vc = this.getViewerContext(request);
 		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
 		UserAccessTokenManager tokenManager = new UserAccessTokenManager();
@@ -120,6 +121,7 @@ public class UserLoginController extends BaseController {
 		}
 
 		String passWord = request.getParameter("password");
+		System.out.println(passWord);
 		if (user.validatePassword(passWord)) {
 			user.setLastLogin(new Date());
 			userDao.update(user);
@@ -324,7 +326,8 @@ public class UserLoginController extends BaseController {
 			SecurityCode codeObj = codeManager.generate();
 			request.getSession().setAttribute("securityCode", codeObj.getCode());
 
-			SMS.send(new SecurityCodeShortMessage(codeObj.getCode()), cellphone);
+			SecurityCodeShortMessage message = new SecurityCodeShortMessage(0L, cellphone, codeObj.getCode());
+			SMS.send(message);
 
 			result.put("respCode", 200);
 			result.put("message", "临时密码已经发送");

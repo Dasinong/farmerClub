@@ -40,7 +40,8 @@ public class SoilLiquid implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("Initialize soilliquid failed", e);
 			String content = "Initialize soilliquid failed on " + new Date() + " with file " + latestSourceFile();
-			SMS.sendSafe(new WeatherDataShortMessage(content), WeatherAdmins.getSubscribers());
+			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			SMS.sendSafe(message);
 		}
 	}
 
@@ -58,7 +59,8 @@ public class SoilLiquid implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("update soil liquid failed", e);
 			String content = "Update soiliquid failed on " + new Date() + " with file " + sourceFile;
-			SMS.sendSafe(new WeatherDataShortMessage(content), WeatherAdmins.getSubscribers());
+			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			SMS.sendSafe(message);
 			grid = oldgrid;
 		}
 	}
@@ -108,7 +110,8 @@ public class SoilLiquid implements IWeatherBuffer {
 				notification.append(line + " ");
 			}
 		}
-		SMS.sendSafe(new WeatherDataShortMessage(notification.toString()), WeatherAdmins.getSubscribers());
+		WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), notification.toString());
+		SMS.sendSafe(message);
 		br.close();
 		fr.close();
 	}

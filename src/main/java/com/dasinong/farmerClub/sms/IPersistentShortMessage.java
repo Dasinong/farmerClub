@@ -13,4 +13,6 @@ import java.util.HashMap;
 public interface IPersistentShortMessage extends IShortMessage {
 
 	public HashMap<String, Object> getPersistentData();
+
+	public String getSerializedPersistentData() throws Exception;
 }

@@ -13,25 +13,25 @@
         <property name="cropName" type="string">
             <column name="cropName" length="30" not-null="true" unique="true" />
         </property>
-        <set name="varieties" table="variety" inverse="true" lazy="false" fetch="select">
+        <set name="varieties" table="variety" inverse="true" lazy="true" fetch="select">
             <cache usage="read-only"></cache>
         	<key>
         		<column name="cropId" not-null="true" />
         	</key>
         	<one-to-many class="com.dasinong.farmerClub.model.Variety"></one-to-many>
         </set>
-        <set name="qualityItems" table="qualityItem" inverse="true" lazy="false" fetch="select">
+        <set name="qualityItems" table="qualityItem" inverse="true" lazy="true" fetch="select">
         	<key>
         		<column name="cropId" not-null="true" />
         	</key>
         	<one-to-many class="com.dasinong.farmerClub.model.QualityItem"></one-to-many>
         </set>
-        <set name="petDisSpecs" table="crop_petDisSpec" cascade="all" inverse="false" lazy="false">
+        <set name="petDisSpecs" table="crop_petDisSpec" cascade="all" inverse="false" lazy="true">
             <cache usage="read-only"></cache>
         	<key column = "cropId"></key>
         	<many-to-many class="com.dasinong.farmerClub.model.PetDisSpec" column="petDisSpecId"></many-to-many>
         </set>
-        <set name="natDisSpecs" table="crop_natDisSpec" cascade="all" inverse="false" lazy="false">
+        <set name="natDisSpecs" table="crop_natDisSpec" cascade="all" inverse="false" lazy="true">
         	<key column = "cropId"></key>
         	<many-to-many class="com.dasinong.farmerClub.model.NatDisSpec" column="natDisSpecId"></many-to-many>
         </set>

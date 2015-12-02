@@ -18,6 +18,6 @@ public interface IEntityDao<T> {
 	public void delete(T entity);
 
 	public T findById(Long id);
-
+	
 	public List<T> findAll();
 }

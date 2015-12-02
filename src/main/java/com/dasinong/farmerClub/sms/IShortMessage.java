@@ -7,4 +7,8 @@ public interface IShortMessage {
 	public String getContent();
 	
 	public String getSmsProductId();
+	
+	public Long getSenderId();
+	
+	public String[] getReceivers();
 }

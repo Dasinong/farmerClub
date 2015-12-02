@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.CropSubscription" table="cropsubscription" catalog="farmer_club">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="cropId" type="long">
+            <column name="cropId" not-null="true" />
+        </property>
+        <property name="cropName" type="string">
+            <column name="cropName" length="300" />
+        </property>
+        <property name="userId" type="long">
+            <column name="userId" not-null="true" />
+        </property>
+        <property name="createdAt" type="timestamp" column="createdAt" />
+    </class>
+</hibernate-mapping>
