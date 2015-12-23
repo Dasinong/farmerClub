@@ -20,6 +20,7 @@ import com.dasinong.farmerClub.model.AppAccessTokenManager;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.model.UserAccessToken;
 import com.dasinong.farmerClub.model.UserAccessTokenManager;
+import com.dasinong.farmerClub.util.HttpServletRequestX;
 import com.dasinong.farmerClub.viewerContext.ViewerContext;
 
 /**
@@ -33,9 +34,10 @@ public class ViewerContextInitializer extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		ViewerContext viewerContext = new ViewerContext();
+		HttpServletRequestX requestX = new HttpServletRequestX(request);
 
 		// Set deviceId if any
-		String deviceId = request.getParameter("deviceId");
+		String deviceId = requestX.getStringOptional("deviceId", null);
 		if (deviceId != null) {
 			viewerContext.setDeviceId(deviceId);
 		}
@@ -43,12 +45,18 @@ public class ViewerContextInitializer extends HandlerInterceptorAdapter {
 		// Set appId if any
 		// appId is passed if there is no login user
 		// appId should not be passed if app/user access token is passed
-		String appId = request.getParameter("appId");
+		Long appId = requestX.getLongOptional("appId", null);
 		if (appId != null) {
-			viewerContext.setAppId(Long.valueOf(appId));
+			viewerContext.setAppId(appId);
+		}
+	
+		// Set version if any
+		Integer version = requestX.getIntOptional("version", null);
+		if (version != null) {
+			viewerContext.setVersion(version);
 		}
 
-		String token = request.getParameter("accessToken");
+		String token = requestX.getStringOptional("accessToken", null);
 
 		// initialize viewer context from session
 		if (token == null || "".equals(token)) {

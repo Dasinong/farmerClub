@@ -49,13 +49,31 @@
             <column name="tip" />
         </property>
         <property name="model" type="string">
-            <column name="model" length="10"/>
+            <column name="model" length="20"/>
         </property>
         <property name="priority" type="int">
         	<column name="priority" length="4" />
         </property>
         <property name="telephone" type="string">
             <column name="telephone" length="30" />
+        </property>
+        <property name="slogan" type="string">
+            <column name="slogan" length="100" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" length="30" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" />
+        </property>
+        <property name="feature" type="string">
+            <column name="feature" />
+        </property>
+        <property name="specification" type="string">
+            <column name="specification" length="100" />
+        </property>
+        <property name="pictureUrl" type="string">
+            <column name="pictureUrl" length="300" />
         </property>
     </class>
 </hibernate-mapping>

@@ -11,6 +11,7 @@ public class ViewerContext {
 	private Long userId = null;
 	private Long appId = null;
 	private String deviceId = null;
+	private Integer version = null;
 
 	public ViewerContext() {
 	}
@@ -26,6 +27,10 @@ public class ViewerContext {
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
 	}
+	
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 
 	public Long getUserId() {
 		return this.userId;
@@ -34,8 +39,12 @@ public class ViewerContext {
 	public Long getAppId() {
 		return this.appId;
 	}
+	
+	public Integer getVersion() {
+		return this.version;
+	}
 
-	public String getDevideId() {
+	public String getDeviceId() {
 		return this.deviceId;
 	}
 

@@ -29,6 +29,7 @@ import com.dasinong.farmerClub.model.Variety;
 import com.dasinong.farmerClub.model.VarietyBrowse;
 import com.dasinong.farmerClub.outputWrapper.CPProductWrapper;
 import com.dasinong.farmerClub.outputWrapper.CropWrapper;
+import com.dasinong.farmerClub.outputWrapper.FormattedCPProductWrapper;
 import com.dasinong.farmerClub.outputWrapper.PetDisSpecWrapper;
 import com.dasinong.farmerClub.outputWrapper.VarietyWrapper;
 import com.dasinong.farmerClub.util.Env;
@@ -61,6 +62,16 @@ public class BaiKeFacade implements IBaiKeFacade {
 		CPProduct pro = cPProductDao.findById(id);
 		if (pro != null) {
 			CPProductWrapper cpw = new CPProductWrapper(pro);
+			return cpw;
+		} else
+			return null;
+	}
+	
+	public FormattedCPProductWrapper getFormattedCPProductById(Long id) {
+		cPProductDao = (ICPProductDao) ContextLoader.getCurrentWebApplicationContext().getBean("cPProductDao");
+		CPProduct pro = cPProductDao.findById(id);
+		if (pro != null) {
+			FormattedCPProductWrapper cpw = new FormattedCPProductWrapper(pro);
 			return cpw;
 		} else
 			return null;

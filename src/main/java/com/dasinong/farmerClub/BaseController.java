@@ -37,7 +37,7 @@ import com.dasinong.farmerClub.viewerContext.ViewerContext;
 public class BaseController {
 
 	protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
-
+	
 	public ViewerContext getViewerContext(HttpServletRequest request) throws Exception {
 		ViewerContext vc = (ViewerContext) request.getAttribute(ViewerContext.REQUEST_KEY);
 		if (vc == null) {

@@ -22,12 +22,15 @@ import org.springframework.web.context.ContextLoader;
 import com.dasinong.farmerClub.exceptions.InvalidParameterException;
 import com.dasinong.farmerClub.exceptions.ResourceNotFoundException;
 import com.dasinong.farmerClub.facade.IBaiKeFacade;
+import com.dasinong.farmerClub.model.DasinongApp;
 import com.dasinong.farmerClub.outputWrapper.CPProductWrapper;
+import com.dasinong.farmerClub.outputWrapper.FormattedCPProductWrapper;
 import com.dasinong.farmerClub.outputWrapper.PetDisSpecWrapper;
 import com.dasinong.farmerClub.outputWrapper.VarietyWrapper;
 import com.dasinong.farmerClub.util.Env;
 import com.dasinong.farmerClub.util.FullTextSearch;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
+import com.dasinong.farmerClub.viewerContext.ViewerContext;
 
 @Controller
 public class BaiKeController extends BaseController {
@@ -216,8 +219,23 @@ public class BaiKeController extends BaseController {
 		
 		Long id = requestX.getLong("id");
 		baiKeFacade = (IBaiKeFacade) ContextLoader.getCurrentWebApplicationContext().getBean("baiKeFacade");
-		CPProductWrapper cpw = baiKeFacade.getCPProductById(id);
+		
+		ViewerContext vc = this.getViewerContext(request);
+		System.out.println(vc.getAppId());
+		System.out.println(vc.getVersion());
+		if (vc.getAppId() == DasinongApp.ANDROID_FARM_LOG && vc.getVersion() > 14) {
+			FormattedCPProductWrapper cpw = baiKeFacade.getFormattedCPProductById(id);
+			if (cpw == null) {
+				throw new ResourceNotFoundException(id, "cpproduct");
+			} else {
+				result.put("respCode", 200);
+				result.put("message", "获得成功");
+				result.put("data", cpw);
+				return result;
+			}
+		} 
 
+		CPProductWrapper cpw = baiKeFacade.getCPProductById(id);
 		if (cpw == null) {
 			throw new ResourceNotFoundException(id, "cpproduct");
 		} else {

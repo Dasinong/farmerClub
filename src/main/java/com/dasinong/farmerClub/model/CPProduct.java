@@ -25,6 +25,12 @@ public class CPProduct implements Serializable {
 	private String model;
 	private Integer priority;
 	private String telephone;
+	private String slogan;
+	private String content;
+	private String description;
+	private String feature;
+	private String specification;
+	private String pictureUrl;
 
 	public CPProduct() {
 	}
@@ -170,5 +176,53 @@ public class CPProduct implements Serializable {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+	
+	public String getSlogan() {
+		return this.slogan;
+	}
+	
+	public void setSlogan(String slogan) {
+		this.slogan = slogan;
+	}
+	
+	public String getContent() {
+		return this.content;
+	}
+	
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	public String getDescription() {
+		return this.description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getFeature() {
+		return this.feature;
+	}
+	
+	public void setFeature(String feature) {
+		this.feature = feature;
+	}
+	
+	public String getSpecification() {
+		return this.specification;
+	}
+	
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	
+	public String getPictureUrl() {
+		return this.pictureUrl;
+	}
+	
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
 	}
 }

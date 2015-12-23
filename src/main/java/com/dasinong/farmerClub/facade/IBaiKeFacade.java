@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.dasinong.farmerClub.outputWrapper.CPProductWrapper;
+import com.dasinong.farmerClub.outputWrapper.FormattedCPProductWrapper;
 import com.dasinong.farmerClub.outputWrapper.PetDisSpecWrapper;
 import com.dasinong.farmerClub.outputWrapper.VarietyWrapper;
 
@@ -35,5 +36,7 @@ public interface IBaiKeFacade {
 	Map<String, List<HashMap<String, String>>> searchPetDisSpec(String key);
 
 	Object browsePetDisSpecsByCropIdAndType(Long cropId, String type);
+
+	FormattedCPProductWrapper getFormattedCPProductById(Long id);
 
 }
