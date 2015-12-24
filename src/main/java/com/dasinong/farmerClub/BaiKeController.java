@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -219,23 +217,28 @@ public class BaiKeController extends BaseController {
 		
 		Long id = requestX.getLong("id");
 		baiKeFacade = (IBaiKeFacade) ContextLoader.getCurrentWebApplicationContext().getBean("baiKeFacade");
-		
-		ViewerContext vc = this.getViewerContext(request);
-		System.out.println(vc.getAppId());
-		System.out.println(vc.getVersion());
-		if (vc.getAppId() == DasinongApp.ANDROID_FARM_LOG && vc.getVersion() > 14) {
-			FormattedCPProductWrapper cpw = baiKeFacade.getFormattedCPProductById(id);
-			if (cpw == null) {
-				throw new ResourceNotFoundException(id, "cpproduct");
-			} else {
-				result.put("respCode", 200);
-				result.put("message", "获得成功");
-				result.put("data", cpw);
-				return result;
-			}
-		} 
 
 		CPProductWrapper cpw = baiKeFacade.getCPProductById(id);
+		if (cpw == null) {
+			throw new ResourceNotFoundException(id, "cpproduct");
+		} else {
+			result.put("respCode", 200);
+			result.put("message", "获得成功");
+			result.put("data", cpw);
+			return result;
+		}
+	}
+	
+	@RequestMapping(value = "/getFormattedCPProductById", produces = "application/json")
+	@ResponseBody
+	public Object getFormattedCPProductById(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		HttpServletRequestX requestX = new HttpServletRequestX(request);
+		
+		Long id = requestX.getLong("id");
+		baiKeFacade = (IBaiKeFacade) ContextLoader.getCurrentWebApplicationContext().getBean("baiKeFacade");
+		
+		FormattedCPProductWrapper cpw = baiKeFacade.getFormattedCPProductById(id);
 		if (cpw == null) {
 			throw new ResourceNotFoundException(id, "cpproduct");
 		} else {

@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.dasinong.farmerClub.dao.ILocationDao;
 import com.dasinong.farmerClub.dao.ISystemMessageDao;
-import com.dasinong.farmerClub.model.LaoNongType;
 import com.dasinong.farmerClub.model.Location;
 import com.dasinong.farmerClub.model.SystemMessage;
 import com.dasinong.farmerClub.model.User;

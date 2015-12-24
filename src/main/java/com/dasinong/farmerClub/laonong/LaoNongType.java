@@ -1,4 +1,4 @@
-package com.dasinong.farmerClub.model;
+package com.dasinong.farmerClub.laonong;
 
 public class LaoNongType {
 	public static final int SYSTEM_MESSAGE = 1;

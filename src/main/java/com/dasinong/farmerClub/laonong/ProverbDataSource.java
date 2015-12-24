@@ -10,7 +10,6 @@ import org.springframework.web.context.ContextLoader;
 
 import com.dasinong.farmerClub.BaseController;
 import com.dasinong.farmerClub.dao.IProverbDao;
-import com.dasinong.farmerClub.model.LaoNongType;
 import com.dasinong.farmerClub.model.Proverb;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.util.LunarHelper;

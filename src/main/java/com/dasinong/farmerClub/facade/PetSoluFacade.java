@@ -43,10 +43,8 @@ public class PetSoluFacade implements IPetSoluFacade {
 		if (ps.getcPProducts() != null && ps.getcPProducts().size() != 0) {
 			List<CPProductWrapper> cppws = new ArrayList<CPProductWrapper>();
 			for (CPProduct cpp : ps.getcPProducts()) {
-				if (cpp.getPriority() == CPProductPriority.HIGH) {
-					CPProductWrapper cppw = new CPProductWrapper(cpp);
-					cppws.add(cppw);
-				}
+				CPProductWrapper cppw = new CPProductWrapper(cpp);
+				cppws.add(cppw);
 			}
 			data.put("cPProducts", cppws);
 		}

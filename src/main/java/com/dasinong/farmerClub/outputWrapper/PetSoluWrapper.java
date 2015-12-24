@@ -32,13 +32,9 @@ public class PetSoluWrapper {
 		this.subStageId = ps.getSubStageId();
 		StringBuilder ssCP = new StringBuilder();
 		for (CPProduct cp : ps.getcPProducts()) {
-			if (cp.getPriority() != CPProductPriority.HIGH) {
-				continue;
-			}
-
-			if (!cps.contains(cp.getActiveIngredient())) {
-				ssCP.append(cp.getActiveIngredient() + " ");
-				cps.add(cp.getActiveIngredient());
+			if (!cps.contains(cp.getcPProductName())) {
+				ssCP.append(cp.getcPProductName() + " ");
+				cps.add(cp.getcPProductName());
 				if (ssCP.length() > 100)
 					break;
 			}

@@ -6,7 +6,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dasinong.farmerClub.model.LaoNongType;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.weather.AgriDisForcast;
 import com.dasinong.farmerClub.weather.AllAgriDisForcast;
