@@ -4,9 +4,9 @@ import java.sql.Timestamp;
 import java.util.Random;
 
 import com.dasinong.farmerClub.model.Store;
-import com.dasinong.farmerClub.model.StoreSource;
-import com.dasinong.farmerClub.model.StoreStatus;
 import com.dasinong.farmerClub.model.User;
+import com.dasinong.farmerClub.store.StoreSource;
+import com.dasinong.farmerClub.store.StoreStatus;
 
 public class TestDataUtils {
 

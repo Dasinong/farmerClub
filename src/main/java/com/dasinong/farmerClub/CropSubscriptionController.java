@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
+import com.dasinong.farmerClub.crop.CropsForInstitution;
+import com.dasinong.farmerClub.crop.CropsWithSubstage;
 import com.dasinong.farmerClub.dao.ICropDao;
 import com.dasinong.farmerClub.dao.ICropSubscriptionDao;
 
 import com.dasinong.farmerClub.exceptions.ResourceNotFoundException;
 import com.dasinong.farmerClub.model.User;
+import com.dasinong.farmerClub.outputWrapper.CropWrapper;
 import com.dasinong.farmerClub.model.Crop;
 import com.dasinong.farmerClub.model.CropSubscription;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
@@ -28,6 +31,35 @@ import com.dasinong.farmerClub.util.HttpServletRequestX;
 @Controller
 public class CropSubscriptionController extends RequireUserLoginController {
 
+	@RequestMapping(value = "/getSubscriableCrops", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Object getSubscriableCrops(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ICropDao cropDao = (ICropDao) ContextLoader.getCurrentWebApplicationContext().getBean("cropDao");
+		Map<String, Object> result = new HashMap<String, Object>();
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		User user = this.getLoginUser(request);
+		Long instId = user.getInstitutionId();
+		Long[] cropIds = null;
+		if (instId > 0) {
+			cropIds = CropsForInstitution.getIds(instId);
+		} else {
+			cropIds = CropsWithSubstage.getIds();
+		}
+		
+		List<Crop> crops = cropDao.findByIds(cropIds);
+		List<CropWrapper> cropWrappers = new ArrayList<CropWrapper>();
+		for (Crop crop : crops) {
+			cropWrappers.add(new CropWrapper(crop));
+		}
+		
+		data.put("crops", cropWrappers);	
+		result.put("respCode", 200);
+		result.put("message", "获取成功");
+		result.put("data", data);
+		return result;
+	}
+	
 	@RequestMapping(value = "/cropSubscriptions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Object getCropSubscriptions(HttpServletRequest request, HttpServletResponse response) throws Exception {

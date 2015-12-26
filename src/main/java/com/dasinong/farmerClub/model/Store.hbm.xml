@@ -45,13 +45,13 @@
 		</property>
 		<property name="status" column="status">
 			<type name="org.hibernate.type.EnumType">
-				<param name="enumClass">com.dasinong.farmerClub.model.StoreStatus</param>
+				<param name="enumClass">com.dasinong.farmerClub.store.StoreStatus</param>
 				<param name="useNamed">false</param>
 			</type>
 		</property>
 		<property name="source" column="source">
 			<type name="org.hibernate.type.EnumType">
-				<param name="enumClass">com.dasinong.farmerClub.model.StoreSource</param>
+				<param name="enumClass">com.dasinong.farmerClub.store.StoreSource</param>
 				<param name="useNamed">false</param>
 			</type>
 		</property>

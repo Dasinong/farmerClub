@@ -1,8 +1,5 @@
 package com.dasinong.farmerClub;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,19 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
-import com.dasinong.farmerClub.dao.IInstitutionDao;
-import com.dasinong.farmerClub.dao.IInstitutionEmployeeApplicationDao;
-import com.dasinong.farmerClub.dao.IUserDao;
-import com.dasinong.farmerClub.dao.IWeatherSubscriptionDao;
-import com.dasinong.farmerClub.exceptions.InvalidParameterException;
-import com.dasinong.farmerClub.exceptions.RequireUserTypeException;
-import com.dasinong.farmerClub.exceptions.UserTypeAlreadyDefinedException;
 import com.dasinong.farmerClub.facade.IInstitutionEmployeeApplicationFacade;
-import com.dasinong.farmerClub.model.Institution;
-import com.dasinong.farmerClub.model.InstitutionEmployeeApplication;
 import com.dasinong.farmerClub.model.User;
-import com.dasinong.farmerClub.model.UserType;
-import com.dasinong.farmerClub.model.WeatherSubscription;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
 
 @Controller

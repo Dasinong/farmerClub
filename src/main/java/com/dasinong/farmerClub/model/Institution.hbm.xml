@@ -15,7 +15,12 @@
         <property name="code" type="string">
             <column name="code" length="20"/>
         </property>
-        
+        <bag name="couponCampaigns" table="couponCampaign" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="institutionId" not-null="true" />
+            </key>
+            <one-to-many class="com.dasinong.farmerClub.model.CouponCampaign"></one-to-many>
+        </bag>
     </class>
 
 </hibernate-mapping>

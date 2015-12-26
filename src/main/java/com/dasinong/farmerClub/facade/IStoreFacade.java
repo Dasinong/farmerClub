@@ -1,7 +1,7 @@
 package com.dasinong.farmerClub.facade;
 
-import com.dasinong.farmerClub.model.StoreSource;
 import com.dasinong.farmerClub.model.User;
+import com.dasinong.farmerClub.store.StoreSource;
 
 public interface IStoreFacade {
 

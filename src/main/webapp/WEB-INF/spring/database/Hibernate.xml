@@ -63,6 +63,9 @@
                <value>/com/dasinong/farmerClub/model/SystemMessage.hbm.xml</value>
                <value>/com/dasinong/farmerClub/model/CropSubscription.hbm.xml</value>
                <value>/com/dasinong/farmerClub/model/ShortMessageRecord.hbm.xml</value>
+               <value>/com/dasinong/farmerClub/model/RetailerStore.hbm.xml</value>
+               <value>/com/dasinong/farmerClub/model/CouponCampaign.hbm.xml</value>
+               <value>/com/dasinong/farmerClub/model/Coupon.hbm.xml</value>
 			</list>
     	</property>	
     </bean>

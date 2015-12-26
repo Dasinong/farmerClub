@@ -13,6 +13,9 @@
         <property name="cropName" type="string">
             <column name="cropName" length="30" not-null="true" unique="true" />
         </property>
+        <property name="iconUrl" type="string">
+            <column name="iconUrl" length="300" />
+        </property>
         <set name="varieties" table="variety" inverse="true" lazy="true" fetch="select">
             <cache usage="read-only"></cache>
         	<key>

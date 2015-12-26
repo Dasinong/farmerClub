@@ -6,11 +6,13 @@ public class CropWrapper {
 	Long cropId;
 	String cropName;
 	String type;
+	String iconUrl;
 
 	public CropWrapper(Crop c) {
 		this.cropId = c.getCropId();
 		this.cropName = c.getCropName();
 		this.type = c.getType();
+		this.iconUrl = c.getIconUrl();
 	}
 
 	public Long getCropId() {

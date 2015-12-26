@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.ContextLoader;
 
+import com.dasinong.farmerClub.coupon.exceptions.CanNotClaimMultipleCouponException;
 import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.exceptions.GenerateAppAccessTokenException;
 import com.dasinong.farmerClub.exceptions.GenerateUserAccessTokenException;
@@ -252,6 +253,19 @@ public class BaseController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("respCode", 1100);
 		result.put("message", "已经关注了该地区得天气");
+		return result;
+	}
+	
+	/**
+	 * Range 2000 - 2500 is reserved for coupon
+	 */
+	@ResponseStatus(value = HttpStatus.OK)
+	@ExceptionHandler(CanNotClaimMultipleCouponException.class)
+	@ResponseBody
+	public Object handleCanNotClaimMultipleCouponException(HttpServletRequest req, Exception exception) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("respCode", 2001);
+		result.put("message", "已经认领过Coupon了");
 		return result;
 	}
 

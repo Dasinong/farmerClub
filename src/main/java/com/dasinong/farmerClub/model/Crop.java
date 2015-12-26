@@ -10,6 +10,7 @@ public class Crop implements Serializable {
 
 	private Long cropId;
 	private String cropName;
+	private String iconUrl;
 	private Set<Variety> varieties = new HashSet<Variety>();
 	private Set<QualityItem> qualityItems = new HashSet<QualityItem>();
 	private Set<PetDisSpec> petDisSpecs = new HashSet<PetDisSpec>();
@@ -38,6 +39,14 @@ public class Crop implements Serializable {
 
 	public void setCropName(String cropName) {
 		this.cropName = cropName;
+	}
+	
+	public String getIconUrl() {
+		return this.iconUrl;
+	}
+	
+	public void setIconUrl(String url) {
+		this.iconUrl = iconUrl;
 	}
 
 	public Set<Variety> getVarieties() {

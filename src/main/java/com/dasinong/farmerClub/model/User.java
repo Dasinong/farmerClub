@@ -2,8 +2,10 @@ package com.dasinong.farmerClub.model;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.dasinong.farmerClub.util.SHA256;
@@ -42,6 +44,8 @@ public class User implements Serializable {
 	private Long institutionId;
 	private String userType;
 	private Boolean isEmployee = false;
+	
+	private List<Coupon> coupons = null;
 
 	public User() {
 	}
@@ -240,4 +244,13 @@ public class User implements Serializable {
 		System.out.println(encryptedPassword);
 		return encryptedPassword.equals(this.getEncryptedPassword());
 	}
+	
+	public List<Coupon> getCoupons() {
+		return this.coupons;
+	}
+	
+	public void setCoupons(List<Coupon> coupons) {
+		this.coupons = coupons;
+	}
+	
 }

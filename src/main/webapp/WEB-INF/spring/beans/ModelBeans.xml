@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -119,4 +120,13 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<bean id="shortMessageRecordDao" class="com.dasinong.farmerClub.dao.ShortMessageRecordDao">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
+    <bean id="retailerStoreDao" class="com.dasinong.farmerClub.dao.RetailerStoreDao">
+        <property name="sessionFactory" ref="mySessionFactory"></property>
+    </bean>
+    <bean id="couponCampaignDao" class="com.dasinong.farmerClub.dao.CouponCampaignDao">
+        <property name="sessionFactory" ref="mySessionFactory"></property>
+    </bean>
+    <bean id="couponDao" class="com.dasinong.farmerClub.dao.CouponDao">
+        <property name="sessionFactory" ref="mySessionFactory"></property>
+    </bean>
 </beans>

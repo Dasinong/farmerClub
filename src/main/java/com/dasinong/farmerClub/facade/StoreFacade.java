@@ -11,10 +11,10 @@ import com.dasinong.farmerClub.dao.IStoreDao;
 import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.exceptions.UserTypeAlreadyDefinedException;
 import com.dasinong.farmerClub.model.Store;
-import com.dasinong.farmerClub.model.StoreSource;
-import com.dasinong.farmerClub.model.StoreStatus;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.model.UserType;
+import com.dasinong.farmerClub.store.StoreSource;
+import com.dasinong.farmerClub.store.StoreStatus;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
 
 @Transactional

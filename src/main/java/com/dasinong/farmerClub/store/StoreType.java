@@ -1,4 +1,4 @@
-package com.dasinong.farmerClub.model;
+package com.dasinong.farmerClub.store;
 
 public class StoreType {
 	public static final int SEED = 0x00000001;

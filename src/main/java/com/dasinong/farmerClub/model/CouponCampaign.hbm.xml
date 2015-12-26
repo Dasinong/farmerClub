@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.CouponCampaign"
+        table="couponCampaign" catalog="farmer_club">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="100" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="3000" />
+        </property>
+        <property name="volume" type="long">
+            <column name="volume" not-null="true" />
+        </property>
+        <property name="unclaimedVolume" type="long">
+            <column name="unclaimedVolume" not-null="true" />
+        </property>
+        <property name="amount" type="long">
+            <column name="amount" />
+        </property>
+        <many-to-one name="institution" class="com.dasinong.farmerClub.model.Institution" fetch="select" lazy="proxy">
+            <column name="institutionId" ></column>
+        </many-to-one>
+        <bag name="coupons" table="coupon" cascade="all" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="campaignId" not-null="false" />
+            </key>
+            <one-to-many class="com.dasinong.farmerClub.model.Coupon"></one-to-many>
+        </bag>
+        <property name="type" column="type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.dasinong.farmerClub.coupon.CouponCampaignType</param>
+                <param name="useNamed">false</param>
+            </type>
+        </property>
+        <property name="claimTimeStart" type="timestamp" column="claimTimeStart" />
+        <property name="claimTimeEnd" type="timestamp" column="claimTimeEnd" />
+        <property name="redeemTimeStart" type="timestamp" column="redeemTimeStart" />
+        <property name="redeemTimeEnd" type="timestamp" column="redeemTimeEnd" />
+        <property name="createdAt" type="timestamp" column="createdAt" />
+        <bag name="retailerStores" table="couponCampaign_retailerStore" inverse="false" lazy="true">
+            <key column = "campaignId"></key>
+            <many-to-many class="com.dasinong.farmerClub.model.RetailerStore" column="storeId"></many-to-many>
+        </bag>
+    </class>
+</hibernate-mapping>

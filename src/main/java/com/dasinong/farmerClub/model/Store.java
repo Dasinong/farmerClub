@@ -7,6 +7,9 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.dasinong.farmerClub.store.StoreSource;
+import com.dasinong.farmerClub.store.StoreStatus;
+
 public class Store implements Serializable {
 
 	private static final long serialVersionUID = 1L;

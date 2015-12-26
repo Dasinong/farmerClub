@@ -1,6 +1,9 @@
 package com.dasinong.farmerClub.model;
 
 import java.io.Serializable;
+import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 public class Institution implements Serializable {
 	
@@ -13,6 +16,7 @@ public class Institution implements Serializable {
 	private Long id;
 	private String name;
 	private String code;
+	private List<CouponCampaign> couponCampaigns = null;
 
 	public Long getId() {
 		return id;
@@ -36,5 +40,13 @@ public class Institution implements Serializable {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+	
+	public List<CouponCampaign> getCouponCampaigns() {
+		return this.couponCampaigns;
+	}
+	
+	public void setCouponCampaigns(List<CouponCampaign> campaigns) {
+		this.couponCampaigns = campaigns;
 	}
 }

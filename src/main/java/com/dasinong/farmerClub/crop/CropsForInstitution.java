@@ -1,4 +1,6 @@
-package com.dasinong.farmerClub.model;
+package com.dasinong.farmerClub.crop;
+
+import com.dasinong.farmerClub.model.Institution;
 
 public class CropsForInstitution {
 	

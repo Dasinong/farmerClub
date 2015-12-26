@@ -9,4 +9,16 @@ public class UserType {
 	public static boolean isValid(String type) {
 		return type.equals(UserType.SALES) || type.equals(UserType.RETAILER) || type.equals(UserType.FARMER);
 	}
+	
+	public static boolean isSales(User user) {
+		return UserType.SALES.equals(user.getUserType());
+	}
+	
+	public static boolean isRetailer(User user) {
+		return UserType.RETAILER.equals(user.getUserType());
+	}
+	
+	public static boolean isFarmer(User user) {
+		return UserType.FARMER.equals(user.getUserType());
+	}
 }

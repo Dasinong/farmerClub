@@ -52,4 +52,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
    <bean id="storeFacade" class="com.dasinong.farmerClub.facade.StoreFacade" >
    </bean>
    
+   <bean id="couponFacade" class="com.dasinong.farmerClub.facade.CouponFacade" >
+   </bean>
+   
 </beans>

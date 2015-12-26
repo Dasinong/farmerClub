@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
+import com.dasinong.farmerClub.crop.CropsForInstitution;
 import com.dasinong.farmerClub.dao.ICropDao;
 import com.dasinong.farmerClub.model.Crop;
-import com.dasinong.farmerClub.model.CropsForInstitution;
 import com.dasinong.farmerClub.outputWrapper.CropWrapper;
 
 @Controller

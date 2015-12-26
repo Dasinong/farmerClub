@@ -20,7 +20,6 @@ import org.springframework.web.context.ContextLoader;
 import com.dasinong.farmerClub.exceptions.InvalidParameterException;
 import com.dasinong.farmerClub.exceptions.ResourceNotFoundException;
 import com.dasinong.farmerClub.facade.IBaiKeFacade;
-import com.dasinong.farmerClub.model.DasinongApp;
 import com.dasinong.farmerClub.outputWrapper.CPProductWrapper;
 import com.dasinong.farmerClub.outputWrapper.FormattedCPProductWrapper;
 import com.dasinong.farmerClub.outputWrapper.PetDisSpecWrapper;
@@ -28,13 +27,12 @@ import com.dasinong.farmerClub.outputWrapper.VarietyWrapper;
 import com.dasinong.farmerClub.util.Env;
 import com.dasinong.farmerClub.util.FullTextSearch;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
-import com.dasinong.farmerClub.viewerContext.ViewerContext;
 
 @Controller
 public class BaiKeController extends BaseController {
 
 	IBaiKeFacade baiKeFacade;
-
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */

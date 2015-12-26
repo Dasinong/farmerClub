@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.Coupon"
+        table="coupon" catalog="farmer_club">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="amount" type="long">
+            <column name="amount" />
+        </property>
+        <many-to-one name="campaign" class="com.dasinong.farmerClub.model.CouponCampaign" fetch="select" lazy="proxy">
+            <column name="campaignId" ></column>
+        </many-to-one>
+        <many-to-one name="scanner" class="com.dasinong.farmerClub.model.User" fetch="select" lazy="proxy">
+            <column name="scannerId" ></column>
+        </many-to-one>
+        <many-to-one name="owner" class="com.dasinong.farmerClub.model.User" fetch="select" lazy="proxy">
+            <column name="ownerId" ></column>
+        </many-to-one>
+        <property name="type" column="type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.dasinong.farmerClub.coupon.CouponCampaignType</param>
+                <param name="useNamed">false</param>
+            </type>
+        </property>
+        <property name="claimedAt" type="timestamp" column="claimedAt" />
+        <property name="redeemedAt" type="timestamp" column="redeemedAt" />
+        <property name="createdAt" type="timestamp" column="createdAt" />
+    </class>
+</hibernate-mapping>
