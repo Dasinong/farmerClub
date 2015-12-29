@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.dasinong.farmerClub.model.PetDisSpec;
-import com.dasinong.farmerClub.model.Task;
 
 public class PetDisSpecDao extends EntityHibernateDao<PetDisSpec>implements IPetDisSpecDao {
 

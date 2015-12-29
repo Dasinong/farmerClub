@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,14 +16,14 @@ import org.springframework.web.context.ContextLoader;
 
 import com.dasinong.farmerClub.facade.ICouponFacade;
 import com.dasinong.farmerClub.model.User;
-import com.dasinong.farmerClub.outputWrapper.CouponCampaignWrapper;
 import com.dasinong.farmerClub.outputWrapper.CouponWrapper;
+import com.dasinong.farmerClub.outputWrapper.GroupedScannedCouponsWrapper;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
 
 @Controller
 public class CouponController extends RequireUserLoginController {
 	
-	@RequestMapping(value = "/claimCoupon", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/claimCoupon", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Object claimCoupon(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -81,7 +80,7 @@ public class CouponController extends RequireUserLoginController {
 		return result;	
 	}
 	
-	@RequestMapping(value = "/getScannedCoupons", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getScannedCouponsGroupByCampaign", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Object getScannedCoupons(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -89,9 +88,9 @@ public class CouponController extends RequireUserLoginController {
 		User user = this.getLoginUser(request);
 		
 		ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
-		List<CouponWrapper> coupons = facade.findCouponsByScannerId(user.getUserId());
+		GroupedScannedCouponsWrapper groupedCoupons = facade.groupScannedCouponsByCampaignId(user.getUserId());
 		
-		data.put("coupons", coupons);
+		data.put("groupedCoupons", groupedCoupons);
 		result.put("respCode", 200);
 		result.put("message", "获取成功");
 		result.put("data", data);

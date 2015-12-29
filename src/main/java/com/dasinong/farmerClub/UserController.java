@@ -1,7 +1,6 @@
 package com.dasinong.farmerClub;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
@@ -10,8 +9,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +22,6 @@ import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.dao.UserDao;
 import com.dasinong.farmerClub.exceptions.InvalidParameterException;
 import com.dasinong.farmerClub.exceptions.MissingParameterException;
-import com.dasinong.farmerClub.exceptions.ResourceNotFoundException;
 import com.dasinong.farmerClub.exceptions.SalesPeopleCannotBeReferredException;
 import com.dasinong.farmerClub.exceptions.UserIsNotLoggedInException;
 import com.dasinong.farmerClub.exceptions.UserTypeAlreadyDefinedException;

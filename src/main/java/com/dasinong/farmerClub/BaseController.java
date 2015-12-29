@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.ContextLoader;
 
+import com.dasinong.farmerClub.coupon.exceptions.CampaignNotInClaimRangeException;
+import com.dasinong.farmerClub.coupon.exceptions.CampaignNotInRedeemRangeException;
 import com.dasinong.farmerClub.coupon.exceptions.CanNotClaimMultipleCouponException;
+import com.dasinong.farmerClub.coupon.exceptions.CouponAlreadyRedeemedException;
+import com.dasinong.farmerClub.coupon.exceptions.NoMoreAvailableCouponException;
 import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.exceptions.GenerateAppAccessTokenException;
 import com.dasinong.farmerClub.exceptions.GenerateUserAccessTokenException;
@@ -159,7 +163,6 @@ public class BaseController {
 	public Object hanleInvalidParameterException(HttpServletRequest req, InvalidParameterException exception) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, String> errorData = exception.getParams();
-		exception.printStackTrace();
 		result.put("respCode", 301);
 		result.put("message", "参数不正确");
 		result.put("data", errorData);
@@ -268,6 +271,46 @@ public class BaseController {
 		result.put("message", "已经认领过Coupon了");
 		return result;
 	}
+	
+	@ResponseStatus(value = HttpStatus.OK)
+	@ExceptionHandler(CampaignNotInClaimRangeException.class)
+	@ResponseBody
+	public Object handleCampaignNotInClaimRangeException(HttpServletRequest req, Exception exception) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("respCode", 2002);
+		result.put("message", "不在Coupon的认领时间");
+		return result;
+	}
+	
+	@ResponseStatus(value = HttpStatus.OK)
+	@ExceptionHandler(NoMoreAvailableCouponException.class)
+	@ResponseBody
+	public Object handleNoMoreAvailableCouponException(HttpServletRequest req, Exception exception) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("respCode", 2003);
+		result.put("message", "Campaign的Coupon领完了");
+		return result;
+	}
+	
+	@ResponseStatus(value = HttpStatus.OK)
+	@ExceptionHandler(CouponAlreadyRedeemedException.class)
+	@ResponseBody
+	public Object handleCouponAlreadyRedeemedException(HttpServletRequest req, Exception exception) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("respCode", 2101);
+		result.put("message", "Coupon已经Redeem了");
+		return result;
+	}
+	
+	@ResponseStatus(value = HttpStatus.OK)
+	@ExceptionHandler(CampaignNotInRedeemRangeException.class)
+	@ResponseBody
+	public Object handleCampaignNotInRedeemRangeException(HttpServletRequest req, Exception exception) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("respCode", 2102);
+		result.put("message", "不在coupon的兑换时间");
+		return result;
+	}
 
 	/**
 	 * This catches every exception and returns 500 which means uncaught
@@ -278,6 +321,7 @@ public class BaseController {
 	@ResponseBody
 	public Object handleError(HttpServletRequest req, Exception exception) {
 		logger.error("Unknown Exception: ", exception);
+		exception.printStackTrace();
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> errorData = new HashMap<String, Object>();

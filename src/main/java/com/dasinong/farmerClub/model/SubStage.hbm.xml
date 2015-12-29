@@ -16,24 +16,17 @@
         <property name="stageName" type="string">
             <column name="stageName" length="30" not-null="true" />
         </property>
-        <set name="varieties" table="variety_subStage" cascade="all" inverse="false" lazy="false" fetch="join">
+        <set name="crops" table="crop_subStage" cascade="all" inverse="false" lazy="true" fetch="select">
             <cache usage="read-only"></cache>
         	<key column = "subStageId"></key>
-        	<many-to-many class="com.dasinong.farmerClub.model.Variety" column="varietyId"></many-to-many>
+        	<many-to-many class="com.dasinong.farmerClub.model.Crop" column="cropId"></many-to-many>
         </set>
-        <set name="natDisSpecs" table="subStage_natDisSpec" cascade="all" inverse="false" lazy="false">
-            <cache usage="read-only"></cache>
-        	<key column = "subStageId"></key>
-        	<many-to-many class="com.dasinong.farmerClub.model.NatDisSpec" column="natDisSpecId"></many-to-many>
-        </set>
-        <set name="petDisSpecs" table="subStage_petDisSpec" cascade="all" inverse="false" lazy="false">
-            <cache usage="read-only"></cache>
-        	<key column = "subStageId"></key>
+        <set name="petDisSpecs" table="subStage_petDisSpec" cascade="all" inverse="false" lazy="true">
+            <key column = "subStageId"></key>
         	<many-to-many class="com.dasinong.farmerClub.model.PetDisSpec" column="petDisSpecId"></many-to-many>
         </set>
-        <set name="taskSpecs" table="taskSpec" inverse="false" lazy="false" fetch="select">
-            <cache usage="read-only"></cache>
-        	<key>
+        <set name="taskSpecs" table="taskSpec" inverse="false" fetch="select" order-by="taskSpecId ASC">
+            <key>
         		<column name="subStageId" not-null="true" />
         	</key>
         	<one-to-many class="com.dasinong.farmerClub.model.TaskSpec"></one-to-many>

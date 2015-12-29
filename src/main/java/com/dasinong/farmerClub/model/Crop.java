@@ -12,9 +12,9 @@ public class Crop implements Serializable {
 	private String cropName;
 	private String iconUrl;
 	private Set<Variety> varieties = new HashSet<Variety>();
+	private Set<SubStage> subStages = new HashSet<SubStage>();
 	private Set<QualityItem> qualityItems = new HashSet<QualityItem>();
 	private Set<PetDisSpec> petDisSpecs = new HashSet<PetDisSpec>();
-	private Set<NatDisSpec> natDisSpecs = new HashSet<NatDisSpec>();
 
 	private String type = "";
 
@@ -46,7 +46,7 @@ public class Crop implements Serializable {
 	}
 	
 	public void setIconUrl(String url) {
-		this.iconUrl = iconUrl;
+		this.iconUrl = url;
 	}
 
 	public Set<Variety> getVarieties() {
@@ -64,6 +64,14 @@ public class Crop implements Serializable {
 	public void setQualityItems(Set<QualityItem> qualityItems) {
 		this.qualityItems = qualityItems;
 	}
+	
+	public void setSubStages(Set<SubStage> subStages) {
+		this.subStages = subStages;
+	}
+
+	public Set<SubStage> getSubStages() {
+		return subStages;
+	}
 
 	public Set<PetDisSpec> getPetDisSpecs() {
 		return petDisSpecs;
@@ -71,14 +79,6 @@ public class Crop implements Serializable {
 
 	public void setPetDisSpecs(Set<PetDisSpec> petDisSpecs) {
 		this.petDisSpecs = petDisSpecs;
-	}
-
-	public Set<NatDisSpec> getNatDisSpecs() {
-		return natDisSpecs;
-	}
-
-	public void setNatDisSpecs(Set<NatDisSpec> natDisSpecs) {
-		this.natDisSpecs = natDisSpecs;
 	}
 
 	public String getType() {

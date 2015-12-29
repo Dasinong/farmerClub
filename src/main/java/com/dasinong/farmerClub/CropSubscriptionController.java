@@ -20,9 +20,10 @@ import com.dasinong.farmerClub.crop.CropsForInstitution;
 import com.dasinong.farmerClub.crop.CropsWithSubstage;
 import com.dasinong.farmerClub.dao.ICropDao;
 import com.dasinong.farmerClub.dao.ICropSubscriptionDao;
-
 import com.dasinong.farmerClub.exceptions.ResourceNotFoundException;
+import com.dasinong.farmerClub.facade.ICropFacade;
 import com.dasinong.farmerClub.model.User;
+import com.dasinong.farmerClub.outputWrapper.CropSubscriptionWrapper;
 import com.dasinong.farmerClub.outputWrapper.CropWrapper;
 import com.dasinong.farmerClub.model.Crop;
 import com.dasinong.farmerClub.model.CropSubscription;
@@ -39,7 +40,7 @@ public class CropSubscriptionController extends RequireUserLoginController {
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		
 		User user = this.getLoginUser(request);
-		Long instId = user.getInstitutionId();
+		long instId = user.getInstitutionId();
 		Long[] cropIds = null;
 		if (instId > 0) {
 			cropIds = CropsForInstitution.getIds(instId);
@@ -60,35 +61,33 @@ public class CropSubscriptionController extends RequireUserLoginController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/cropSubscriptions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getCropSubscriptions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Object getCropSubscriptions(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		
 		User user = this.getLoginUser(request);
-
-		ICropSubscriptionDao cropSubsDao = (ICropSubscriptionDao) ContextLoader
-				.getCurrentWebApplicationContext().getBean("cropSubscriptionDao");
-
-		List<CropSubscription> subs = cropSubsDao.findByUserId(user.getUserId());
+		ICropFacade facade = (ICropFacade) ContextLoader.getCurrentWebApplicationContext().getBean("cropFacade");
+		List<CropSubscriptionWrapper> wrappers = facade.getCropSubscriptions(user.getUserId());
 		
-		data.put("subscriptions", subs);	
+		data.put("subscriptions", wrappers);	
 		result.put("respCode", 200);
 		result.put("message", "获取成功");
 		result.put("data", data);
 		return result;
 	}
 	
-	@RequestMapping(value = "/cropSubscriptions/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getCropSubscription", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Object getCropSubscription(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable Long id) throws Exception {
+	public Object getCropSubscription(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> data = new HashMap<String, Object>();
+		HttpServletRequestX requestX = new HttpServletRequestX(request);
 		
 		User user = this.getLoginUser(request);
-
+		Long id = requestX.getLong("id");
+		
 		ICropSubscriptionDao cropSubsDao = (ICropSubscriptionDao) ContextLoader
 				.getCurrentWebApplicationContext().getBean("cropSubscriptionDao");
 
@@ -104,18 +103,21 @@ public class CropSubscriptionController extends RequireUserLoginController {
 		return result;
 	}
 
-	@RequestMapping(value = "/cropSubscriptions/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/deleteCropSubscription", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Object deleteCropSubscription(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable Long id) throws Exception {
+	public Object deleteCropSubscription(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpServletRequestX requestX = new HttpServletRequestX(request);
 		Map<String, Object> result = new HashMap<String, Object>();
 		User user = this.getLoginUser(request);
 
+		Long id = requestX.getLong("id");
 		ICropSubscriptionDao cropSubsDao = (ICropSubscriptionDao) ContextLoader
 				.getCurrentWebApplicationContext().getBean("cropSubscriptionDao");
 
 		CropSubscription subs = cropSubsDao.findById(id);
-		if (subs == null || subs.getUserId() != user.getUserId()) {
+		System.out.println(subs.getId());
+		System.out.println(subs.getUserId() + " VS " + user.getUserId());
+		if (subs == null || !subs.getUserId().equals(user.getUserId())) {
 			throw new ResourceNotFoundException(id, "CropSubscription");
 		}
 

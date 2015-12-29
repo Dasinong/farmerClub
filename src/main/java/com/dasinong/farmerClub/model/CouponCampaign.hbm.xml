@@ -16,6 +16,9 @@
         <property name="description" type="string">
             <column name="description" length="3000" />
         </property>
+        <property name="pictureUrl" type="string">
+            <column name="pictureUrl" length="1000" />
+        </property>
         <property name="volume" type="long">
             <column name="volume" not-null="true" />
         </property>
@@ -47,7 +50,7 @@
         <property name="createdAt" type="timestamp" column="createdAt" />
         <bag name="retailerStores" table="couponCampaign_retailerStore" inverse="false" lazy="true">
             <key column = "campaignId"></key>
-            <many-to-many class="com.dasinong.farmerClub.model.RetailerStore" column="storeId"></many-to-many>
+            <many-to-many class="com.dasinong.farmerClub.model.Store" column="storeId"></many-to-many>
         </bag>
     </class>
 </hibernate-mapping>

@@ -6,13 +6,12 @@ import java.util.List;
 import org.springframework.web.context.ContextLoader;
 
 import com.dasinong.farmerClub.coupon.exceptions.CouponCampaignInvalidParameterException;
-import com.dasinong.farmerClub.coupon.exceptions.CouponCampaignNotFoundException;
 import com.dasinong.farmerClub.dao.ICouponCampaignDao;
 import com.dasinong.farmerClub.dao.ICouponDao;
 import com.dasinong.farmerClub.model.Coupon;
 import com.dasinong.farmerClub.model.CouponCampaign;
 import com.dasinong.farmerClub.model.Institution;
-import com.dasinong.farmerClub.model.RetailerStore;
+import com.dasinong.farmerClub.model.Store;
 
 public class CouponCampaignMutator {
 	
@@ -24,7 +23,7 @@ public class CouponCampaignMutator {
 	private String description = null;
 	private long volume = -1L;
 	private Institution institution = null;
-	private List<RetailerStore> stores = null;
+	private List<Store> stores = null;
 	private CouponCampaignType type = null;
 	private Timestamp claimTimeStart = null;
 	private Timestamp claimTimeEnd = null;
@@ -36,6 +35,11 @@ public class CouponCampaignMutator {
 	public CouponCampaignMutator() {
 		this.couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
 		this.campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
+	}
+	
+	public CouponCampaignMutator(ICouponDao couponDao, ICouponCampaignDao campaignDao) {
+		this.couponDao = couponDao;
+		this.campaignDao = campaignDao;
 	}
 	
 	public CouponCampaignMutator(CouponCampaign campaign) {
@@ -108,7 +112,7 @@ public class CouponCampaignMutator {
 		return this;
 	}
 	
-	public CouponCampaignMutator setRetailerStores(List<RetailerStore> stores) {
+	public CouponCampaignMutator setRetailerStores(List<Store> stores) {
 		this.stores = stores;
 		return this;
 	}
@@ -168,7 +172,6 @@ public class CouponCampaignMutator {
 		
 		// TODO: batch insert
 		for (int i=0; i<volume;i++) {
-			System.out.println("inserting " + i + " coupon");
 			Coupon coupon = new Coupon();
 			coupon.setCampaign(campaign);
 			coupon.setAmount(amount);

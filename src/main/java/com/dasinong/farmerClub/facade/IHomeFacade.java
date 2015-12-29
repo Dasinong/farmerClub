@@ -10,6 +10,6 @@ public interface IHomeFacade {
 
 	public abstract Object LoadHome(double lat, double lon);
 
-	Object LoadHome(User user, Long fieldId, int taskType);
+	Object LoadHome(User user, Long fieldId);
 
 }

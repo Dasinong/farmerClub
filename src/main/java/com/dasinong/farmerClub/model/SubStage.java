@@ -10,8 +10,7 @@ public class SubStage implements Serializable, Comparable<SubStage> {
 	private Long subStageId;
 	private String subStageName;
 	private String stageName;
-	private Set<Variety> varieties = new HashSet<Variety>();
-	private Set<NatDisSpec> natDisSpecs = new HashSet<NatDisSpec>();
+	private Set<Crop> crops = new HashSet<Crop>();
 	private Set<PetDisSpec> petDisSpecs = new HashSet<PetDisSpec>();
 	private Set<TaskSpec> taskSpecs = new HashSet<TaskSpec>();
 
@@ -80,12 +79,12 @@ public class SubStage implements Serializable, Comparable<SubStage> {
 		this.stageName = stageName;
 	}
 
-	public Set<Variety> getVarieties() {
-		return varieties;
+	public Set<Crop> getCrops() {
+		return crops;
 	}
 
-	public void setVarieties(Set<Variety> varieties) {
-		this.varieties = varieties;
+	public void setCrops(Set<Crop> crops) {
+		this.crops = crops;
 	}
 
 	public Set<TaskSpec> getTaskSpecs() {
@@ -94,14 +93,6 @@ public class SubStage implements Serializable, Comparable<SubStage> {
 
 	public void setTaskSpecs(Set<TaskSpec> taskSpecs) {
 		this.taskSpecs = taskSpecs;
-	}
-
-	public Set<NatDisSpec> getNatDisSpecs() {
-		return natDisSpecs;
-	}
-
-	public void setNatDisSpecs(Set<NatDisSpec> natDisSpecs) {
-		this.natDisSpecs = natDisSpecs;
 	}
 
 	public Set<PetDisSpec> getPetDisSpecs() {

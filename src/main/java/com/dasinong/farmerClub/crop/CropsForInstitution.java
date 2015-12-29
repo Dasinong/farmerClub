@@ -27,9 +27,10 @@ public class CropsForInstitution {
 	public static Long[] getIdsForBasf() {
 		// 香蕉和葡萄
 		if (basfCropIds == null) {
-			basfCropIds = new Long[2];
+			basfCropIds = new Long[3];
 			basfCropIds[0] = 34L;
 			basfCropIds[1] = 231L;
+			basfCropIds[2] = 78L;
 		}
 		
 		return basfCropIds;

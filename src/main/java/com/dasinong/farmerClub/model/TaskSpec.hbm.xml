@@ -13,10 +13,10 @@
         <property name="taskSpecName" type="string">
             <column name="taskSpecName" length="30" not-null="true" unique="true" />
         </property>
-        <many-to-one name="subStage" class="com.dasinong.farmerClub.model.SubStage" fetch="select">
+        <many-to-one name="subStage" class="com.dasinong.farmerClub.model.SubStage" fetch="select" lazy="proxy">
         	<column name="subStageId" not-null="true"></column>
         </many-to-one>
-        <list name="steps" table="step" cascade="all" fetch="select">
+        <list name="steps" table="step" cascade="all" fetch="select" >
        		<cache usage="read-only"></cache>
         	<key>
         		<column name="taskSpecId" not-null="true" />

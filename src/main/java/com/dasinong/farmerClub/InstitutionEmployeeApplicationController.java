@@ -15,6 +15,13 @@ import com.dasinong.farmerClub.facade.IInstitutionEmployeeApplicationFacade;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
 
+/**
+ * 
+ * @author xiahonggao
+ *
+ * ios删掉这个api调用后，就可以删除这个Controller了
+ */
+
 @Controller
 public class InstitutionEmployeeApplicationController extends RequireUserLoginController {
 

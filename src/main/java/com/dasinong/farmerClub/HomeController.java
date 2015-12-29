@@ -48,18 +48,7 @@ public class HomeController extends BaseController {
 			return hf.LoadHome(lat, lon);
 		}
 
-		// 是否加载a.全部任务 b.当前阶段任务 c.不加在任务
-		String taskLoadType = requestX.getString("task");
-		if (taskLoadType == null || taskLoadType.equals("")) {
-			return hf.LoadHome(user, fId, 1);
-		} else if (taskLoadType.equals("all")) {
-			return hf.LoadHome(user, fId, 1);
-		} else if (taskLoadType.equals("currentStage")) {
-			return hf.LoadHome(user, fId, 2);
-		} else if (taskLoadType.equals("none")) {
-			return hf.LoadHome(user, fId, 3);
-		}
-		return hf.LoadHome(user, fId, 1);
+		return hf.LoadHome(user, fId);
 	}
 
 	// TODO (xiahonggao): deprecate /getLaoNong and use /laonongs instead

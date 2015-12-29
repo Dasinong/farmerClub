@@ -14,15 +14,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<bean id="locationDao" class="com.dasinong.farmerClub.dao.LocationDao">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
-	<bean id="natDisDao" class="com.dasinong.farmerClub.dao.NatDisDao">
-		<property name="sessionFactory" ref="mySessionFactory"></property>
-	</bean>
-	<bean id="natDisSpecDao" class="com.dasinong.farmerClub.dao.NatDisSpecDao">
-		<property name="sessionFactory" ref="mySessionFactory"></property>
-	</bean>
-	<bean id="petDisDao" class="com.dasinong.farmerClub.dao.PetDisDao">
-		<property name="sessionFactory" ref="mySessionFactory"></property>
-	</bean>
 	<bean id="petDisSpecDao" class="com.dasinong.farmerClub.dao.PetDisSpecDao">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
@@ -39,9 +30,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
 	<bean id="subStageDao" class="com.dasinong.farmerClub.dao.SubStageDao">
-		<property name="sessionFactory" ref="mySessionFactory"></property>
-	</bean>
-	<bean id="taskDao" class="com.dasinong.farmerClub.dao.TaskDao">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
 	<bean id="taskSpecDao" class="com.dasinong.farmerClub.dao.TaskSpecDao">
@@ -120,9 +108,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<bean id="shortMessageRecordDao" class="com.dasinong.farmerClub.dao.ShortMessageRecordDao">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
-    <bean id="retailerStoreDao" class="com.dasinong.farmerClub.dao.RetailerStoreDao">
-        <property name="sessionFactory" ref="mySessionFactory"></property>
-    </bean>
     <bean id="couponCampaignDao" class="com.dasinong.farmerClub.dao.CouponCampaignDao">
         <property name="sessionFactory" ref="mySessionFactory"></property>
     </bean>

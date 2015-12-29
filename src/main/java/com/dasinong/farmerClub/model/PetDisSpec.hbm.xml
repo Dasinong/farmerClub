@@ -5,7 +5,6 @@
 
 <hibernate-mapping>
     <class name="com.dasinong.farmerClub.model.PetDisSpec" table="petDisSpec" catalog="farmer_club">
-   		<cache usage="read-only"></cache>
         <id name="petDisSpecId" type="java.lang.Long">
             <column name="petDisSpecId" />
             <generator class="identity" />
@@ -15,7 +14,6 @@
         </property>
 
         <set name="subStages" table="subStage_petDisSpec" cascade="all" inverse="true">
-            <cache usage="read-only"></cache>
         	<key column = "petDisSpecId"></key>
         	<many-to-many class="com.dasinong.farmerClub.model.SubStage" column="SubStageId"></many-to-many>
         </set>
@@ -24,13 +22,11 @@
         	<many-to-many class="com.dasinong.farmerClub.model.Location" column="LocationId"></many-to-many>
         </set>
         <set name="crops" table="crop_petDisSpec" cascade="all" inverse="true">
-            <cache usage="read-only"></cache>
         	<key column = "petDisSpecId"></key>
         	<many-to-many class="com.dasinong.farmerClub.model.Crop" column="cropId"></many-to-many>
         </set>
         
-        <set name="petSolus" table="petSolu" inverse="false" cascade="all" lazy="false" fetch="select">
-            <cache usage="read-only"></cache>
+        <set name="petSolus" table="petSolu" inverse="false" cascade="all" lazy="true" fetch="select">
         	<key>
         		<column name="petDisSpecId" not-null="true" />
         	</key>

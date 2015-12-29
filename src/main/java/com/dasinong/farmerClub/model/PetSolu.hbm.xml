@@ -16,9 +16,8 @@
         <many-to-one name="petDisSpec" class="com.dasinong.farmerClub.model.PetDisSpec" fetch="select">
         	<column name="petDisSpecId" not-null="true"></column>
         </many-to-one>
-        <set name="cPProducts" table="petSolu_CPProduct" cascade="all" inverse="false" lazy="false">
-            <cache usage="read-only"></cache>
-        	<key column = "petSoluId"></key>
+        <set name="cPProducts" table="petSolu_CPProduct" cascade="all" inverse="false" lazy="true">
+            <key column = "petSoluId"></key>
         	<many-to-many class="com.dasinong.farmerClub.model.CPProduct" column="cPProductId"></many-to-many>
         </set>
         

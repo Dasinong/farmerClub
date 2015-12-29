@@ -51,13 +51,13 @@ public class ViewerContextInitializer extends HandlerInterceptorAdapter {
 		}
 	
 		// Set version if any
-		Integer version = requestX.getIntOptional("version", null);
+		String version = requestX.getStringOptional("version", null);
 		if (version != null) {
 			viewerContext.setVersion(version);
 		}
 
 		String token = requestX.getStringOptional("accessToken", null);
-
+		
 		// initialize viewer context from session
 		if (token == null || "".equals(token)) {
 			// TODO (xiahonggao): deprecate session
@@ -97,6 +97,7 @@ public class ViewerContextInitializer extends HandlerInterceptorAdapter {
 
 			manager.renew(accessToken);
 		} catch (InvalidUserAccessTokenException ex) {
+			ex.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			return false;
 		} catch (UserAccessTokenExpiredException ex) {

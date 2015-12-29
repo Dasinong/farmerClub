@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +16,6 @@ import org.springframework.web.context.ContextLoader;
 
 import com.dasinong.farmerClub.dao.LocationDao;
 import com.dasinong.farmerClub.datapool.AllMonitorLocation;
-import com.dasinong.farmerClub.exceptions.InvalidParameterException;
 import com.dasinong.farmerClub.exceptions.UnexpectedLatAndLonException;
 import com.dasinong.farmerClub.model.Location;
 import com.dasinong.farmerClub.model.User;

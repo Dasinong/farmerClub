@@ -22,10 +22,11 @@ public class GateKeeperController extends BaseController {
 		int appId = requestX.getInt("appId");
 		HashMap<String, Object> gatekeepers = new HashMap<String, Object>();
 		
-		if (appId == DasinongApp.IOS_FARM_LOG) {
+		// Temporary change
+		// if (appId == DasinongApp.IOS_FARM_LOG) {
 			gatekeepers.put("qqLogin", false);
 			gatekeepers.put("weixinLogin", false);
-		}
+		//}
 		
 		return gatekeepers;
 	}

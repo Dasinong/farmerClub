@@ -48,13 +48,6 @@ public class CouponWrapper {
 		this.claimedAt = coupon.getClaimedAt();
 		this.redeemedAt = coupon.getRedeemedAt();
 		this.createdAt = coupon.getCreatedAt();
-		
-		if (coupon.isRedeemed()) {
-			this.displayStatus = CouponDisplayStatus.USED;
-		} else if (coupon.canBeRedeemed()) {
-			this.displayStatus = CouponDisplayStatus.NOT_USED;
-		} else {
-			this.displayStatus = CouponDisplayStatus.EXPIRED;
-		}
+		this.displayStatus = coupon.getDisplayStatus();
 	}
 }

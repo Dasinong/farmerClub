@@ -7,15 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
-import com.dasinong.farmerClub.exceptions.InvalidParameterException;
-import com.dasinong.farmerClub.exceptions.MissingParameterException;
 import com.dasinong.farmerClub.facade.ISoilFacade;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.util.HttpServletRequestX;

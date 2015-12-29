@@ -70,7 +70,7 @@ public class SMS {
 			smr.setData(data);
 			smr.setStatus(ShortMessageStatus.PENDING);
 			smr.setSenderId(message.getSenderId());
-			smr.setReceivers(message.getReceivers());
+			smr.setReceivers(StringUtils.join(",", message.getReceivers()));
 			smrDao.save(smr);
 		}
 
@@ -117,7 +117,7 @@ public class SMS {
 					smr.setData(data);
 					smr.setStatus(ShortMessageStatus.PENDING);
 					smr.setSenderId(message.getSenderId());
-					smr.setReceivers(new String[] { receiver });
+					smr.setReceivers(receiver);
 					smrDao.save(smr);
 				}
 

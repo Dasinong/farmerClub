@@ -1,7 +1,5 @@
 package com.dasinong.farmerClub.viewerContext;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.dasinong.farmerClub.model.DasinongApp;
 
 public class ViewerContext {
@@ -11,7 +9,7 @@ public class ViewerContext {
 	private Long userId = null;
 	private Long appId = null;
 	private String deviceId = null;
-	private Integer version = null;
+	private String version = null;
 
 	public ViewerContext() {
 	}
@@ -28,7 +26,7 @@ public class ViewerContext {
 		this.deviceId = deviceId;
 	}
 	
-	public void setVersion(Integer version) {
+	public void setVersion(String version) {
 		this.version = version;
 	}
 
@@ -40,7 +38,7 @@ public class ViewerContext {
 		return this.appId;
 	}
 	
-	public Integer getVersion() {
+	public String getVersion() {
 		return this.version;
 	}
 

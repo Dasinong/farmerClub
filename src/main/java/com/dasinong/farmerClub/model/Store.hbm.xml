@@ -22,9 +22,9 @@
 		<property name="contactName" type="string">
 			<column name="contactName" length="3000" />
 		</property>
-		<property name="locationId" type="long">
-			<column name="locationId" not-null="true" />
-		</property>
+		<many-to-one name="location" class="com.dasinong.farmerClub.model.Location" fetch="select">
+            <column name="locationId" not-null="true"></column>
+        </many-to-one>
 		<property name="streetAndNumber" type="string">
 			<column name="streetAndNumber" length="300" />
 		</property>

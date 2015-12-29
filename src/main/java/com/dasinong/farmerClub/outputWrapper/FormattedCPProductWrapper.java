@@ -42,8 +42,8 @@ public class FormattedCPProductWrapper {
 	public String specification = "";
 	public String description = "";
 	public String feature = "";
-	public String pictureUrl = "";
 	public int priority;
+	public String[] pictures = null;
 	public String[] activeIngredient = null;
 	public String[] activeIngredientUsage = null;
 	public FormattedCPProductInstruction[] instructions = null;
@@ -57,7 +57,7 @@ public class FormattedCPProductWrapper {
 		this.specification = cp.getSpecification();
 		this.feature = cp.getFeature();
 		this.description = cp.getDescription();
-		this.pictureUrl = cp.getPictureUrl();
+		this.pictures = cp.getPictures();
 		
 		// TODO: 这是个不对的设计，guideline不应该有多种解析方式
 		if (cp.getPriority() != CPProductPriority.BASF) {

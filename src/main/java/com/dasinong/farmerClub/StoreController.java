@@ -28,7 +28,7 @@ import com.dasinong.farmerClub.util.HttpServletRequestX;
 @Controller
 public class StoreController extends RequireUserLoginController {
 
-	@RequestMapping(value = "/stores", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/stores", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Object reorderWeatherSubscriptions(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {

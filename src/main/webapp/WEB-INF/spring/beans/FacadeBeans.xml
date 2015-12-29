@@ -19,9 +19,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
    <bean id="disasterReportFacade" class="com.dasinong.farmerClub.facade.DisasterReportFacade" >
    </bean>
    
-   <bean id="taskFacade" class="com.dasinong.farmerClub.facade.TaskFacade" >
-   </bean>
-   
    <bean id="varietyFacade" class="com.dasinong.farmerClub.facade.VarietyFacade" >
    </bean>
    
@@ -55,4 +52,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
    <bean id="couponFacade" class="com.dasinong.farmerClub.facade.CouponFacade" >
    </bean>
    
+   <bean id="cropFacade" class="com.dasinong.farmerClub.facade.CropFacade" >
+   </bean>
 </beans>

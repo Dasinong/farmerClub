@@ -10,7 +10,6 @@ public class Location implements Serializable {
 
 	private Long locationId;
 	private Set<Field> fields = new HashSet<Field>();
-	private Set<NatDisSpec> natDisSpecs = new HashSet<NatDisSpec>();
 	private Set<PetDisSpec> petDisSpecs = new HashSet<PetDisSpec>();
 
 	private String region;
@@ -52,14 +51,6 @@ public class Location implements Serializable {
 
 	public void setFields(Set<Field> fields) {
 		this.fields = fields;
-	}
-
-	public Set<NatDisSpec> getNatDisSpecs() {
-		return natDisSpecs;
-	}
-
-	public void setNatDisSpecs(Set<NatDisSpec> natDisSpecs) {
-		this.natDisSpecs = natDisSpecs;
 	}
 
 	public Set<PetDisSpec> getPetDisSpecs() {

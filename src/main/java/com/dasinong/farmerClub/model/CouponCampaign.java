@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
 import com.dasinong.farmerClub.coupon.CouponCampaignType;
 
 public class CouponCampaign {
@@ -14,6 +12,7 @@ public class CouponCampaign {
 	private long id;
 	private String name;
 	private String description;
+	private String pictureUrl;
 	private long volume;
 	private long unclaimedVolume;
 	private long amount;
@@ -26,7 +25,7 @@ public class CouponCampaign {
 	
 	private Institution institution;
 	private List<Coupon> coupons = new ArrayList<Coupon>();
-	private List<RetailerStore> retailerStores = new ArrayList<RetailerStore>();
+	private List<Store> retailerStores = new ArrayList<Store>();
 	
 	public CouponCampaign() {}
 	
@@ -52,6 +51,14 @@ public class CouponCampaign {
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public String getPictureUrl() {
+		return this.pictureUrl;
+	}
+	
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
 	}
 	
 	public long getVolume() {
@@ -142,11 +149,11 @@ public class CouponCampaign {
 		this.coupons = coupons;
 	}
 	
-	public List<RetailerStore> getRetailerStores() {
+	public List<Store> getRetailerStores() {
 		return this.retailerStores;
 	}
 	
-	public void setRetailerStores(List<RetailerStore> stores) {
+	public void setRetailerStores(List<Store> stores) {
 		this.retailerStores = stores;
 	}
 	

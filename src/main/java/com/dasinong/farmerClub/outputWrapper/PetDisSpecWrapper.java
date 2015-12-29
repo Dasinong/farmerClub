@@ -15,7 +15,6 @@ public class PetDisSpecWrapper {
 	String habbit = "";
 	String rule = "";
 	String[] imagesPath = null;
-	String imagePath = null; // for backward compatibility
 	private String type = "";
 	private int severity;
 	private List<PetSoluWrapper> solutions = null;
@@ -30,7 +29,6 @@ public class PetDisSpecWrapper {
 		this.habbit = p.getHabits();
 		this.rule = p.getRules();
 		this.imagesPath = p.getPictureIdsArray();
-		this.imagePath = p.getPictureIds();
 		this.setType(p.getType());
 
 		this.solutions = new ArrayList<PetSoluWrapper>();
@@ -95,14 +93,6 @@ public class PetDisSpecWrapper {
 
 	public void setImagePath(String[] imagesPath) {
 		this.imagesPath = imagesPath;
-	}
-	
-	public String getImagePath() {
-		return imagePath;
-	}
-	
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
 	}
 
 	public String getPetDisSpecName() {

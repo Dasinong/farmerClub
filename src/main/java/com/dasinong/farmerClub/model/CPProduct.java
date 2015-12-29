@@ -31,12 +31,13 @@ public class CPProduct implements Serializable {
 	private String feature;
 	private String specification;
 	private String pictureUrl;
+	private String pictures;
 
 	public CPProduct() {
 	}
 
 	public CPProduct(String cPProductName, String activeIngredient, String type, String crop, String disease,
-			String volume, String guideline, String tip, Integer priority, String telephone) {
+			String volume, String guideline, String tip, Integer priority, String telephone, String pictureUrl) {
 		super();
 		this.cPProductName = cPProductName;
 		this.activeIngredient = activeIngredient;
@@ -48,6 +49,7 @@ public class CPProduct implements Serializable {
 		this.tip = tip;
 		this.priority = priority;
 		this.telephone = telephone;
+		this.pictureUrl = pictureUrl;
 	}
 
 	public Long getcPProductId() {
@@ -224,5 +226,9 @@ public class CPProduct implements Serializable {
 	
 	public void setPictureUrl(String pictureUrl) {
 		this.pictureUrl = pictureUrl;
+	}
+	
+	public String[] getPictures() {
+		return this.pictureUrl.split("\n");
 	}
 }

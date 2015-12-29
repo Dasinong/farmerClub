@@ -1,10 +1,12 @@
 package com.dasinong.farmerClub.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import com.dasinong.farmerClub.coupon.CouponCampaignType;
+import com.dasinong.farmerClub.coupon.CouponDisplayStatus;
 
 public class Coupon {
 
@@ -106,6 +108,21 @@ public class Coupon {
 	
 	public boolean canBeRedeemed() {
 		return !this.isRedeemed() && this.campaign.isInRedeemTimeRange();
+	}
+	
+	public CouponDisplayStatus getDisplayStatus() {
+		if (this.isRedeemed()) {
+			return CouponDisplayStatus.USED;
+		} else if (this.isClaimed()) {
+			Timestamp current = new Timestamp((new Date()).getTime());
+			if (current.after(this.campaign.getRedeemTimeEnd())) {
+				return CouponDisplayStatus.EXPIRED;
+			} else {
+				return CouponDisplayStatus.NOT_USED;
+			}
+		} else {
+			return CouponDisplayStatus.UNCLAIMED;
+		}
 	}
 
 }

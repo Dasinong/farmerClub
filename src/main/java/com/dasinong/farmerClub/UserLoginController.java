@@ -158,6 +158,8 @@ public class UserLoginController extends BaseController {
 
 		User user = this.getLoginUser(request);
 		if (user != null) {
+			System.out.println("LOGGED IN USER");
+			System.out.println(user.getUserId());
 			result.put("respCode", 200);
 			result.put("message", "已经登录");
 			UserWrapper userWrapper = new UserWrapper(user);

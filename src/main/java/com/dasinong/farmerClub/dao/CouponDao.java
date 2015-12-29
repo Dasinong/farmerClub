@@ -52,15 +52,6 @@ public class CouponDao extends EntityHibernateDao<Coupon>implements ICouponDao {
 			return null;
 		}
 		return coupons.get(0);
-		/*List<Coupon> coupons = this.getHibernateTemplate().executeFind(new HibernateCallback() {
-			public Object doInHibernate(Session session) throws HibernateException {
-				return session.createQuery("from Coupon where campaignId = :campaignId and ownerId is null order by rand()")
-						.setParameter("campaignId", campaignId)
-						.setMaxResults(1)
-						.list();	
-			}
-		});
-		return coupons.get(0);*/
 	}
 
 }

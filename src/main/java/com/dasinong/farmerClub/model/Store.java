@@ -19,7 +19,7 @@ public class Store implements Serializable {
 	private String desc;
 	private Long ownerId;
 	private String contactName;
-	private Long locationId;
+	private Location location;
 	private String streetAndNumber;
 	private Double latitude;
 	private Double longtitude;
@@ -74,12 +74,12 @@ public class Store implements Serializable {
 		this.contactName = contactName;
 	}
 
-	public Long getLocationId() {
-		return this.locationId;
+	public Location getLocation() {
+		return this.location;
 	}
 
-	public void setLocationId(Long locationId) {
-		this.locationId = locationId;
+	public void setLocation(Location loc) {
+		this.location = loc;
 	}
 
 	public String getStreetAndNumber() {

@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.dasinong.farmerClub.model.Field;
 import com.dasinong.farmerClub.model.Location;
-import com.dasinong.farmerClub.model.NatDisSpec;
 import com.dasinong.farmerClub.model.PetDisSpec;
 
 public class LocationWrapper {

@@ -76,6 +76,7 @@ public class UserAccessTokenManager {
 			String[] parts = decryptedStr.split("\\|");
 			userId = Long.valueOf(parts[0]);
 			appId = Long.valueOf(parts[1]);
+			System.out.println("PARSE userId = " + userId + ", appId = " + appId);
 		} catch (Exception ex) {
 			throw new InvalidUserAccessTokenException(token);
 		}

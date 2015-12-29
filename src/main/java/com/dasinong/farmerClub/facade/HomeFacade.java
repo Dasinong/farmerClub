@@ -40,7 +40,7 @@ public class HomeFacade implements IHomeFacade {
 	 * farmerClub.model.User, java.lang.String)
 	 */
 	@Override
-	public Object LoadHome(User user, Long fieldId, int taskType) {
+	public Object LoadHome(User user, Long fieldId) {
 		// taskType means how would you like to load task related content.
 		// 1 for all
 		// 2 for current stage
@@ -72,7 +72,7 @@ public class HomeFacade implements IHomeFacade {
 			return result;
 		}
 
-		FieldWrapper fw = new FieldWrapper(f, taskSpecDao, taskType);
+		FieldWrapper fw = new FieldWrapper(f);
 		result.put("currentField", fw);
 
 		long latest = -1;

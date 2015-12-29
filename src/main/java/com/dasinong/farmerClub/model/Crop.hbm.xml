@@ -34,12 +34,14 @@
         	<key column = "cropId"></key>
         	<many-to-many class="com.dasinong.farmerClub.model.PetDisSpec" column="petDisSpecId"></many-to-many>
         </set>
-        <set name="natDisSpecs" table="crop_natDisSpec" cascade="all" inverse="false" lazy="true">
-        	<key column = "cropId"></key>
-        	<many-to-many class="com.dasinong.farmerClub.model.NatDisSpec" column="natDisSpecId"></many-to-many>
-        </set>
         <property name="type" type="string">
             <column name="type" length="10"/>
         </property>
+        <set name="subStages" table="crop_subStage" cascade="save-update" inverse="true" fetch="join" order-by="subStageId ASC">
+            <key>
+                <column name="cropId" not-null="true" />
+            </key>
+            <many-to-many class="com.dasinong.farmerClub.model.SubStage" column="subStageId"></many-to-many>
+        </set>
     </class>
 </hibernate-mapping>

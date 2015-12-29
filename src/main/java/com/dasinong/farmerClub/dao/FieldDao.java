@@ -2,6 +2,7 @@ package com.dasinong.farmerClub.dao;
 
 import java.util.List;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.dasinong.farmerClub.model.Field;

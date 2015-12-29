@@ -2,6 +2,8 @@ package com.dasinong.farmerClub.model;
 
 import java.io.Serializable;
 
+import com.dasinong.farmerClub.util.StringUtils;
+
 public class Step implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -57,6 +59,15 @@ public class Step implements Serializable {
 
 	public String getPicture() {
 		return picture;
+	}
+	
+	public String getThumbnailPicture() {
+		if (picture == null || "".equals(picture)) 
+			return "";
+		
+		String[] parts = picture.split("/");
+		parts[parts.length - 1] = "thumb_" + parts[parts.length - 1];
+		return StringUtils.join("/", parts);
 	}
 
 	public void setPicture(String picture) {

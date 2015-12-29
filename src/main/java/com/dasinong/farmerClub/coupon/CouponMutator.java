@@ -3,14 +3,14 @@ package com.dasinong.farmerClub.coupon;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.web.context.ContextLoader;
 
 import com.dasinong.farmerClub.coupon.exceptions.CampaignNotInClaimRangeException;
+import com.dasinong.farmerClub.coupon.exceptions.CampaignNotInRedeemRangeException;
 import com.dasinong.farmerClub.coupon.exceptions.CanNotClaimMultipleCouponException;
 import com.dasinong.farmerClub.coupon.exceptions.CouponAlreadyRedeemedException;
-import com.dasinong.farmerClub.coupon.exceptions.CouponCanNotBeClaimedException;
-import com.dasinong.farmerClub.coupon.exceptions.CouponCanNotBeRedeemedException;
 import com.dasinong.farmerClub.coupon.exceptions.NoMoreAvailableCouponException;
 import com.dasinong.farmerClub.dao.ICouponCampaignDao;
 import com.dasinong.farmerClub.dao.ICouponDao;
@@ -43,13 +43,14 @@ public class CouponMutator {
 	public Coupon redeem(long couponId, long scannerId) throws Exception {
 		User scanner = userDao.findById(scannerId);
 		Coupon coupon = couponDao.findById(couponId);
+		CouponCampaign campaign = coupon.getCampaign();
 		
 		if (coupon.isRedeemed()) {
 			throw new CouponAlreadyRedeemedException();
 		}
 		
-		if (!coupon.canBeRedeemed()) {
-			throw new CouponCanNotBeRedeemedException();
+		if (!campaign.isInRedeemTimeRange()) {
+			throw new CampaignNotInRedeemRangeException();
 		}
 		
 		coupon.setScanner(scanner);
@@ -70,22 +71,31 @@ public class CouponMutator {
 			throw new CanNotClaimMultipleCouponException();
 		}
 		
-		Coupon coupon = couponDao.findRandomClaimableCoupon(campaignId);
-		if (coupon == null) {
-			// there is no available coupon
-			throw new NoMoreAvailableCouponException();
+		Coupon coupon = null;
+		while (true) {
+			// Randomly pick a coupon so that race condition is less likely to happen
+			coupon = couponDao.findRandomClaimableCoupon(campaignId);
+			if (coupon == null) {
+				throw new NoMoreAvailableCouponException();
+			}
+			
+			// Just in case that others are locking the same coupon
+			if (CouponLocker.tryLock(coupon.getId())) {
+				break;
+			}
 		}
 		
-		// TODO: (lock coupon so that others can't claim)
-		if (!coupon.canBeClaimed()) {
-			throw new CouponCanNotBeClaimedException();
+		try {
+			User owner = userDao.findById(ownerId);
+			coupon.setOwner(owner);
+			coupon.setClaimedAt(new Timestamp((new Date()).getTime()));
+			couponDao.save(coupon);
+		} catch (Exception ex) {
+			// Unlock the coupon
+			CouponLocker.unlock(coupon.getId());
+			throw ex;
 		}
-		
-		User owner = userDao.findById(ownerId);
-		coupon.setOwner(owner);
-		coupon.setClaimedAt(new Timestamp((new Date()).getTime()));
-		
-		couponDao.save(coupon);
+
 		campaignDao.decrementVolume(campaignId);
 		
 		return coupon;

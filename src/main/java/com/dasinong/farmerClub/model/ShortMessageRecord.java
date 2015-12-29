@@ -2,8 +2,6 @@ package com.dasinong.farmerClub.model;
 
 import java.sql.Timestamp;
 
-import com.dasinong.farmerClub.util.StringUtils;
-
 public class ShortMessageRecord {
 
 	private long id;
@@ -47,8 +45,8 @@ public class ShortMessageRecord {
 		return this.receivers;
 	}
 	
-	public void setReceivers(String[] receivers) {
-		this.receivers = StringUtils.join(",", receivers);
+	public void setReceivers(String receivers) {
+		this.receivers = receivers;
 	}
 	
 	public String getData() {
