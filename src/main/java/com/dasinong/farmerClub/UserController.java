@@ -314,10 +314,6 @@ public class UserController extends RequireUserLoginController {
 		HttpServletRequestX requestX = new HttpServletRequestX(request);
 		User user = this.getLoginUser(request);
 
-		if (user.getUserType() != null) {
-			throw new UserTypeAlreadyDefinedException(user.getUserId(), user.getUserType());
-		}
-
 		String userType = requestX.getString("type");
 		if (!UserType.isValid(userType)) {
 			throw new InvalidParameterException("type", "UserType");
