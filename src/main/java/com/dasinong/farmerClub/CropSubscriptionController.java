@@ -142,13 +142,25 @@ public class CropSubscriptionController extends RequireUserLoginController {
 			cropIds = new Long[1];
 			cropIds[0] = requestX.getLong("cropId");
 		}
+	
+		List<CropSubscription> existingSubs = cropSubsDao.findByUserId(user.getUserId());
+		List<Long> subscribedCropIds = new ArrayList<Long>();
+		for (CropSubscription subs : existingSubs) {
+			subscribedCropIds.add(subs.getCropId());
+		}
 		
 		ArrayList<CropSubscription> subs = new ArrayList<CropSubscription>();
 		for (Long cropId : cropIds) {
+			// if crop has been subscribed, skip it
+			if (subscribedCropIds.contains(cropId)) {
+				continue;
+			}
+			
 			Crop crop = cropDao.findById(cropId);
 			if (crop == null) {
 				throw new ResourceNotFoundException(cropId, "crop");
 			}
+			
 			CropSubscription sub = new CropSubscription();
 			sub.setCropId(cropId);
 			sub.setCropName(crop.getCropName());

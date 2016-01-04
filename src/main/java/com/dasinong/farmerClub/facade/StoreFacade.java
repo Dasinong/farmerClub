@@ -9,6 +9,7 @@ import org.springframework.web.context.ContextLoader;
 
 import com.dasinong.farmerClub.dao.IStoreDao;
 import com.dasinong.farmerClub.dao.IUserDao;
+import com.dasinong.farmerClub.exceptions.RequireUserTypeException;
 import com.dasinong.farmerClub.exceptions.UserTypeAlreadyDefinedException;
 import com.dasinong.farmerClub.model.Store;
 import com.dasinong.farmerClub.model.User;
@@ -26,9 +27,9 @@ public class StoreFacade implements IStoreFacade {
 		IStoreDao storeDao = (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
 		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
 
-		// If store is added from registration flow, user type should be null.
-		if (source.equals(StoreSource.REGISTRATION) && user.getUserType() != null) {
-			throw new UserTypeAlreadyDefinedException(user.getUserId(), user.getUserType());
+		// If store is added from registration flow, user type must be retailer
+		if (source.equals(StoreSource.REGISTRATION) && !UserType.isRetailer(user)) {
+			throw new RequireUserTypeException(user.getUserType());
 		}
 
 		Store store = new Store();
@@ -47,12 +48,6 @@ public class StoreFacade implements IStoreFacade {
 		store.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		store.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 		storeDao.save(store);
-
-		// If store is added from registration flow, make user retailer
-		if (source.equals(StoreSource.REGISTRATION)) {
-			user.setUserType(UserType.RETAILER);
-			userDao.update(user);
-		}
 
 		Map<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> data = new HashMap<String, Object>();
