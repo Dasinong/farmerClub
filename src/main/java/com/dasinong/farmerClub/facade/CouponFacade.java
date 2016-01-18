@@ -11,9 +11,12 @@ import com.dasinong.farmerClub.coupon.exceptions.CanNotRedeemOthersCouponExcepti
 import com.dasinong.farmerClub.coupon.exceptions.OnlyRetailerCanSeeScannedCouponsException;
 import com.dasinong.farmerClub.dao.ICouponCampaignDao;
 import com.dasinong.farmerClub.dao.ICouponDao;
+import com.dasinong.farmerClub.dao.ICouponRequestDao;
+import com.dasinong.farmerClub.dao.IEntityDao;
 import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.model.Coupon;
 import com.dasinong.farmerClub.model.CouponCampaign;
+import com.dasinong.farmerClub.model.CouponRequest;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.model.UserType;
 import com.dasinong.farmerClub.outputWrapper.CouponCampaignWrapper;
@@ -50,7 +53,7 @@ public class CouponFacade implements ICouponFacade {
 		
 		List<CouponCampaignWrapper> campaignWrappers = new ArrayList<CouponCampaignWrapper>();
 		for (CouponCampaign campaign : campaigns) {
-			campaignWrappers.add(new CouponCampaignWrapper(campaign));
+			campaignWrappers.add(new CouponCampaignWrapper(campaign,false));
 		}
 		
 		return campaignWrappers;
@@ -107,6 +110,15 @@ public class CouponFacade implements ICouponFacade {
 		List<Coupon> coupons = couponDao.findByScannerId(scannerId);
 		
 		return new GroupedScannedCouponsWrapper(coupons);
+	}	
+	
+	@Override
+	public void saveCouponRequest(String name,String company, String crop, double area, double yield, String experience,
+				String productUseHistory, String contactNumber){
+		CouponRequest cr = new CouponRequest(name,company,crop,area,yield,experience,productUseHistory,contactNumber);
+
+		ICouponRequestDao couponRequestDao = (ICouponRequestDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponRequestDao");
+		couponRequestDao.save(cr);
 	}
 
 }

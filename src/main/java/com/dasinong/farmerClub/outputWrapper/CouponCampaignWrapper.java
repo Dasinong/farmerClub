@@ -13,7 +13,8 @@ public class CouponCampaignWrapper {
 	public long id;
 	public String name;
 	public String description;
-	public String pictureUrl;
+	//public String pictureUrl;
+	public String[] pictureUrls;
 	public long totalVolume;
 	public long unclaimedVolume;
 	public CouponCampaignType type;
@@ -21,15 +22,19 @@ public class CouponCampaignWrapper {
 	public Timestamp claimTimeEnd;
 	public Timestamp redeemTimeStart;
 	public Timestamp redeemTimeEnd;
+	public long amount;
 	
 	public InstitutionWrapper institution = null;
 	public List<StoreWrapper> stores = null;
 	
-	public CouponCampaignWrapper(CouponCampaign campaign) {
+	public CouponCampaignWrapper(CouponCampaign campaign){
+		this(campaign,true);
+	}
+	public CouponCampaignWrapper(CouponCampaign campaign, boolean expand) {
 		this.id = campaign.getId();
 		this.name = campaign.getName();
 		this.description = campaign.getDescription();
-		this.pictureUrl = campaign.getPictureUrl();
+		this.pictureUrls = campaign.getPictureUrl().split(";");
 		this.totalVolume = campaign.getVolume();
 		this.unclaimedVolume = campaign.getUnclaimedVolume();
 		this.type = campaign.getType();
@@ -39,8 +44,11 @@ public class CouponCampaignWrapper {
 		this.redeemTimeStart = campaign.getRedeemTimeStart();
 		this.institution = new InstitutionWrapper(campaign.getInstitution());
 		this.stores = new ArrayList<StoreWrapper>();
-		for (Store store : campaign.getRetailerStores()) {
-			this.stores.add(new StoreWrapper(store));
+		this.amount = campaign.getAmount();
+		if(expand){
+			for (Store store : campaign.getRetailerStores()) {
+				this.stores.add(new StoreWrapper(store));
+			}
 		}
 	}
 }

@@ -21,7 +21,7 @@ public class Env {
 		this.checkDevice.add("chrome");
 		this.checkDevice.add("firefox");
 		this.checkDevice.add("applewekit");
-		this.DBConnection = "jdbc:mysql://localhost:3307/ploughHelper?user=root&password=weather123";
+		this.DBConnection = "jdbc:mysql://localhost:3306/farmer_Club?user=root&password=weather123";
 		if (System.getProperty("os.name").equalsIgnoreCase("windows 7")) {
 			WorkingDir = "E:/git";
 			DataDir = "E:/index";
@@ -29,9 +29,11 @@ public class Env {
 			if (System.getProperty("user.name").equalsIgnoreCase("Jason Wu")) {
 				WorkingDir = "C:/Users/Jason Wu/workspace";
 				DataDir = "G:/index";
+				//QRCodeDir
 			} else if (System.getProperty("user.name").equalsIgnoreCase("Dell")) {
 				WorkingDir = "G:/Data/workbench-0703";
 				DataDir = "G:/index";
+				//QRCodeDir 
 			}
 			BaseFTP = WorkingDir + "/PloughHelper/src/main/java/com/dasinong/ploughHelper/weather/";
 			BaseDATA = WorkingDir + "/PloughHelper/src/main/java/com/dasinong/ploughHelper/weather/";
@@ -41,6 +43,7 @@ public class Env {
 			BaseFTP = WorkingDir + "/PloughHelper/src/main/java/com/dasinong/ploughHelper/weather/";
 			BaseDATA = WorkingDir + "/PloughHelper/src/main/java/com/dasinong/ploughHelper/weather/";
 			LuceneDir = "/Users/";
+			QRCodeDir = "/Users/jiangsean/"; //For testing only. Should point to where server locates
 			weatherAlert = false;
 		} else {
 			WorkingDir = "/data";
@@ -48,6 +51,7 @@ public class Env {
 			BaseFTP = WorkingDir + "/data/ftp";
 			BaseDATA = WorkingDir + "/data/weather";
 			weatherAlert = true;
+			QRCodeDir = "/usr/local/tomcat7/webapps/pic/couponCampaign/QRCode";
 		}
 	}
 
@@ -56,6 +60,7 @@ public class Env {
 	public String WorkingDir;
 	public String DataDir;
 	public String LuceneDir;
+	public String QRCodeDir;
 	public boolean isDebug;
 	public boolean weatherAlert;
 	public int sessionTimeout = 60000; // 1000 min;

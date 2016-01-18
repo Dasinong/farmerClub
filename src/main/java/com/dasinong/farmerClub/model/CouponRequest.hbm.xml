@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.dasinong.farmerClub.model.CouponRequest"
+        table="couponRequest" catalog="farmer_club">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="45" />
+        </property>
+        <property name="company" type="string">
+            <column name="company" length="100" />
+        </property>
+        <property name="crop" type="string">
+            <column name="crop" length="30" />
+        </property>
+        <property name="area" type="double">
+            <column name="area" length="10" />
+        </property>
+        <property name="yield" type="double">
+            <column name="yield" length="10" />
+        </property>
+        <property name="experience" type="string">
+            <column name="experience" length="45" />
+        </property>
+        <property name="productUseHistory" type="string">
+            <column name="productUseHistory" length="45"/>
+        </property>
+        <property name="contactNumber" type="string">
+            <column name="contactNumber" length="20"/>
+        </property>
+    </class>
+</hibernate-mapping>

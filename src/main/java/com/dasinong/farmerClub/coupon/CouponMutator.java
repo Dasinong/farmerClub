@@ -18,6 +18,7 @@ import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.model.Coupon;
 import com.dasinong.farmerClub.model.CouponCampaign;
 import com.dasinong.farmerClub.model.User;
+import com.dasinong.farmerClub.util.QRGenUtil;
 
 public class CouponMutator {
 	private ICouponCampaignDao campaignDao;
@@ -86,6 +87,7 @@ public class CouponMutator {
 		}
 		
 		try {
+			QRGenUtil.gen("userId="+ownerId+"&couponId="+coupon.getId(), ""+coupon.getId());
 			User owner = userDao.findById(ownerId);
 			coupon.setOwner(owner);
 			coupon.setClaimedAt(new Timestamp((new Date()).getTime()));

@@ -14,6 +14,7 @@ public class StoreWrapper {
 	public Long ownerId;
 	public String contactName;
 	public String location;
+	public String province;
 	public String streetAndNumber;
 	public String phone;
 	public String cellphone;
@@ -30,6 +31,7 @@ public class StoreWrapper {
 		this.ownerId = store.getOwnerId();
 		this.contactName = store.getContactName();
 		this.location = store.getLocation().toString();
+		this.province = store.getLocation().getProvince();
 		this.streetAndNumber = store.getStreetAndNumber();
 		this.phone = store.getPhone();
 		this.cellphone = store.getCellphone();

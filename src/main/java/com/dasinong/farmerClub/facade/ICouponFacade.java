@@ -2,6 +2,7 @@ package com.dasinong.farmerClub.facade;
 
 import java.util.List;
 
+import com.dasinong.farmerClub.model.CouponRequest;
 import com.dasinong.farmerClub.outputWrapper.CouponCampaignWrapper;
 import com.dasinong.farmerClub.outputWrapper.CouponWrapper;
 import com.dasinong.farmerClub.outputWrapper.GroupedScannedCouponsWrapper;
@@ -21,5 +22,8 @@ public interface ICouponFacade {
 	public List<CouponWrapper> findCouponsByScannerId(long scannerId) throws Exception;
 	
 	public GroupedScannedCouponsWrapper groupScannedCouponsByCampaignId(long scannerId) throws Exception;
+
+	void saveCouponRequest(String name, String company, String crop, double area, double yield, String experience,
+			String productUseHistory, String contactNumber) throws Exception;
 
 }
