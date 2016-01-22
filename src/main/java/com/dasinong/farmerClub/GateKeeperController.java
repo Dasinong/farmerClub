@@ -24,8 +24,8 @@ public class GateKeeperController extends BaseController {
 		
 		// Temporary change
 		// if (appId == DasinongApp.IOS_FARM_LOG) {
-			gatekeepers.put("qqLogin", false);
-			gatekeepers.put("weixinLogin", false);
+			gatekeepers.put("qqLogin", true);
+			gatekeepers.put("weixinLogin", true);
 		//}
 		
 		return gatekeepers;

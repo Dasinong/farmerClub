@@ -42,7 +42,7 @@ public class CouponController extends RequireUserLoginController {
 		return result;	
 	}
 	
-	@RequestMapping(value = "/redeemCoupon", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/redeemCoupon", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Object redeemCoupon(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();

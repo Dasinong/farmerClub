@@ -1,9 +1,5 @@
 package com.dasinong.farmerClub;
 
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,24 +7,19 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
-import com.dasinong.farmerClub.dao.IStoreDao;
-import com.dasinong.farmerClub.dao.IUserDao;
-import com.dasinong.farmerClub.dao.IWeatherSubscriptionDao;
+
 import com.dasinong.farmerClub.facade.IStoreFacade;
-import com.dasinong.farmerClub.model.Store;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.store.StoreSource;
-import com.dasinong.farmerClub.store.StoreStatus;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
 
 @Controller
 public class StoreController extends RequireUserLoginController {
 
-	@RequestMapping(value = "/stores", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/stores", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Object reorderWeatherSubscriptions(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {

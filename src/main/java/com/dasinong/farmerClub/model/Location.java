@@ -132,5 +132,4 @@ public class Location implements Serializable {
 
 		return this.province + this.city + this.country + this.district + this.community;
 	}
-
 }

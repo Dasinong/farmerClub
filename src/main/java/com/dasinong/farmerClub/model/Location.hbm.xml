@@ -16,7 +16,6 @@
         	</key>
         	<one-to-many class="com.dasinong.farmerClub.model.Field"></one-to-many>
         </set>
-        
         <set name="petDisSpecs" table="location_petDisSpec" cascade="all" inverse="false" lazy="true">
         	<key column = "locationId"></key>
         	<many-to-many class="com.dasinong.farmerClub.model.PetDisSpec" column="petDisSpecId"></many-to-many>
