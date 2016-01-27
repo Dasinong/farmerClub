@@ -21,6 +21,7 @@ public class CouponWrapper {
 	public Timestamp claimedAt;
 	public Timestamp redeemedAt;
 	public Timestamp createdAt;
+	public String claimerCell;
 	
 	public CouponWrapper(Coupon coupon) {
 		this(coupon, false);
@@ -39,6 +40,7 @@ public class CouponWrapper {
 		
 		if (coupon.getOwner() != null) {
 			this.ownerId = coupon.getOwner().getUserId();
+			this.claimerCell = coupon.getOwner().getCellPhone().substring(7, 11);
 		}
 		
 		if (coupon.getScanner() != null) {
@@ -49,5 +51,6 @@ public class CouponWrapper {
 		this.redeemedAt = coupon.getRedeemedAt();
 		this.createdAt = coupon.getCreatedAt();
 		this.displayStatus = coupon.getDisplayStatus();
+		
 	}
 }

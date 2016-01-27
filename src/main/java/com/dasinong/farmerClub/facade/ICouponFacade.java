@@ -3,6 +3,7 @@ package com.dasinong.farmerClub.facade;
 import java.util.List;
 
 import com.dasinong.farmerClub.model.CouponRequest;
+import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.outputWrapper.CouponCampaignWrapper;
 import com.dasinong.farmerClub.outputWrapper.CouponWrapper;
 import com.dasinong.farmerClub.outputWrapper.GroupedScannedCouponsWrapper;
@@ -10,8 +11,6 @@ import com.dasinong.farmerClub.outputWrapper.GroupedScannedCouponsWrapper;
 public interface ICouponFacade {
 	
 	public CouponCampaignWrapper getCampaign(long campaignId);
-
-	public List<CouponCampaignWrapper> findClaimableCampaigns();
 	
 	public CouponWrapper claim(long campaignId, long ownerId) throws Exception;
 	
@@ -25,5 +24,9 @@ public interface ICouponFacade {
 
 	void saveCouponRequest(String name, String company, String crop, double area, double yield, String experience,
 			String productUseHistory, String contactNumber) throws Exception;
+
+	List<CouponCampaignWrapper> findClaimableCampaigns(long institutionId);
+
+	List<CouponCampaignWrapper> findClaimableCampaigns(long institutionId, double lat, double lon);
 
 }

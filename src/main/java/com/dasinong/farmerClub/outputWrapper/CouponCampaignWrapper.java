@@ -51,4 +51,28 @@ public class CouponCampaignWrapper {
 			}
 		}
 	}
+	
+	public CouponCampaignWrapper(CouponCampaign campaign, double lat, double lon) {
+		this.id = campaign.getId();
+		this.name = campaign.getName();
+		this.description = campaign.getDescription();
+		this.pictureUrls = campaign.getPictureUrl().split(";");
+		this.totalVolume = campaign.getVolume();
+		this.unclaimedVolume = campaign.getUnclaimedVolume();
+		this.type = campaign.getType();
+		this.claimTimeEnd = campaign.getClaimTimeEnd();
+		this.claimTimeStart = campaign.getClaimTimeStart();
+		this.redeemTimeEnd = campaign.getRedeemTimeEnd();
+		this.redeemTimeStart = campaign.getRedeemTimeStart();
+		this.institution = new InstitutionWrapper(campaign.getInstitution());
+		this.stores = new ArrayList<StoreWrapper>();
+		this.amount = campaign.getAmount();
+		for (Store store : campaign.getRetailerStores()) {
+			if (((store.getLocation().getLatitude()-lat)*(store.getLocation().getLatitude()-lat)
+					+(store.getLocation().getLongtitude()-lon)*(store.getLocation().getLongtitude()-lon))<0.01){
+					this.stores.add(new StoreWrapper(store));
+			}
+		}
+	}
+
 }

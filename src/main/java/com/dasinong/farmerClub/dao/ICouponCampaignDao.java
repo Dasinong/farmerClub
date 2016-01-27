@@ -8,8 +8,8 @@ public interface ICouponCampaignDao extends IEntityDao<CouponCampaign> {
 
 	List<CouponCampaign> findByInstitutionId(long institutionId);
 	
-	List<CouponCampaign> findClaimable();
-	
 	void decrementVolume(long campaignId);
+
+	List<CouponCampaign> findClaimable(long institutionId);
 
 }

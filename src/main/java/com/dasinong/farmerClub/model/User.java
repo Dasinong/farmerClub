@@ -43,6 +43,8 @@ public class User implements Serializable {
 	private Long refuid;
 	private Long institutionId;
 	private String userType;
+	private int memberPoints;
+	private int memberLevel;
 	private Boolean isEmployee = false;
 	
 	private List<Coupon> coupons = null;
@@ -251,6 +253,46 @@ public class User implements Serializable {
 	
 	public void setCoupons(List<Coupon> coupons) {
 		this.coupons = coupons;
+	}
+
+	public int getMemberPoints() {
+		return memberPoints;
+	}
+
+	public void setMemberPoints(int memberPoints) {
+		this.memberPoints = memberPoints;
+	}
+
+	public int getMemberLevel() {
+		return memberLevel;
+	}
+
+	public void setMemberLevel(int memberLevel) {
+		this.memberLevel = memberLevel;
+	}
+	
+	public void updateMemberLevel(){
+		if (this.memberPoints>=20){
+			this.memberLevel = 2;
+		}
+		if (this.memberPoints>=50){
+			this.memberLevel = 3;
+		}
+		if (this.memberPoints>=150){
+			this.memberLevel = 4;
+		}
+		if (this.memberPoints>=500){
+			this.memberLevel = 5;
+		}
+		if (this.memberPoints>=1200){
+			this.memberLevel = 6;
+		}
+		if (this.memberPoints>=2000){
+			this.memberLevel = 7;
+		}
+		if (this.memberPoints>=5000){
+			this.memberLevel = 8;
+		}
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.dasinong.farmerClub.daotest.utils;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.Random;
 
@@ -21,7 +22,7 @@ public class TestDataUtils {
 		user.setCellPhone("139192" + rnd.nextInt(99999));
 		return user;
 	}
-
+	
 	private static Timestamp getCurrentTimeInSeconds() {
 		// % 1000 is needed because mysql stores timestamp in seconds
 		// while System.currentTimeMillis returns milli seconds
@@ -29,4 +30,6 @@ public class TestDataUtils {
 		mseconds = mseconds - mseconds % 1000;
 		return new Timestamp(mseconds);
 	}
+	
+	
 }

@@ -20,11 +20,11 @@ public class CouponCampaignDao extends EntityHibernateDao<CouponCampaign> implem
 	}
 
 	@Override
-	public List<CouponCampaign> findClaimable() {
+	public List<CouponCampaign> findClaimable(long institutionId) {
 		Timestamp current = new Timestamp((new Date()).getTime()); 
 		List<CouponCampaign> campaigns = this.getHibernateTemplate().find(
-				"from CouponCampaign where unclaimedVolume > 0 and claimTimeStart < ? and claimTimeEnd > ?",
-				current, current);
+				"from CouponCampaign where unclaimedVolume > 0 and claimTimeStart < ? and claimTimeEnd > ? and (institutionId=0 or institutionId = ?)",
+				current, current, institutionId);
 		if (campaigns == null || campaigns.size() == 0) {
 			return new ArrayList<CouponCampaign>();
 		}

@@ -75,6 +75,12 @@
         <property name="isEmployee" type="boolean">
             <column name="isEmployee" />
         </property>
+        <property name="memberPoints" type="integer">
+            <column name="memberPoints" />
+        </property>
+        <property name="memberLevel" type="integer">
+            <column name="memberLevel" />
+        </property>
         <bag name="coupons" table="coupon" inverse="false" lazy="true" fetch="select">
             <key>
                 <column name="ownerId" not-null="false" />

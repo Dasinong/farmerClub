@@ -13,7 +13,7 @@
 	<!--  <mvc:annotation-driven></mvc:annotation-driven> -->
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<import resource="/database/LocalDataSource.xml"></import>
+	<import resource="/database/DataSource.xml"></import>
 	<import resource="/database/Hibernate.xml"></import>
 	<import resource="/beans/ModelBeans.xml"></import>
 	<import resource="/beans/FacadeBeans.xml"></import>

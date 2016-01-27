@@ -47,13 +47,27 @@ public class CouponFacade implements ICouponFacade {
 	}
 	
 	@Override
-	public List<CouponCampaignWrapper> findClaimableCampaigns() {
+	public List<CouponCampaignWrapper> findClaimableCampaigns(long institutionId) {
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
-		List<CouponCampaign> campaigns = campaignDao.findClaimable();
+		List<CouponCampaign> campaigns = campaignDao.findClaimable(institutionId);
 		
 		List<CouponCampaignWrapper> campaignWrappers = new ArrayList<CouponCampaignWrapper>();
 		for (CouponCampaign campaign : campaigns) {
 			campaignWrappers.add(new CouponCampaignWrapper(campaign,false));
+		}
+		
+		return campaignWrappers;
+	}
+	
+	
+	@Override
+	public List<CouponCampaignWrapper> findClaimableCampaigns(long institutionId, double lat,double lon) {
+		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
+		List<CouponCampaign> campaigns = campaignDao.findClaimable(institutionId);
+		
+		List<CouponCampaignWrapper> campaignWrappers = new ArrayList<CouponCampaignWrapper>();
+		for (CouponCampaign campaign : campaigns) {
+			campaignWrappers.add(new CouponCampaignWrapper(campaign,lat,lon));
 		}
 		
 		return campaignWrappers;
@@ -65,6 +79,8 @@ public class CouponFacade implements ICouponFacade {
 		CouponCampaign campaign = campaignDao.findById(campaignId);
 		return new CouponCampaignWrapper(campaign);
 	}
+	
+
 
 	@Override
 	public List<CouponWrapper> findCouponsByOwnerId(long ownerId) {

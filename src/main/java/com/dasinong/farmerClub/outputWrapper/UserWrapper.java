@@ -26,6 +26,8 @@ public class UserWrapper implements Serializable {
 	private Long institutionId;
 	private String userType;
 	private Boolean isEmployee = false;
+	private int memberPoints;
+	private int memberLevel;
 
 	private List<Long> fields = new ArrayList<Long>();
 	private List<Long> monitorLocationId = new ArrayList<Long>();
@@ -54,6 +56,8 @@ public class UserWrapper implements Serializable {
 		this.institutionId = user.getInstitutionId();
 		this.isEmployee = user.getIsEmployee();
 		this.userType = user.getUserType();
+		this.memberPoints = user.getMemberPoints();
+		this.memberLevel = user.getMemberLevel();
 	}
 
 	public Long getUserId() {
@@ -198,6 +202,22 @@ public class UserWrapper implements Serializable {
 	
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+
+	public int getMemberPoints() {
+		return memberPoints;
+	}
+
+	public void setMemberPoints(int memberPoints) {
+		this.memberPoints = memberPoints;
+	}
+
+	public int getMemberLevel() {
+		return memberLevel;
+	}
+
+	public void setMemberLevel(int memberLevel) {
+		this.memberLevel = memberLevel;
 	}
 
 }

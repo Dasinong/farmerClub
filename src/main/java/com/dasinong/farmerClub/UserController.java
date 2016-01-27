@@ -295,6 +295,9 @@ public class UserController extends RequireUserLoginController {
 		}
 		user.setRefuid(refuid);
 		User refuser = userDao.findById(refuid);
+		refuser.setMemberPoints(refuser.getMemberPoints()+10);
+		refuser.updateMemberLevel();
+		userDao.update(refuser);
 		user.setInstitutionId(refuser.getInstitutionId());
 		userDao.update(user);
 		result.put("respCode", 200);
