@@ -34,7 +34,7 @@ public class MailHelper {
 
 		post.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 		final String apiUser = "cdntot_test_T1oxK1";
-		final String apiKey = "hXXuY2TkMSJnuhZW";
+		final String apiKey = "BX8WgvPhzg5GFVpj";
 
 		NameValuePair[] param = { new NameValuePair("api_user", apiUser), new NameValuePair("api_key", apiKey),
 				new NameValuePair("from", "service@sendcloud.im"), new NameValuePair("fromname", "今日农事"),

@@ -3,7 +3,6 @@ package com.dasinong.farmerClub.coupon;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.web.context.ContextLoader;
 
@@ -18,6 +17,8 @@ import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.model.Coupon;
 import com.dasinong.farmerClub.model.CouponCampaign;
 import com.dasinong.farmerClub.model.User;
+import com.dasinong.farmerClub.sms.CouponWarningShortMessage;
+import com.dasinong.farmerClub.sms.SMS;
 import com.dasinong.farmerClub.util.QRGenUtil;
 
 public class CouponMutator {
@@ -76,6 +77,29 @@ public class CouponMutator {
 		while (true) {
 			// Randomly pick a coupon so that race condition is less likely to happen
 			coupon = couponDao.findRandomClaimableCoupon(campaignId);
+			
+			if (campaign.getVolume()>5000L){
+				if (campaign.getUnclaimedVolume()==500) {
+					CouponWarningShortMessage cwsm = new CouponWarningShortMessage(campaignId,500);
+					SMS.send(cwsm);
+				}
+				if (campaign.getUnclaimedVolume()==100) {
+					CouponWarningShortMessage cwsm = new CouponWarningShortMessage(campaignId,500);
+					SMS.send(cwsm);
+				}
+			}
+			else{
+				if ((long) campaign.getVolume()*0.2 == campaign.getUnclaimedVolume())
+				{
+					CouponWarningShortMessage cwsm = new CouponWarningShortMessage(campaignId,coupons.size());
+					SMS.send(cwsm);
+				}
+				if ((long) campaign.getVolume()*0.1 == campaign.getUnclaimedVolume())
+				{
+					CouponWarningShortMessage cwsm = new CouponWarningShortMessage(campaignId,coupons.size());
+					SMS.send(cwsm);
+				}
+			}
 			if (coupon == null) {
 				throw new NoMoreAvailableCouponException();
 			}

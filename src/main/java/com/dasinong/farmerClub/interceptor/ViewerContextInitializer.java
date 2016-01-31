@@ -1,17 +1,12 @@
 package com.dasinong.farmerClub.interceptor;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.ContextLoader;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.dasinong.farmerClub.dao.IUserAccessTokenDao;
 import com.dasinong.farmerClub.exceptions.InvalidAppAccessTokenException;
 import com.dasinong.farmerClub.exceptions.InvalidUserAccessTokenException;
 import com.dasinong.farmerClub.exceptions.UserAccessTokenExpiredException;

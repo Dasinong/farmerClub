@@ -250,5 +250,8 @@ public class SMS {
 		// SMS.send(message1, cellphones);
 		// SMS.send(message2, cellphone);
 		// SMS.send(message2, cellphones);
+		CouponWarningShortMessage cwsm = new CouponWarningShortMessage(10,100);
+		SMS.send(cwsm);
+		//SMS.doSend("10号活动还剩500张卷","1012818","13162881998");
 	}
 }

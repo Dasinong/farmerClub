@@ -74,5 +74,27 @@ public class CouponCampaignWrapper {
 			}
 		}
 	}
+	
+	//Only show selected store
+	public CouponCampaignWrapper(CouponCampaign campaign, List<Store> stores) {
+		this.id = campaign.getId();
+		this.name = campaign.getName();
+		this.description = campaign.getDescription();
+		this.pictureUrls = campaign.getPictureUrl().split(";");
+		this.totalVolume = campaign.getVolume();
+		this.unclaimedVolume = campaign.getUnclaimedVolume();
+		this.type = campaign.getType();
+		this.claimTimeEnd = campaign.getClaimTimeEnd();
+		this.claimTimeStart = campaign.getClaimTimeStart();
+		this.redeemTimeEnd = campaign.getRedeemTimeEnd();
+		this.redeemTimeStart = campaign.getRedeemTimeStart();
+		this.institution = new InstitutionWrapper(campaign.getInstitution());
+		this.stores = new ArrayList<StoreWrapper>();
+		this.amount = campaign.getAmount();
+		for (Store store : stores) {
+			this.stores.add(new StoreWrapper(store));
+		}
+	}
+
 
 }

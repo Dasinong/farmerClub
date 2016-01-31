@@ -29,10 +29,27 @@ public class CouponCampaignController extends RequireUserLoginController {
 	public Object getCouponCampaign(HttpServletRequest request, HttpServletResponse response, @PathVariable Long id) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> data = new HashMap<String, Object>();
-		
+	
 		ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
+		CouponCampaignWrapper campaign;
+		User user = this.getLoginUser(request);
+		if (user!=null){
+			HttpServletRequestX requestX = new HttpServletRequestX(request);
+			double lat = requestX.getDoubleOptional("lat",0.00);
+			double lon = requestX.getDoubleOptional("lon",0.00);
+			
+			if (lat==0.00 ||lon==0.00)
+			{
+				campaign = facade.getCampaign(id);
+			}
+			else{
+				campaign =facade.getCampaign(id,lat,lon);
+			}
+		}
+		else throw (new UserIsNotLoggedInException());
 		
-		data.put("campaign", facade.getCampaign(id));
+		
+		data.put("campaign", campaign);
 		result.put("respCode", 200);
 		result.put("message", "获取成功");
 		result.put("data", data);
@@ -41,7 +58,7 @@ public class CouponCampaignController extends RequireUserLoginController {
 	
 	@RequestMapping(value = "/couponCampaigns", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Object getWeatherSubscriptions(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public Object getCouponCampaigns(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> data = new HashMap<String, Object>();
 		User user = this.getLoginUser(request);

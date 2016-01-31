@@ -13,6 +13,7 @@ import com.dasinong.farmerClub.coupon.CouponCampaignType;
 import com.dasinong.farmerClub.dao.ICouponCampaignDao;
 import com.dasinong.farmerClub.dao.ICouponDao;
 import com.dasinong.farmerClub.dao.IInstitutionDao;
+import com.dasinong.farmerClub.dao.IStoreDao;
 import com.dasinong.farmerClub.model.CouponCampaign;
 import com.dasinong.farmerClub.model.Institution;
 import com.dasinong.farmerClub.model.Store;
@@ -34,16 +35,19 @@ public class InitializeCouponCampaign {
 		IInstitutionDao instDao = (IInstitutionDao) applicationContext.getBean("institutionDao");
 		ICouponDao couponDao = (ICouponDao) applicationContext.getBean("couponDao");
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) applicationContext.getBean("couponCampaignDao");
-		Institution inst = instDao.findById(2L);
+		IStoreDao storeDao = (IStoreDao) applicationContext.getBean("storeDao");
+		Institution inst = instDao.findById(1L);
 		List<Store> stores = new ArrayList<Store>();
+		Store store = storeDao.findById(16L);
+		stores.add(store);
 		
 		CouponCampaign campaign = (new CouponCampaignMutator(couponDao, campaignDao))
-				.setName("搞搞比利")
-				.setDescription("搞完比利搞大林")
+				.setName("新活动")
+				.setDescription("测试报警")
 				.setInstitution(inst)
 				.setType(CouponCampaignType.CASH)
-				.setVolume(100)
-				.setAmount(100)
+				.setVolume(5)
+				.setAmount(5)
 				.setRetailerStores(stores)
 				.setRedeemTimeStart(Timestamp.valueOf("2016-01-01 00:00:00"))
 				.setRedeemTimeEnd(Timestamp.valueOf("2016-03-31 00:00:00"))

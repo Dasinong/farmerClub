@@ -12,6 +12,8 @@ public interface ICouponFacade {
 	
 	public CouponCampaignWrapper getCampaign(long campaignId);
 	
+	public CouponCampaignWrapper getCampaign(long campaignId, double lat, double lon);
+	
 	public CouponWrapper claim(long campaignId, long ownerId) throws Exception;
 	
 	public CouponWrapper redeem(long couponId, long ownerId, long scannerId) throws Exception;

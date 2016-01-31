@@ -48,6 +48,7 @@ public class CouponDao extends EntityHibernateDao<Coupon>implements ICouponDao {
 		HibernateTemplate template = this.getHibernateTemplate();
 		template.setMaxResults(1);
 		List<Coupon> coupons = template.find("from Coupon where campaignId = ? and ownerId is null order by rand()", campaignId);
+		template.setMaxResults(100);
 		if (coupons == null || coupons.size() == 0) {
 			return null;
 		}

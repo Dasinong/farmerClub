@@ -48,4 +48,5 @@ public class EntityHibernateDao<T> extends HibernateDaoSupport implements IEntit
 		return this.getHibernateTemplate().find("from " + this.entityType.getName());
 	}
 
+
 }

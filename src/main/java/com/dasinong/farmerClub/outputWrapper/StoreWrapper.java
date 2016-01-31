@@ -26,12 +26,13 @@ public class StoreWrapper {
 	
 	public StoreWrapper(Store store) {
 		this.id = store.getId();
-		this.name = store.getDesc();
+		this.name = store.getName();
 		this.desc = store.getDesc();
 		this.ownerId = store.getOwnerId();
 		this.contactName = store.getContactName();
 		this.location = store.getLocation().toString();
-		this.province = store.getLocation().getProvince();
+		//Change this to city when UI updated.
+		this.province = store.getLocation().getCity();
 		this.streetAndNumber = store.getStreetAndNumber();
 		this.phone = store.getPhone();
 		this.cellphone = store.getCellphone();
