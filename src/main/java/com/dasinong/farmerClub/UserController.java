@@ -182,9 +182,11 @@ public class UserController extends RequireUserLoginController {
 			user.setPictureId(fileName);
 			IUserDao userdao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
 			userdao.update(user);
+			result.put("data", fileName );
 		}
 		result.put("respCode", 200);
 		result.put("message", "上传成功");
+		
 		return result;
 	}
 

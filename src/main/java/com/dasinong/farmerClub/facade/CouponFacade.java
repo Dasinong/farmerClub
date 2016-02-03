@@ -103,7 +103,7 @@ public class CouponFacade implements ICouponFacade {
 		}
 
 		campaignDao.decrementVolume(campaignId);
-		return new CouponWrapper(coupon);
+		return new CouponWrapper(coupon,true);
 	}
 	
 	@Override
@@ -200,7 +200,7 @@ public class CouponFacade implements ICouponFacade {
 		
 		List<CouponWrapper> wrappers = new ArrayList<CouponWrapper>();
 		for (Coupon coupon : coupons) {
-			wrappers.add(new CouponWrapper(coupon, false /* expandCampaign */));
+			wrappers.add(new CouponWrapper(coupon, true /* expandCampaign */));
 		}
 		
 		return wrappers;

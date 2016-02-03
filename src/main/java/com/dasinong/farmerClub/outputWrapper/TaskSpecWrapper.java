@@ -22,7 +22,12 @@ public class TaskSpecWrapper implements Serializable {
 		this.subStageId = ts.getSubStage().getSubStageId();
 		if (ts.getSteps() != null) {
 			for (Step s : ts.getSteps()) {
-				steps.add(new StepWrapper(s));
+				if (s!=null){
+					steps.add(new StepWrapper(s));
+				}
+				else{
+					System.out.println("Step lost for TaskSpec:"+ ts.getTaskSpecId());
+				}
 			}
 		}
 		this.type = ts.getType();
