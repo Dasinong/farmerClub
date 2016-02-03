@@ -31,6 +31,15 @@ public class CouponDao extends EntityHibernateDao<Coupon>implements ICouponDao {
 
 		return coupons;
 	}
+	
+	@Override
+	public List<Coupon> findByScannerIdAndCampaignId(long scannerId,long campaignId) {
+		List<Coupon> coupons = this.getHibernateTemplate().find("from Coupon where scannerId = ? and campaignId = ?", scannerId, campaignId);
+		if (coupons == null || coupons.size() == 0) {
+			return new ArrayList<Coupon>();
+		}
+		return coupons;
+	}
 
 	@Override
 	public List<Coupon> findByOwnerIdAndCampaignId(long ownerId, long campaignId) {

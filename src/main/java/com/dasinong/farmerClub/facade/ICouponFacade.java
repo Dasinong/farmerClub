@@ -31,4 +31,8 @@ public interface ICouponFacade {
 
 	List<CouponCampaignWrapper> findClaimableCampaigns(long institutionId, double lat, double lon);
 
+	List<CouponWrapper> findCouponsByScannerAndCampaignId(long scannerId, long campaignId);
+
+	List<CouponCampaignWrapper> findCampaginsByScannerId(long scannerId);
+
 }

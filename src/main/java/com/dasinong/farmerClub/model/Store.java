@@ -2,6 +2,7 @@ package com.dasinong.farmerClub.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -30,6 +31,7 @@ public class Store implements Serializable {
 	private StoreSource source;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
+	private List<CouponCampaign> couponCampaigns = new ArrayList<CouponCampaign>();
 
 	public Store() {
 	}
@@ -160,5 +162,13 @@ public class Store implements Serializable {
 
 	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public List<CouponCampaign> getCouponCampaigns() {
+		return couponCampaigns;
+	}
+
+	public void setCouponCampaigns(List<CouponCampaign> couponCampaigns) {
+		this.couponCampaigns = couponCampaigns;
 	}
 }

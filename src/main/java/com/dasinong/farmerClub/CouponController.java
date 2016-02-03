@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
+import com.dasinong.farmerClub.exceptions.UserIsNotLoggedInException;
 import com.dasinong.farmerClub.facade.ICouponFacade;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.outputWrapper.CouponWrapper;
@@ -117,6 +118,29 @@ public class CouponController extends RequireUserLoginController {
 		
 		result.put("respCode", 200);
 		result.put("message", "认领成功");
+		return result;	
+	}
+	
+	
+	@RequestMapping(value = "/getScannedCouponsByCampaignId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Object getScannedCouponsByCampaignId(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<String, Object>();
+		HttpServletRequestX requestX = new HttpServletRequestX(request);
+		User user = this.getLoginUser(request);
+		long campaignId = requestX.getLong("campaignId");
+		
+		if(user!=null){
+			ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
+			List<CouponWrapper> coupons = facade.findCouponsByScannerAndCampaignId(user.getUserId(), campaignId);
+			data.put("coupons", coupons);
+		}
+		else throw new UserIsNotLoggedInException();
+		
+		result.put("respCode", 200);
+		result.put("message", "获取成功");
+		result.put("data", data);
 		return result;	
 	}
 }

@@ -85,4 +85,26 @@ public class CouponCampaignController extends RequireUserLoginController {
 		result.put("data", data);
 		return result;
 	}
+	
+	
+
+	@RequestMapping(value = "/getScannableCampaigns", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Object getScannableCampaigns(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<String, Object>();
+		User user = this.getLoginUser(request);
+		
+		if (user!=null){
+			ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
+			List<CouponCampaignWrapper> campaigns = facade.findCampaginsByScannerId(user.getUserId());
+			data.put("campaigns", campaigns);
+		}
+		else throw (new UserIsNotLoggedInException());
+		
+		result.put("respCode", 200);
+		result.put("message", "获取成功");
+		result.put("data", data);
+		return result;
+	}
 }

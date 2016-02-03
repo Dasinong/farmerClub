@@ -15,10 +15,12 @@ import com.dasinong.farmerClub.coupon.exceptions.CanNotClaimMultipleCouponExcept
 import com.dasinong.farmerClub.coupon.exceptions.CanNotRedeemOthersCouponException;
 import com.dasinong.farmerClub.coupon.exceptions.CouponAlreadyRedeemedException;
 import com.dasinong.farmerClub.coupon.exceptions.NoMoreAvailableCouponException;
+import com.dasinong.farmerClub.coupon.exceptions.NotAuthorizedToScanCouponException;
 import com.dasinong.farmerClub.coupon.exceptions.OnlyRetailerCanSeeScannedCouponsException;
 import com.dasinong.farmerClub.dao.ICouponCampaignDao;
 import com.dasinong.farmerClub.dao.ICouponDao;
 import com.dasinong.farmerClub.dao.ICouponRequestDao;
+import com.dasinong.farmerClub.dao.IStoreDao;
 import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.model.Coupon;
 import com.dasinong.farmerClub.model.CouponCampaign;
@@ -112,7 +114,7 @@ public class CouponFacade implements ICouponFacade {
 		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
 		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
-		
+		IStoreDao storeDao = (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
 		Coupon coupon = couponDao.findById(couponId);
 		
 		if (ownerId != coupon.getOwner().getUserId()) {
@@ -129,6 +131,12 @@ public class CouponFacade implements ICouponFacade {
 		if (!campaign.isInRedeemTimeRange()) {
 			throw new CampaignNotInRedeemRangeException();
 		}
+		
+		Store store = storeDao.getByOwnerId(scanner.getUserId());
+		if (store==null || !campaign.getRetailerStores().contains(store)){
+			throw new NotAuthorizedToScanCouponException();
+		}
+		
 		
 		coupon.setScanner(scanner);
 		coupon.setRedeemedAt(new Timestamp((new Date()).getTime()));
@@ -247,5 +255,44 @@ public class CouponFacade implements ICouponFacade {
 		ICouponRequestDao couponRequestDao = (ICouponRequestDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponRequestDao");
 		couponRequestDao.save(cr);
 	}
-
+	
+	
+	@Override
+	public List<CouponWrapper> findCouponsByScannerAndCampaignId(long scannerId,long campaignId){
+		
+		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
+		List<Coupon> coupons = couponDao.findByScannerIdAndCampaignId(scannerId, campaignId);
+		List<CouponWrapper> wrappers = new ArrayList<CouponWrapper>();
+		for (Coupon coupon : coupons){
+			try{
+				wrappers.add(new CouponWrapper(coupon));
+			}catch(Exception e){
+				//@Xiyao: Since there are no strict foreign key constrain on the DB side, 
+				// sometimes null pointer causing issue.
+				// Monitor such kind of exception and enhance DB constrain while guarantee ORM works properly
+			}
+		}
+		return wrappers;
+	
+	}
+	
+	
+	@Override
+	public List<CouponCampaignWrapper> findCampaginsByScannerId(long scannerId){
+		IStoreDao storeDao = (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
+		Store store = storeDao.getByOwnerId(scannerId);
+	
+		List<CouponCampaignWrapper> wrappers = new ArrayList<CouponCampaignWrapper>();
+		for (CouponCampaign couponCampaign : store.getCouponCampaigns()){
+			try{
+				wrappers.add(new CouponCampaignWrapper(couponCampaign,false));
+			}catch(Exception e){
+				//@Xiyao: Since there are no strict foreign key constrain on the DB side, 
+				// sometimes null pointer causing issue.
+				// Monitor such kind of exception and enhance DB constrain while guarantee ORM works properly
+			}
+		}
+		return wrappers;
+	
+	}
 }

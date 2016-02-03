@@ -61,5 +61,9 @@
 		<property name="updatedAt" type="timestamp">
 			<column name="updatedAt" not-null="true" />
 		</property>
+		<bag name="couponCampaigns" table="couponCampaign_retailerStore" inverse="true" fetch="join">
+            <key column = "storeId"></key>
+            <many-to-many class="com.dasinong.farmerClub.model.CouponCampaign" column="campaignId"></many-to-many>
+        </bag>
 	</class>
 </hibernate-mapping>
