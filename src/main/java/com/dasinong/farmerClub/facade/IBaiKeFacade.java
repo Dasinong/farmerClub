@@ -39,4 +39,6 @@ public interface IBaiKeFacade {
 
 	FormattedCPProductWrapper getFormattedCPProductById(Long id);
 
+	Object browseCPProductByModelAndManufacturer(String model, String manufacturer);
+
 }

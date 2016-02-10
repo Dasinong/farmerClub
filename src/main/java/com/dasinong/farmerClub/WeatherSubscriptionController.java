@@ -138,7 +138,11 @@ public class WeatherSubscriptionController extends RequireUserLoginController {
 				.getCurrentWebApplicationContext().getBean("weatherSubscriptionDao");
 
 		weatherSubsDao.save(subs);
-
+		int rtyCount=0;
+		while(subs.getWeatherSubscriptionId()==null && rtyCount<5){
+			rtyCount++;
+			Thread.sleep(50);
+		}
 		result.put("respCode", 200);
 		result.put("message", "创建成功");
 		result.put("data", subs);

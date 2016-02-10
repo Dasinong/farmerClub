@@ -384,4 +384,21 @@ public class BaiKeFacade implements IBaiKeFacade {
 
 		return result;
 	}
+
+	@Override
+	public Object browseCPProductByModelAndManufacturer(String model, String manufacturer) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		cPProductBrowseDao = (ICPProductBrowseDao) ContextLoader.getCurrentWebApplicationContext()
+				.getBean("cPProductBrowseDao");
+		List<CPProductBrowse> cpbs = cPProductBrowseDao.findByModelAndManufacturer(model,manufacturer);
+		if (cpbs == null || cpbs.size() == 0) {
+			result.put("respCode", 400);
+			result.put("message", "该类型农药不存在");
+			return result;
+		}
+		result.put("respCode", 200);
+		result.put("message", "获得成功");
+		result.put("data", cpbs);
+		return result;
+	}
 }

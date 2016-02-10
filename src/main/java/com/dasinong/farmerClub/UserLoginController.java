@@ -74,6 +74,12 @@ public class UserLoginController extends BaseController {
 		} while (userdao.getUIDbyRef(refcode) > 0);
 		user.setRefcode(refcode);
 		userdao.save(user);
+		
+		int rtyCount=0;
+		while(user.getUserId()==null && rtyCount<5){
+			rtyCount++;
+			Thread.sleep(50);
+		}
 
 		UserWrapper userWrapper = new UserWrapper(user);
 		result.put("data", userWrapper);
