@@ -92,7 +92,7 @@ public class CouponFacade implements ICouponFacade {
 		}
 		
 		try {
-			QRGenUtil.gen("userId="+ownerId+"&couponId="+coupon.getId(), ""+coupon.getId());
+			QRGenUtil.gen("userId="+ownerId+"&couponId="+coupon.getId()+"&campaignId="+campaignId, ""+coupon.getId());
 			User owner = userDao.findById(ownerId);
 			coupon.setOwner(owner);
 			coupon.setClaimedAt(new Timestamp((new Date()).getTime()));
@@ -125,6 +125,7 @@ public class CouponFacade implements ICouponFacade {
 		CouponCampaign campaign = coupon.getCampaign();
 		
 		if (coupon.isRedeemed()) {
+			
 			throw new CouponAlreadyRedeemedException();
 		}
 		
@@ -172,6 +173,14 @@ public class CouponFacade implements ICouponFacade {
 		return campaignWrappers;
 	}
 
+	
+	@Override
+	public CouponCampaignWrapper getCampaign(long campaignId, boolean expand) {
+		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
+		CouponCampaign campaign = campaignDao.findById(campaignId);
+		return new CouponCampaignWrapper(campaign,expand);
+	}
+	
 	@Override
 	public CouponCampaignWrapper getCampaign(long campaignId) {
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");

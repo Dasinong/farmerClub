@@ -6,9 +6,11 @@ public class UserType {
 	public static final String RETAILER = "retailer"; // 农资店店主
 	public static final String FARMER = "farmer"; // 种植户
 	public static final String OTHERS = "others"; // 其他
+	public static final String JIANDADAREN = "jiandadaren";
 
 	public static boolean isValid(String type) {
-		return type.equals(UserType.SALES) || type.equals(UserType.RETAILER) || type.equals(UserType.FARMER) || type.equals(UserType.OTHERS);
+		return type.equals(UserType.SALES) || type.equals(UserType.RETAILER) 
+				|| type.equals(UserType.FARMER) || type.equals(UserType.OTHERS) ||type.equals(UserType.JIANDADAREN);
 	}
 	
 	public static boolean isSales(User user) {
@@ -25,5 +27,9 @@ public class UserType {
 	
 	public static boolean isOthers(User user) {
 		return UserType.OTHERS.equals(user.getUserType());
+	}
+	
+	public static boolean isDaren(User user) {
+		return UserType.JIANDADAREN.equals(user.getUserType());
 	}
 }

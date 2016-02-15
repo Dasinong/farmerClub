@@ -10,6 +10,8 @@ import com.dasinong.farmerClub.outputWrapper.GroupedScannedCouponsWrapper;
 
 public interface ICouponFacade {
 	
+	public CouponCampaignWrapper getCampaign(long campaignId, boolean expand);
+	
 	public CouponCampaignWrapper getCampaign(long campaignId);
 	
 	public CouponCampaignWrapper getCampaign(long campaignId, double lat, double lon);

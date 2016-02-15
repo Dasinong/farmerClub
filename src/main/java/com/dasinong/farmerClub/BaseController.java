@@ -19,6 +19,8 @@ import com.dasinong.farmerClub.coupon.exceptions.CampaignNotInRedeemRangeExcepti
 import com.dasinong.farmerClub.coupon.exceptions.CanNotClaimMultipleCouponException;
 import com.dasinong.farmerClub.coupon.exceptions.CouponAlreadyRedeemedException;
 import com.dasinong.farmerClub.coupon.exceptions.NoMoreAvailableCouponException;
+import com.dasinong.farmerClub.coupon.exceptions.NotAuthorizedToScanCouponException;
+import com.dasinong.farmerClub.coupon.exceptions.CanNotRedeemOthersCouponException;
 import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.exceptions.GenerateAppAccessTokenException;
 import com.dasinong.farmerClub.exceptions.GenerateUserAccessTokenException;
@@ -309,6 +311,26 @@ public class BaseController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("respCode", 2102);
 		result.put("message", "不在coupon的兑换时间");
+		return result;
+	}
+	
+	@ResponseStatus(value = HttpStatus.OK)
+	@ExceptionHandler(NotAuthorizedToScanCouponException.class)
+	@ResponseBody
+	public Object handleNotAuthorizedToScanCouponException(HttpServletRequest req, Exception exception) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("respCode", 2103);
+		result.put("message", "未授权扫描该coupon");
+		return result;
+	}
+	
+	@ResponseStatus(value = HttpStatus.OK)
+	@ExceptionHandler(CanNotRedeemOthersCouponException.class)
+	@ResponseBody
+	public Object handleCanNotRedeemOthersCouponException(HttpServletRequest req, Exception exception) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("respCode", 2104);
+		result.put("message", "不能使用他人的优惠卷");
 		return result;
 	}
 

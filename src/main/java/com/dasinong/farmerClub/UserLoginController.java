@@ -19,6 +19,7 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.dasinong.farmerClub.config.ClientConfig;
 import com.dasinong.farmerClub.dao.ISecurityCodeDao;
 import com.dasinong.farmerClub.dao.IUserAccessTokenDao;
 import com.dasinong.farmerClub.dao.IUserDao;
@@ -143,6 +144,8 @@ public class UserLoginController extends BaseController {
 			result.put("message", "登陆成功");
 			UserWrapper userWrapper = new UserWrapper(user);
 			result.put("data", userWrapper);
+			ClientConfig cc = new ClientConfig(user);
+			result.put("clientConfig", cc);
 			if (token != null)
 				result.put("accessToken", token.getToken());
 			return result;
@@ -170,6 +173,8 @@ public class UserLoginController extends BaseController {
 			result.put("message", "已经登录");
 			UserWrapper userWrapper = new UserWrapper(user);
 			result.put("data", userWrapper);
+			ClientConfig cc = new ClientConfig(user);
+			result.put("clientConfig", cc);
 			UserAccessToken token = null;
 
 			if (vc.getAppId() != null)
@@ -198,6 +203,8 @@ public class UserLoginController extends BaseController {
 			result.put("message", "用户已存在,登陆");
 			UserWrapper userWrapper = new UserWrapper(user);
 			result.put("data", userWrapper);
+			ClientConfig cc = new ClientConfig(user);
+			result.put("clientConfig", cc);
 			if (token != null)
 				result.put("accessToken", token.getToken());
 			return result;
@@ -224,7 +231,7 @@ public class UserLoginController extends BaseController {
 			user.setCreateAt(new Date());
 
 			userDao.save(user);
-
+            
 			// TODO (xiahonggao): deprecate session
 			UserAccessToken token = null;
 			if (vc.getAppId() != null)
@@ -236,6 +243,8 @@ public class UserLoginController extends BaseController {
 			result.put("message", "注册成功");
 			UserWrapper userWrapper = new UserWrapper(user);
 			result.put("data", userWrapper);
+			ClientConfig cc = new ClientConfig(user);
+			result.put("clientConfig", cc);
 			if (token != null)
 				result.put("accessToken", token.getToken());
 			return result;
@@ -405,6 +414,8 @@ public class UserLoginController extends BaseController {
 				request.getSession().setMaxInactiveInterval(Env.getEnv().sessionTimeout);
 
 				UserWrapper userWrapper = new UserWrapper(user);
+				ClientConfig cc = new ClientConfig(user);
+				result.put("clientConfig", cc);
 				result.put("data", userWrapper);
 				result.put("respCode", 200);
 				result.put("message", "登陆成功");
@@ -495,6 +506,8 @@ public class UserLoginController extends BaseController {
 			result.put("message", "注册成功");
 			UserWrapper userWrapper = new UserWrapper(user);
 			result.put("data", userWrapper);
+			ClientConfig cc = new ClientConfig(user);
+			result.put("clientConfig", cc);
 			if (token != null)
 				result.put("accessToken", token.getToken());
 			return result;
@@ -572,6 +585,8 @@ public class UserLoginController extends BaseController {
 			result.put("message", "注册成功");
 			UserWrapper userWrapper = new UserWrapper(user);
 			result.put("data", userWrapper);
+			ClientConfig cc = new ClientConfig(user);
+			result.put("clientConfig", cc);
 			if (token != null)
 				result.put("accessToken", token.getToken());
 			return result;

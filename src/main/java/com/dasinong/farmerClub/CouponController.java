@@ -17,6 +17,7 @@ import org.springframework.web.context.ContextLoader;
 import com.dasinong.farmerClub.exceptions.UserIsNotLoggedInException;
 import com.dasinong.farmerClub.facade.ICouponFacade;
 import com.dasinong.farmerClub.model.User;
+import com.dasinong.farmerClub.outputWrapper.CouponCampaignWrapper;
 import com.dasinong.farmerClub.outputWrapper.CouponWrapper;
 import com.dasinong.farmerClub.outputWrapper.GroupedScannedCouponsWrapper;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
@@ -135,6 +136,8 @@ public class CouponController extends RequireUserLoginController {
 			ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
 			List<CouponWrapper> coupons = facade.findCouponsByScannerAndCampaignId(user.getUserId(), campaignId);
 			data.put("coupons", coupons);
+			CouponCampaignWrapper campaign = facade.getCampaign(campaignId,false);
+			data.put("campaign", campaign);
 		}
 		else throw new UserIsNotLoggedInException();
 		
