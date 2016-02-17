@@ -280,7 +280,7 @@ public class BaseController {
 	public Object handleCampaignNotInClaimRangeException(HttpServletRequest req, Exception exception) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("respCode", 2002);
-		result.put("message", "不在Coupon的认领时间");
+		result.put("message", "不在优惠券认领时间");
 		return result;
 	}
 	
@@ -290,7 +290,7 @@ public class BaseController {
 	public Object handleNoMoreAvailableCouponException(HttpServletRequest req, Exception exception) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("respCode", 2003);
-		result.put("message", "Campaign的Coupon领完了");
+		result.put("message", "该活动的优惠卷已领完了");
 		return result;
 	}
 	
@@ -300,7 +300,7 @@ public class BaseController {
 	public Object handleCouponAlreadyRedeemedException(HttpServletRequest req, Exception exception) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("respCode", 2101);
-		result.put("message", "Coupon已经Redeem了");
+		result.put("message", "优惠券已被认领了");
 		return result;
 	}
 	
@@ -310,7 +310,7 @@ public class BaseController {
 	public Object handleCampaignNotInRedeemRangeException(HttpServletRequest req, Exception exception) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("respCode", 2102);
-		result.put("message", "不在coupon的兑换时间");
+		result.put("message", "不在优惠券的兑换时间");
 		return result;
 	}
 	
@@ -320,7 +320,7 @@ public class BaseController {
 	public Object handleNotAuthorizedToScanCouponException(HttpServletRequest req, Exception exception) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("respCode", 2103);
-		result.put("message", "未授权扫描该coupon");
+		result.put("message", "未授权扫描该优惠券");
 		return result;
 	}
 	

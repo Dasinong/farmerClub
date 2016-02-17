@@ -292,13 +292,15 @@ public class CouponFacade implements ICouponFacade {
 		Store store = storeDao.getByOwnerId(scannerId);
 	
 		List<CouponCampaignWrapper> wrappers = new ArrayList<CouponCampaignWrapper>();
-		for (CouponCampaign couponCampaign : store.getCouponCampaigns()){
-			try{
-				wrappers.add(new CouponCampaignWrapper(couponCampaign,false));
-			}catch(Exception e){
-				//@Xiyao: Since there are no strict foreign key constrain on the DB side, 
-				// sometimes null pointer causing issue.
-				// Monitor such kind of exception and enhance DB constrain while guarantee ORM works properly
+		if (store!=null){
+			for (CouponCampaign couponCampaign : store.getCouponCampaigns()){
+				try{
+					wrappers.add(new CouponCampaignWrapper(couponCampaign,false));
+				}catch(Exception e){
+					//@Xiyao: Since there are no strict foreign key constrain on the DB side, 
+					// sometimes null pointer causing issue.
+					// Monitor such kind of exception and enhance DB constrain while guarantee ORM works properly
+				}
 			}
 		}
 		return wrappers;

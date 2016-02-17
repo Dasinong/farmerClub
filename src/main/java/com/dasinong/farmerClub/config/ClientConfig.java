@@ -18,7 +18,7 @@ public class ClientConfig {
 		}
 		else{
 			this.enableWelfare = user.getInstitutionId()==3L;
-			this.isDaren = "jiadadaren".equals(user.getUserType());
+			this.isDaren = "jiandadaren".equals(user.getUserType());
 		}
 	}
 }
