@@ -26,6 +26,12 @@ public class EntityHibernateDao<T> extends HibernateDaoSupport implements IEntit
 	@Override
 	public void save(T entity) {
 		this.getHibernateTemplate().save(entity);
+		try {
+			Thread.sleep(50); //Wait entity Id to be update. Later use check ID function. 
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

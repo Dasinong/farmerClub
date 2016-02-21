@@ -298,6 +298,26 @@ public class UserLoginController extends BaseController {
 			return result;
 		}
 	}
+	
+	@RequestMapping(value = "/checkJifen", produces = "application/json")
+	@ResponseBody
+	public Object checkJifen(HttpServletRequest request, HttpServletResponse response) {
+		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		String cellphone = request.getParameter("cellphone");
+		User user = userDao.findByCellphone(cellphone);
+		if (user != null && user.getUserType()!=null && user.getUserType().contains("daren")) {
+			result.put("respCode", 200);
+			result.put("message", "获得用户积分信息");
+			result.put("memberPoints", user.getMemberPoints());
+			result.put("memberLevel", user.getMemberLevel());
+			return result;
+		} else {
+			result.put("respCode", 320);
+			result.put("message", "该用户不是健达达人");
+			return result;
+		}
+	}
 
 	@RequestMapping(value = "/isPassSet", produces = "application/json;charset=utf-8")
 	@ResponseBody
@@ -373,7 +393,7 @@ public class UserLoginController extends BaseController {
 
 		// TODO (xiahonggao): deprecate session
 		String savedCode = null;
-		if (codeId != null) {
+		if (codeId != null && Long.valueOf(codeId)==0L) {
 			SecurityCode codeObj = codeDao.findById(Long.valueOf(codeId));
 			savedCode = codeObj.getCode();
 		} else {

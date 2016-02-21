@@ -30,6 +30,6 @@ public class SubscribleCropTest {
 	@Test
 	public void  cropsWithStage() {
 		Long[] ids = CropsWithSubstage.getIds();
-		Assert.assertEquals(ids.length,11);
+		Assert.assertEquals(ids.length,9);
 	}
 }

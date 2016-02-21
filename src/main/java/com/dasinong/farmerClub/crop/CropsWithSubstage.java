@@ -6,18 +6,18 @@ public class CropsWithSubstage {
 	
 	public static Long[] getIds() {
 		if (cropIds == null) {
-			cropIds = new Long[11];
+			cropIds = new Long[9];
 			cropIds[0] = 19L;
 			cropIds[1] = 34L;
 			cropIds[2] = 48L;
 			cropIds[3] = 78L;
-			cropIds[4] = 127L;
-			cropIds[5] = 148L;
-			cropIds[6] = 173L;
-			cropIds[7] = 202L;
-			cropIds[8] = 223L;
-			cropIds[9] = 230L;
-			cropIds[10] = 231L;
+			//cropIds[4] = 127L;
+			cropIds[4] = 148L;
+			cropIds[5] = 173L;
+			cropIds[6] = 202L;
+			cropIds[7] = 223L;
+			//cropIds[9] = 230L;
+			cropIds[8] = 231L;
 		}
 		
 		return cropIds;
