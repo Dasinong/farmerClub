@@ -1,29 +1,23 @@
 package com.dasinong.farmerClub;
 
-import java.io.File;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
+
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Random;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 
 import com.dasinong.farmerClub.config.ClientConfig;
 import com.dasinong.farmerClub.dao.ISecurityCodeDao;
 import com.dasinong.farmerClub.dao.IUserAccessTokenDao;
 import com.dasinong.farmerClub.dao.IUserDao;
-import com.dasinong.farmerClub.dao.UserDao;
 import com.dasinong.farmerClub.model.SecurityCode;
 import com.dasinong.farmerClub.model.SecurityCodeManager;
 import com.dasinong.farmerClub.model.User;
@@ -393,7 +387,7 @@ public class UserLoginController extends BaseController {
 
 		// TODO (xiahonggao): deprecate session
 		String savedCode = null;
-		if (codeId != null && Long.valueOf(codeId)==0L) {
+		if (codeId != null && Long.valueOf(codeId)!=0L) {
 			SecurityCode codeObj = codeDao.findById(Long.valueOf(codeId));
 			savedCode = codeObj.getCode();
 		} else {

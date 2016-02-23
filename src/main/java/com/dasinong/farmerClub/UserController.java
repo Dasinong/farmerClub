@@ -29,6 +29,7 @@ import com.dasinong.farmerClub.model.Institution;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.model.UserType;
 import com.dasinong.farmerClub.outputWrapper.UserWrapper;
+import com.dasinong.farmerClub.util.Env;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
 
 @Controller
@@ -174,10 +175,11 @@ public class UserController extends RequireUserLoginController {
 				ext = imgt[imgt.length - 1];
 			}
 
-			String filePath = this.servletContext.getRealPath("/");
+			//this.servletContext.getRealPath("/");
+			String filePath = Env.getEnv().DataDir;
 			Random rnd = new Random();
 			String fileName = user.getCellPhone() + rnd.nextInt(9999) + "." + ext;
-			File dest = new File(filePath + "../avater/" + fileName);
+			File dest = new File(filePath + "/avater/" + fileName);
 			imgFile.transferTo(dest);
 			user.setPictureId(fileName);
 			IUserDao userdao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
