@@ -63,8 +63,9 @@ public class All24h implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("update 24h failed", e);
 			String content = "Update 24h failed on " + new Date() + " with file " + basefolder;
-			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
-			SMS.sendSafe(message);
+			//WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			//SMS.sendSafe(message);
+			System.out.println(content);
 		}
 	}
 

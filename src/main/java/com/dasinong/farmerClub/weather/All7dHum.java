@@ -62,7 +62,9 @@ public class All7dHum implements IWeatherBuffer {
 			logger.error("update 7d hum failed", e);
 			String content = "Update 7d hum failed on " + new Date() + " with file " + sourceFile;
 			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
-			SMS.sendSafe(message);
+			//SMS.sendSafe(message);
+			//System.out.println(content);
+			System.out.println(content);
 			_all7dHum = old7dHum;
 		}
 	}

@@ -68,8 +68,9 @@ public class AllAgriDisForcast implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("update agriculture disaster forcast failed", e);
 			String content = "Update adf failed on " + new Date() + " with file " + sourceFile;
-			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
-			SMS.sendSafe(message);
+			//WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			//SMS.sendSafe(message);
+			System.out.println(content);
 			_alladf = oldadf;
 		}
 	}
