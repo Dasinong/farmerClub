@@ -293,6 +293,16 @@ public class BaiKeController extends BaseController {
 		baiKeFacade = (IBaiKeFacade) ContextLoader.getCurrentWebApplicationContext().getBean("baiKeFacade");
 		return baiKeFacade.browseCPProductByModelAndManufacturer(model,manufacturer);
 	}
+	
+	@RequestMapping(value = "/browseCustomizedCPProduct", produces = "application/json")
+	@ResponseBody
+	public Object browseCustomizedCPProduct(HttpServletRequest request, HttpServletResponse response) {
+		HttpServletRequestX requestX = new HttpServletRequestX(request);
+		String model = requestX.getNonEmptyString("model");
+		String manufacturer = requestX.getNonEmptyString("manufacturer");
+		baiKeFacade = (IBaiKeFacade) ContextLoader.getCurrentWebApplicationContext().getBean("baiKeFacade");
+		return baiKeFacade.browseCustomizedCPProduct(model,manufacturer);
+	}
 
 	@RequestMapping(value = "/getCPProdcutsByIngredient", produces = "application/json")
 	@ResponseBody

@@ -26,5 +26,14 @@ public class CPProductDao extends EntityHibernateDao<CPProduct>implements ICPPro
 		}
 		return list;
 	}
+	
+	@Override
+	public List<CPProduct> findByModelAndManufacturer(String model, String manufacturer) {
+		List list = getHibernateTemplate().find("from CPProduct where model=? and manufacturer like '%"+manufacturer+"%'", model);
+		if (list == null) {
+			return new ArrayList<CPProduct>();
+		}
+		return list;
+	}
 
 }

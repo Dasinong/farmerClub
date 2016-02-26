@@ -401,4 +401,29 @@ public class BaiKeFacade implements IBaiKeFacade {
 		result.put("data", cpbs);
 		return result;
 	}
+	
+	@Override
+	public Object browseCustomizedCPProduct(String model, String manufacturer) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		cPProductDao = (ICPProductDao) ContextLoader.getCurrentWebApplicationContext()
+				.getBean("cPProductDao");
+		List<CPProduct> cps = cPProductDao.findByModelAndManufacturer(model,manufacturer);
+		
+		List<FormattedCPProductWrapper> fcpws = new ArrayList<FormattedCPProductWrapper>();
+		if (cps == null) {
+			result.put("respCode", 200);
+			result.put("message", "检索无结果");
+			result.put("data", fcpws);
+			return result;
+		}
+		
+        for(CPProduct cpb : cps){
+			fcpws.add(new FormattedCPProductWrapper(cpb));
+		}
+        
+		result.put("respCode", 200);
+		result.put("message", "获得成功");
+		result.put("data", fcpws);
+		return result;
+	}
 }

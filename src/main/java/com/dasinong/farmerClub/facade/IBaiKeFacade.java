@@ -41,4 +41,6 @@ public interface IBaiKeFacade {
 
 	Object browseCPProductByModelAndManufacturer(String model, String manufacturer);
 
+	Object browseCustomizedCPProduct(String model, String manufacturer);
+
 }

@@ -20,7 +20,7 @@ public class CPProductBrowseDao extends EntityHibernateDao<CPProductBrowse>imple
 
 	@Override
 	public List<CPProductBrowse> findByModelAndManufacturer(String model, String manufacturer) {
-		List list = getHibernateTemplate().find("from CPProductBrowse where model=? and manufacturer like '%"+manufacturer+"%'", model);
+		List list = getHibernateTemplate().find("from CPProductBrowse where model=? and priority=2 manufacturer like '%"+manufacturer+"%'", model);
 		if (list == null) {
 			return new ArrayList<CPProductBrowse>();
 		}

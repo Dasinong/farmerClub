@@ -10,4 +10,6 @@ public interface ICPProductDao extends IEntityDao<CPProduct> {
 
 	List<CPProduct> findByIngredient(String ingredient);
 
+	List<CPProduct> findByModelAndManufacturer(String model, String manufacturer);
+
 }
