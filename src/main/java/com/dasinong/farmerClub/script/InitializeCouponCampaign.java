@@ -42,8 +42,8 @@ public class InitializeCouponCampaign {
 		stores.add(store);
 		
 		CouponCampaign campaign = (new CouponCampaignMutator(couponDao, campaignDao))
-				.setName("新活动")
-				.setDescription("测试巴斯夫")
+				.setName("新活动2")
+				.setDescription("测试巴斯夫2")
 				.setInstitution(inst)
 				.setType(CouponCampaignType.CASH)
 				.setVolume(50)

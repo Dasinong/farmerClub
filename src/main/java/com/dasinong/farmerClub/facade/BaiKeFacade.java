@@ -228,6 +228,27 @@ public class BaiKeFacade implements IBaiKeFacade {
 		result.put("data", cppws);
 		return result;
 	}
+	
+	
+	@Override
+	public Object getFormattedCPProdcutsByIngredient(String ingredient) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		cPProductDao = (ICPProductDao) ContextLoader.getCurrentWebApplicationContext().getBean("cPProductDao");
+		List<CPProduct> cpproducts = cPProductDao.findByIngredient(ingredient);
+		if (cpproducts == null || cpproducts.size() == 0) {
+			result.put("respCode", 400);
+			result.put("message", "该有效成分不存在");
+			return result;
+		}
+		List<FormattedCPProductWrapper> cppws = new ArrayList<FormattedCPProductWrapper>();
+		for (CPProduct cpp : cpproducts) {
+			cppws.add(new FormattedCPProductWrapper(cpp));
+		}
+		result.put("respCode", 200);
+		result.put("message", "获得成功");
+		result.put("data", cppws);
+		return result;
+	}
 
 	@Override
 	public List<HashMap<String, String>> searchVariety(String key) {

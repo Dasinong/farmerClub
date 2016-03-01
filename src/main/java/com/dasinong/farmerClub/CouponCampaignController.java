@@ -15,10 +15,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
+import com.dasinong.farmerClub.coupon.exceptions.CanNotClaimMultipleCouponException;
+import com.dasinong.farmerClub.coupon.exceptions.CouponAlreadyRedeemedException;
+import com.dasinong.farmerClub.dao.ILocationDao;
 import com.dasinong.farmerClub.exceptions.UserIsNotLoggedInException;
 import com.dasinong.farmerClub.facade.ICouponFacade;
+import com.dasinong.farmerClub.model.Coupon;
+import com.dasinong.farmerClub.model.Location;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.outputWrapper.CouponCampaignWrapper;
+import com.dasinong.farmerClub.outputWrapper.CouponWrapper;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
 
 @Controller
@@ -34,10 +40,11 @@ public class CouponCampaignController extends RequireUserLoginController {
 		CouponCampaignWrapper campaign;
 		User user = this.getLoginUser(request);
 		if (user!=null){
+			
 			HttpServletRequestX requestX = new HttpServletRequestX(request);
 			double lat = requestX.getDoubleOptional("lat",0.00);
 			double lon = requestX.getDoubleOptional("lon",0.00);
-			
+							
 			if (lat==0.00 ||lon==0.00)
 			{
 				campaign = facade.getCampaign(id);
@@ -45,14 +52,13 @@ public class CouponCampaignController extends RequireUserLoginController {
 			else{
 				campaign =facade.getCampaign(id,lat,lon);
 			}
+			data.put("campaign", campaign);
+			result.put("respCode", 200);
+			result.put("message", "获取成功");
+			result.put("data", data);
 		}
 		else throw (new UserIsNotLoggedInException());
-		
-		
-		data.put("campaign", campaign);
-		result.put("respCode", 200);
-		result.put("message", "获取成功");
-		result.put("data", data);
+
 		return result;	
 	}
 	
@@ -71,10 +77,26 @@ public class CouponCampaignController extends RequireUserLoginController {
 			List<CouponCampaignWrapper> campaigns;
 			if (lat==0.00 ||lon==0.00)
 			{
-				campaigns = facade.findClaimableCampaigns(user.getInstitutionId());
+				if (user.getFields()!=null && user.getFields().size()>0){
+					ILocationDao locationDao = (ILocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("locationDao");
+					//No session here. Manually check here. Consider to hide to transaction in facade in refactor. 
+					Long lid = user.getFields().iterator().next().getLocation().getLocationId();
+					Location l = locationDao.findById(lid);
+					lat = l.getLatitude();
+					lon = l.getLongtitude();
+					campaigns = facade.findClaimableCampaigns(user.getInstitutionId(),lat,lon);
+				}
+				else{
+					campaigns = facade.findClaimableCampaigns(user.getInstitutionId());
+				}
 			}
 			else{
-				campaigns =facade.findClaimableCampaigns(user.getInstitutionId(),lat,lon);
+				campaigns = facade.findClaimableCampaigns(user.getInstitutionId(),lat,lon);
+			}
+			
+			List<CouponWrapper> coupons = facade.findCouponsByOwnerId(user.getUserId(),false);
+			if (coupons!=null){
+				data.put("coupons", coupons);
 			}
 			data.put("campaigns", campaigns);
 		}

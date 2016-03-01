@@ -71,8 +71,26 @@ public class FormattedCPProductWrapper {
 		this.id = cp.getcPProductId();
 		this.telephone = cp.getTelephone();
 		
-		this.activeIngredient = cp.getActiveIngredient().split("\n");
-		this.activeIngredientUsage = cp.getContent().split("\n");
+		//this.activeIngredient = cp.getActiveIngredient().split("\n");
+		this.activeIngredientUsage = cp.getContent().split("\n"); 
+		if (this.activeIngredientUsage.length>1){
+			String[] activeIngredients = cp.getActiveIngredient().split("·");
+			if (activeIngredients.length == this.activeIngredientUsage.length-1){
+				this.activeIngredient = new String[this.activeIngredientUsage.length];
+				this.activeIngredient[0] = cp.getActiveIngredient();
+				for(int i=0;i<this.activeIngredientUsage.length-1;i++){
+					this.activeIngredient[i+1] = activeIngredients[i];
+				}
+			}else{
+				String[] activeIngredient = new String[]{cp.getActiveIngredient()};
+				this.activeIngredient = activeIngredient;
+			}
+		}else{
+			String[] activeIngredient = new String[]{cp.getActiveIngredient()};
+			this.activeIngredient = activeIngredient;
+		}
+		
+		
 		String[] diseaseArr = cp.getDisease().split("\n");
 		String[] cropArr = cp.getCrop().split("\n");
 		String[] volumeArr = cp.getVolume().split("\n");

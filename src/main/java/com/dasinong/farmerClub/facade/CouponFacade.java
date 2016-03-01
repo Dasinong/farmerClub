@@ -33,6 +33,7 @@ import com.dasinong.farmerClub.outputWrapper.CouponWrapper;
 import com.dasinong.farmerClub.outputWrapper.GroupedScannedCouponsWrapper;
 import com.dasinong.farmerClub.sms.CouponWarningShortMessage;
 import com.dasinong.farmerClub.sms.SMS;
+import com.dasinong.farmerClub.util.Env;
 import com.dasinong.farmerClub.util.QRGenUtil;
 
 @Transactional
@@ -92,7 +93,7 @@ public class CouponFacade implements ICouponFacade {
 		}
 		
 		try {
-			QRGenUtil.gen("userId="+ownerId+"&couponId="+coupon.getId()+"&campaignId="+campaignId, ""+coupon.getId());
+			QRGenUtil.gen("function=coupon&userId="+ownerId+"&couponId="+coupon.getId()+"&campaignId="+campaignId, Env.getEnv().CouponQRDir, ""+coupon.getId());
 			User owner = userDao.findById(ownerId);
 			coupon.setOwner(owner);
 			coupon.setClaimedAt(new Timestamp((new Date()).getTime()));
@@ -218,6 +219,19 @@ public class CouponFacade implements ICouponFacade {
 		List<CouponWrapper> wrappers = new ArrayList<CouponWrapper>();
 		for (Coupon coupon : coupons) {
 			wrappers.add(new CouponWrapper(coupon, true /* expandCampaign */));
+		}
+		
+		return wrappers;
+	}
+	
+	@Override
+	public List<CouponWrapper> findCouponsByOwnerId(long ownerId, boolean expand) {
+		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
+		List<Coupon> coupons = couponDao.findByOwnerId(ownerId);
+		
+		List<CouponWrapper> wrappers = new ArrayList<CouponWrapper>();
+		for (Coupon coupon : coupons) {
+			wrappers.add(new CouponWrapper(coupon, expand /* expandCampaign */));
 		}
 		
 		return wrappers;

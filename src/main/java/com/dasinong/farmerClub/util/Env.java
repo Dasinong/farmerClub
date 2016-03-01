@@ -43,7 +43,8 @@ public class Env {
 			BaseFTP = WorkingDir + "/PloughHelper/src/main/java/com/dasinong/ploughHelper/weather/";
 			BaseDATA = WorkingDir + "/PloughHelper/src/main/java/com/dasinong/ploughHelper/weather/";
 			LuceneDir = "/Users/";
-			QRCodeDir = "/Users/jiangsean/"; //For testing only. Should point to where server locates
+			CouponQRDir = "/Users/jiangsean/coupon"; //For testing only. Should point to where server locates
+			RefcodeQRDir = "/Users/jiangsean/refcode";
 			weatherAlert = false;
 		} else {
 			WorkingDir = "/data";
@@ -51,7 +52,8 @@ public class Env {
 			BaseFTP = WorkingDir + "/data/ftp";
 			BaseDATA = WorkingDir + "/data/weather";
 			weatherAlert = true;
-			QRCodeDir = "/usr/local/tomcat7/webapps/pic/couponCampaign/QRCode";
+			CouponQRDir = "/usr/local/tomcat7/webapps/pic/couponCampaign/QRCode"; //For testing only. Should point to where server locates
+			RefcodeQRDir = "/usr/local/tomcat7/webapps/pic/refCode";
 		}
 	}
 
@@ -60,7 +62,8 @@ public class Env {
 	public String WorkingDir;
 	public String DataDir;
 	public String LuceneDir;
-	public String QRCodeDir;
+	public String CouponQRDir;
+	public String RefcodeQRDir;
 	public boolean isDebug;
 	public boolean weatherAlert;
 	public int sessionTimeout = 60000; // 1000 min;

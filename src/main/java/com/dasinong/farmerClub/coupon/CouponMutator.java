@@ -19,6 +19,7 @@ import com.dasinong.farmerClub.model.CouponCampaign;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.sms.CouponWarningShortMessage;
 import com.dasinong.farmerClub.sms.SMS;
+import com.dasinong.farmerClub.util.Env;
 import com.dasinong.farmerClub.util.QRGenUtil;
 
 public class CouponMutator {
@@ -111,7 +112,7 @@ public class CouponMutator {
 		}
 		
 		try {
-			QRGenUtil.gen("userId="+ownerId+"&couponId="+coupon.getId(), ""+coupon.getId());
+			QRGenUtil.gen("userId="+ownerId+"&couponId="+coupon.getId(), Env.getEnv().CouponQRDir,""+coupon.getId());
 			User owner = userDao.findById(ownerId);
 			coupon.setOwner(owner);
 			coupon.setClaimedAt(new Timestamp((new Date()).getTime()));

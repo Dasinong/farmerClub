@@ -312,6 +312,15 @@ public class BaiKeController extends BaseController {
 		baiKeFacade = (IBaiKeFacade) ContextLoader.getCurrentWebApplicationContext().getBean("baiKeFacade");
 		return baiKeFacade.getCPProdcutsByIngredient(ingredient);
 	}
+	
+	@RequestMapping(value = "/getFormattedCPProductByIngredient", produces = "application/json")
+	@ResponseBody
+	public Object getFormattedCPProductByIngredient(HttpServletRequest request, HttpServletResponse response) {
+		HttpServletRequestX requestX = new HttpServletRequestX(request);
+		String ingredient = requestX.getNonEmptyString("ingredient");
+		baiKeFacade = (IBaiKeFacade) ContextLoader.getCurrentWebApplicationContext().getBean("baiKeFacade");
+		return baiKeFacade.getFormattedCPProdcutsByIngredient(ingredient);
+	}
 
 	@RequestMapping(value = "/getVarietysByName", produces = "application/json")
 	@ResponseBody

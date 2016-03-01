@@ -2,7 +2,6 @@ package com.dasinong.farmerClub.model;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -207,6 +206,8 @@ public class User implements Serializable {
 
 	public void setRefcode(String refcode) {
 		this.refcode = refcode;
+		
+		
 	}
 
 	public Long getRefuid() {

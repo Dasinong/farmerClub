@@ -19,11 +19,12 @@ import com.google.zxing.qrcode.encoder.QRCode;
 
 public class QRGenUtil {
 	
-	public static void gen(String myCodeText, String name){
+	public static void gen(String myCodeText, String root, String name){
 		QRCode q = new QRCode();
 	    
 	    // change path as per your laptop/desktop location
-	    String filePath = Env.getEnv().QRCodeDir + "/" + name +".png";
+	   // String filePath = Env.getEnv().QRCodeDir + "/" + name +".png";
+		String filePath = root + "/" + name +".png";
 	    int size = 300;
 	    String fileType = "png";
 	    File myFile = new File(filePath);
@@ -58,7 +59,7 @@ public class QRGenUtil {
 	    //System.out.println("\n\nYou have successfully created QR Code.");
 	}
 	public static void main(String[] args){
-		QRGenUtil.gen("http://www.baidu.com", "QRtest");
+		QRGenUtil.gen("http://www.baidu.com", Env.getEnv().CouponQRDir,"QRtest");
 	}       
 
 }

@@ -28,6 +28,7 @@ import com.dasinong.farmerClub.sms.SMS;
 import com.dasinong.farmerClub.sms.SecurityCodeShortMessage;
 import com.dasinong.farmerClub.util.Env;
 import com.dasinong.farmerClub.util.HttpServletRequestX;
+import com.dasinong.farmerClub.util.QRGenUtil;
 import com.dasinong.farmerClub.util.Refcode;
 import com.dasinong.farmerClub.viewerContext.ViewerContext;
 
@@ -75,6 +76,7 @@ public class UserLoginController extends BaseController {
 			rtyCount++;
 			Thread.sleep(50);
 		}
+		QRGenUtil.gen("function=refcode&code=", Env.getEnv().RefcodeQRDir, ""+user.getUserId());
 
 		UserWrapper userWrapper = new UserWrapper(user);
 		result.put("data", userWrapper);
@@ -225,7 +227,8 @@ public class UserLoginController extends BaseController {
 			user.setCreateAt(new Date());
 
 			userDao.save(user);
-            
+			QRGenUtil.gen("function=refcode&code=", Env.getEnv().RefcodeQRDir, ""+user.getUserId());
+          
 			// TODO (xiahonggao): deprecate session
 			UserAccessToken token = null;
 			if (vc.getAppId() != null)

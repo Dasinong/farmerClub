@@ -37,4 +37,6 @@ public interface ICouponFacade {
 
 	List<CouponCampaignWrapper> findCampaginsByScannerId(long scannerId);
 
+	List<CouponWrapper> findCouponsByOwnerId(long ownerId, boolean expand);
+
 }

@@ -89,7 +89,6 @@ public class ViewerContextInitializer extends HandlerInterceptorAdapter {
 			UserAccessToken accessToken = manager.parse(token);
 			viewerContext.setAppId(accessToken.getAppId());
 			viewerContext.setUserId(accessToken.getUserId());
-
 			manager.renew(accessToken);
 		} catch (InvalidUserAccessTokenException ex) {
 			ex.printStackTrace();

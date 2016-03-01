@@ -43,4 +43,6 @@ public interface IBaiKeFacade {
 
 	Object browseCustomizedCPProduct(String model, String manufacturer);
 
+	Object getFormattedCPProdcutsByIngredient(String ingredient);
+
 }

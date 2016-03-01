@@ -16,6 +16,8 @@ public class Refcode {
 		// return result.toString();
 		return "" + org;
 	}
+	
+	
 
 	public static void main(String[] args) {
 		System.out.println(Refcode.GenerateRefcode());
