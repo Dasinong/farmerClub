@@ -42,8 +42,10 @@ public class All7dHum implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("Initialize 7d hum failed", e);
 			String content = "Initialize 7dhum failed on " + new Date() + " with file " + latestSourceFile();
-			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
-			SMS.sendSafe(message);
+			//WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			//SMS.sendSafe(message);
+			logger.error(content);
+			System.out.println(content);
 		}
 	}
 
@@ -61,10 +63,11 @@ public class All7dHum implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("update 7d hum failed", e);
 			String content = "Update 7d hum failed on " + new Date() + " with file " + sourceFile;
-			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			//WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
 			//SMS.sendSafe(message);
-			//System.out.println(content);
+			logger.error(content);
 			System.out.println(content);
+
 			_all7dHum = old7dHum;
 		}
 	}
@@ -132,8 +135,10 @@ public class All7dHum implements IWeatherBuffer {
 			}
 		}
 		
-		WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), notification.toString());
-		SMS.sendSafe(message);
+		//WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), notification.toString());
+		//SMS.sendSafe(message);
+		logger.error(notification.toString());
+		System.out.println(notification);
 		br.close();
 		fr.close();
 	}

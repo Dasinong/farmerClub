@@ -40,8 +40,9 @@ public class All7d implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("Initialize 7d failed", e);
 			String content = "Initialize 7d failed on " + new Date() + " with file " + latestSourceFile();
-			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
-			SMS.sendSafe(message);
+			System.out.println(content);
+			//WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			//SMS.sendSafe(message);
 		}
 	}
 
@@ -158,8 +159,9 @@ public class All7d implements IWeatherBuffer {
 		}
 		if (tfhf != null)
 			tfhf.padding();
-		WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), notification.toString());
-		SMS.sendSafe(message);
+		//WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), notification.toString());
+		//SMS.sendSafe(message);
+		System.out.println(notification);
 		br.close();
 		fr.close();
 	}

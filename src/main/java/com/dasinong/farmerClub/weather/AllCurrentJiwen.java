@@ -45,8 +45,9 @@ public class AllCurrentJiwen implements IWeatherBuffer {
 		} catch (Exception e) {
 			logger.error("Initialize current Jiwen failed", e);
 			String content = "Initialize jiwen failed on " + new Date() + " with file " + latestSourceFile();
-			WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
-			SMS.sendSafe(message);
+			//WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), content);
+			//SMS.sendSafe(message);
+			System.out.println(content);
 		}
 	}
 
@@ -116,8 +117,9 @@ public class AllCurrentJiwen implements IWeatherBuffer {
 			}
 		}
 		
-		WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), notification.toString());
-		SMS.sendSafe(message);
+		//WeatherDataShortMessage message = new WeatherDataShortMessage(0L, WeatherAdmins.getSubscribers(), notification.toString());
+		//SMS.sendSafe(message);
+		System.out.println(notification);
 		br.close();
 		fr.close();
 	}

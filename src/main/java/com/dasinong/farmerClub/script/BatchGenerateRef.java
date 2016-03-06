@@ -20,7 +20,7 @@ import com.dasinong.farmerClub.util.Refcode;
 
 public class BatchGenerateRef {
 	
-	public void addMissingRef(){
+	public static void addMissingRef(){
 		ApplicationContext applicationContext = new FileSystemXmlApplicationContext(
 				"file:./src/main/webapp/WEB-INF/spring/beans/ModelBeans.xml",
 				"file:./src/main/webapp/WEB-INF/spring/database/ScriptDataSource.xml",
@@ -39,16 +39,19 @@ public class BatchGenerateRef {
 	}
 	
 	public static void main(String[] args) throws Exception {
+
 		ApplicationContext applicationContext = new FileSystemXmlApplicationContext(
 				"file:./src/main/webapp/WEB-INF/spring/beans/ModelBeans.xml",
 				"file:./src/main/webapp/WEB-INF/spring/database/ScriptDataSource.xml",
 				"file:./src/main/webapp/WEB-INF/spring/database/Hibernate.xml");
 		IUserDao userDao = (IUserDao) applicationContext.getBean("userDao");
-		List<User> users = userDao.findAll();
-		System.out.println(users.size());
-		for(User user: users){
+
+		for(long i = 3864; i<=4368;i++){
+			User user = userDao.findById(i);
+			if (user!=null){
 			System.out.println(user.getUserId());
 			QRGenUtil.gen("function=refcode&code="+user.getRefcode(), Env.getEnv().RefcodeQRDir,""+user.getUserId());
+			}
 		}
 	}
 

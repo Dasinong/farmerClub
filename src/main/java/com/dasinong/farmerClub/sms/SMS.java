@@ -36,6 +36,7 @@ import com.dasinong.farmerClub.util.StringUtils;
  *         SMS是Short Message Service的缩写，用来发送短信。如果短信实现了IPersistentShortMessage
  *         结构，SMS会将短信保存在数据库中，方便以后分析追踪，也方便后台重发失败的短信
  */
+
 public class SMS {
 
 	public static final String SIGNATURE = "【大户俱乐部】";
@@ -158,6 +159,7 @@ public class SMS {
 			send(message);
 		} catch (Exception ex) {
 			// ignore
+			int a=0;
 		}
 	}
 
