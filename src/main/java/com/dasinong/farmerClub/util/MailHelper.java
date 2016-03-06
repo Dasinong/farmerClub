@@ -37,7 +37,7 @@ public class MailHelper {
 		final String apiKey = "BX8WgvPhzg5GFVpj";
 
 		NameValuePair[] param = { new NameValuePair("api_user", apiUser), new NameValuePair("api_key", apiKey),
-				new NameValuePair("from", "service@sendcloud.im"), new NameValuePair("fromname", "今日农事"),
+				new NameValuePair("from", "service@sendcloud.im"), new NameValuePair("fromname", "大户俱乐部"),
 				new NameValuePair("to", target), new NameValuePair("subject", subject),
 				new NameValuePair("html", content), new NameValuePair("resp_email_id", "true") };
 		post.setRequestBody(param);

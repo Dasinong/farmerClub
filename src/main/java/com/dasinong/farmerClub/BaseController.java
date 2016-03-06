@@ -21,6 +21,7 @@ import com.dasinong.farmerClub.coupon.exceptions.CouponAlreadyRedeemedException;
 import com.dasinong.farmerClub.coupon.exceptions.NoMoreAvailableCouponException;
 import com.dasinong.farmerClub.coupon.exceptions.NotAuthorizedToScanCouponException;
 import com.dasinong.farmerClub.coupon.exceptions.CanNotRedeemOthersCouponException;
+import com.dasinong.farmerClub.coupon.exceptions.CanNotScanMoreException;
 import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.exceptions.GenerateAppAccessTokenException;
 import com.dasinong.farmerClub.exceptions.GenerateUserAccessTokenException;
@@ -331,6 +332,17 @@ public class BaseController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("respCode", 2104);
 		result.put("message", "不能使用他人的优惠卷");
+		return result;
+	}
+	
+	
+	@ResponseStatus(value = HttpStatus.OK)
+	@ExceptionHandler(CanNotScanMoreException.class)
+	@ResponseBody
+	public Object handleCanNotScanMoreException(HttpServletRequest req, Exception exception) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("respCode", 2105);
+		result.put("message", "不能扫描更多该活动优惠卷");
 		return result;
 	}
 

@@ -13,6 +13,7 @@ import com.dasinong.farmerClub.coupon.exceptions.CampaignNotInClaimRangeExceptio
 import com.dasinong.farmerClub.coupon.exceptions.CampaignNotInRedeemRangeException;
 import com.dasinong.farmerClub.coupon.exceptions.CanNotClaimMultipleCouponException;
 import com.dasinong.farmerClub.coupon.exceptions.CanNotRedeemOthersCouponException;
+import com.dasinong.farmerClub.coupon.exceptions.CanNotScanMoreException;
 import com.dasinong.farmerClub.coupon.exceptions.CouponAlreadyRedeemedException;
 import com.dasinong.farmerClub.coupon.exceptions.NoMoreAvailableCouponException;
 import com.dasinong.farmerClub.coupon.exceptions.NotAuthorizedToScanCouponException;
@@ -123,6 +124,7 @@ public class CouponFacade implements ICouponFacade {
 		}
 		
 		User scanner = userDao.findById(scannerId);
+		
 		CouponCampaign campaign = coupon.getCampaign();
 		
 		if (coupon.isRedeemed()) {
@@ -130,13 +132,17 @@ public class CouponFacade implements ICouponFacade {
 			throw new CouponAlreadyRedeemedException();
 		}
 		
-		if (!campaign.isInRedeemTimeRange()) {
+		if (((new Date()).getTime()-coupon.getCreatedAt().getTime())>(long) 3600*1000*24*31) {
 			throw new CampaignNotInRedeemRangeException();
 		}
 		
 		Store store = storeDao.getByOwnerId(scanner.getUserId());
 		if (store==null || !campaign.getRetailerStores().contains(store)){
 			throw new NotAuthorizedToScanCouponException();
+		}
+		
+		if (couponDao.countScannedCoupon(ownerId,campaign.getId())>20){
+			throw new CanNotScanMoreException();
 		}
 		
 		

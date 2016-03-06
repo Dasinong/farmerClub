@@ -16,4 +16,6 @@ public interface ICouponDao extends IEntityDao<Coupon> {
 
 	List<Coupon> findByScannerIdAndCampaignId(long scannerId, long campaignId);
 
+	int countScannedCoupon(long campaignId, long scannerId);
+
 }
