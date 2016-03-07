@@ -1,5 +1,6 @@
 package com.dasinong.farmerClub.facade;
 
+import java.util.Date;
 import java.util.List;
 
 import com.dasinong.farmerClub.model.CouponRequest;
@@ -38,5 +39,7 @@ public interface ICouponFacade {
 	List<CouponCampaignWrapper> findCampaginsByScannerId(long scannerId);
 
 	List<CouponWrapper> findCouponsByOwnerId(long ownerId, boolean expand);
+
+	Date getCouponClaimTime(long couponId);
 
 }

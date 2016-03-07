@@ -326,4 +326,13 @@ public class CouponFacade implements ICouponFacade {
 		return wrappers;
 	
 	}
+	
+	@Override
+	public Date getCouponClaimTime(long couponId){
+		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
+		Coupon cou = couponDao.findById(couponId);
+		if (cou!=null)
+			return cou.getClaimedAt();	
+		else return new Date();
+	}
 }

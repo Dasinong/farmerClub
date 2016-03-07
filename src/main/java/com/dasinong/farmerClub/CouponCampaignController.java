@@ -47,7 +47,17 @@ public class CouponCampaignController extends RequireUserLoginController {
 							
 			if (lat==0.00 ||lon==0.00)
 			{
-				campaign = facade.getCampaign(id);
+				if (user.getFields()!=null && user.getFields().size()>0){
+					ILocationDao locationDao = (ILocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("locationDao");
+					//No session here. Manually check here. Consider to hide to transaction in facade in refactor. 
+					Long lid = user.getFields().iterator().next().getLocation().getLocationId();
+					Location l = locationDao.findById(lid);
+					lat = l.getLatitude();
+					lon = l.getLongtitude();
+					campaign =facade.getCampaign(id,lat,lon);
+				}else{
+					campaign = facade.getCampaign(id);
+				}
 			}
 			else{
 				campaign =facade.getCampaign(id,lat,lon);
@@ -58,6 +68,10 @@ public class CouponCampaignController extends RequireUserLoginController {
 			result.put("data", data);
 		}
 		else throw (new UserIsNotLoggedInException());
+		String couponId = request.getParameter("couponId");
+		if (couponId!=null && !couponId.equals("")){
+			result.put("claimAt", facade.getCouponClaimTime(Long.parseLong(couponId)));
+		}
 
 		return result;	
 	}

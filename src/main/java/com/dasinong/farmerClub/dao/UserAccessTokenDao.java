@@ -20,11 +20,12 @@ public class UserAccessTokenDao extends EntityHibernateDao<UserAccessToken>imple
 
 	@Override
 	public void deleteByUserIdAndAppId(Long userId, Long appId) {
-		Query query = this.getSession()
+		Query query = this.getSessionFactory().getCurrentSession()
 				.createQuery("delete from UserAccessToken where userId = :userId and appId = :appId");
 		query.setParameter("userId", userId);
 		query.setParameter("appId", appId);
 		query.executeUpdate();
+		
 	}
 
 	@Override
