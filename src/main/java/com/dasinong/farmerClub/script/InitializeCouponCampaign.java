@@ -42,17 +42,18 @@ public class InitializeCouponCampaign {
 		stores.add(store);
 		
 		CouponCampaign campaign = (new CouponCampaignMutator(couponDao, campaignDao))
-				.setName("新活动2")
-				.setDescription("测试巴斯夫2")
+				.setName("健达电子样品卷")
+				.setDescription("请凭该样品卷到巴斯夫指定零售店领取价值36元的样品。该卷领取后一个月失效。")
 				.setInstitution(inst)
-				.setType(CouponCampaignType.CASH)
-				.setVolume(50)
-				.setAmount(1)
+				.setType(CouponCampaignType.SAMPLE)
+				.setVolume(10000)
+				.setAmount(0)
 				.setRetailerStores(stores)
-				.setRedeemTimeStart(Timestamp.valueOf("2016-01-01 00:00:00"))
-				.setRedeemTimeEnd(Timestamp.valueOf("2016-04-30 00:00:00"))
-				.setClaimTimeStart(Timestamp.valueOf("2016-01-01 00:00:00"))
-				.setClaimTimeEnd(Timestamp.valueOf("2016-02-28 00:00:00"))
+				.setRedeemTimeStart(Timestamp.valueOf("2016-03-20 00:00:00"))
+				.setRedeemTimeEnd(Timestamp.valueOf("2016-07-20 00:00:00"))
+				.setClaimTimeStart(Timestamp.valueOf("2016-03-01 00:00:00"))
+				.setClaimTimeEnd(Timestamp.valueOf("2016-06-20 00:00:00"))
+				.setPictureUrl("event.png;")
 				.save();
 	}
 }

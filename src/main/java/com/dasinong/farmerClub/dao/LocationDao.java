@@ -3,9 +3,11 @@ package com.dasinong.farmerClub.dao;
 import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dasinong.farmerClub.model.Location;
 import com.dasinong.farmerClub.model.User;
+
 
 public class LocationDao extends EntityHibernateDao<Location>implements ILocationDao {
 
@@ -35,6 +37,12 @@ public class LocationDao extends EntityHibernateDao<Location>implements ILocatio
 	@Override
 	public List<Location> findEmptyLocations() {
 		return this.getHibernateTemplate().find("from Location where latitude='' and longtitude=''");
+	}
+	
+	@Override
+	public List<Location> findLocationNear(String province,String city,String country) {
+		return this.getHibernateTemplate()
+				.find("from Location where province=? and city=? and country=?", province, city, country);
 	}
 
 }

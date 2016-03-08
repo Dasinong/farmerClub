@@ -1,5 +1,6 @@
 package com.dasinong.farmerClub;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
-import com.dasinong.farmerClub.coupon.exceptions.CanNotClaimMultipleCouponException;
-import com.dasinong.farmerClub.coupon.exceptions.CouponAlreadyRedeemedException;
+import com.dasinong.farmerClub.coupon.CustomizeCouponCampaignFilter;
 import com.dasinong.farmerClub.dao.ILocationDao;
 import com.dasinong.farmerClub.exceptions.UserIsNotLoggedInException;
 import com.dasinong.farmerClub.facade.ICouponFacade;
-import com.dasinong.farmerClub.model.Coupon;
 import com.dasinong.farmerClub.model.Location;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.outputWrapper.CouponCampaignWrapper;
@@ -112,7 +111,23 @@ public class CouponCampaignController extends RequireUserLoginController {
 			if (coupons!=null){
 				data.put("coupons", coupons);
 			}
-			data.put("campaigns", campaigns);
+			
+			if (user.getInstitutionId() == 3L){
+				List<CouponCampaignWrapper> bsfcampaigns = new ArrayList<CouponCampaignWrapper>();
+				if (user.getUserType().equals("jiandadaren")){
+					for(CouponCampaignWrapper campaign : campaigns){
+						if (CustomizeCouponCampaignFilter.isDarenEvent(campaign.id)) bsfcampaigns.add(campaign);
+					}
+				}else{
+					for(CouponCampaignWrapper campaign : campaigns){
+						if (CustomizeCouponCampaignFilter.isFarmerEvent(campaign.id)) bsfcampaigns.add(campaign);
+					}
+				}
+				data.put("campaigns", bsfcampaigns);
+			}
+			else{
+				data.put("campaigns", campaigns);
+			}
 		}
 		else throw (new UserIsNotLoggedInException());
 		

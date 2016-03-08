@@ -66,11 +66,13 @@ public class LocationController extends BaseController {
 		Double lon = requestX.getDouble("lon");
 
 		LocationDao ld = (LocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("locationDao");
-		List<Location> ls = (List<Location>) ld.getHibernateTemplate()
-				.find("from Location where province=? and city=? and country=?", province, city, country);
+		List<Location> ls = ld.findLocationNear(province, city, country);
+		LocationWrapper nearl=null;
+
 		GeoUtil geo = new GeoUtil(ls);
 		Location nearest = geo.getNearLoc(lat, lon);
-		LocationWrapper nearl = new LocationWrapper(nearest);
+		nearl = new LocationWrapper(nearest);
+
 		result.put("respCode", 200);
 		result.put("message", "获取成功");
 		result.put("data", nearl);

@@ -40,22 +40,25 @@ public class StoreFacade implements IStoreFacade {
 			throw new RequireUserTypeException(user.getUserType());
 		}
 
-		Store store = new Store();
-		store.setName(name);
-		store.setDesc(desc);
-		store.setLocation(loc);
-		store.setStreetAndNumber(streetAndNumber);
-		store.setContactName(ownerName);
-		store.setOwnerId(user.getUserId());
-		store.setPhone(phone);
-		store.setLatitude(latitude);
-		store.setLongtitude(longtitude);
-		store.setType(type);
-		store.setSource(StoreSource.REGISTRATION);
-		store.setStatus(StoreStatus.PENDING);
-		store.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-		store.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-		storeDao.save(store);
+		Store store = storeDao.getByOwnerId(user.getUserId());
+		if (store==null){
+			store = new Store();
+			store.setName(name);
+			store.setDesc(desc);
+			store.setLocation(loc);
+			store.setStreetAndNumber(streetAndNumber);
+			store.setContactName(ownerName);
+			store.setOwnerId(user.getUserId());
+			store.setPhone(phone);
+			store.setLatitude(latitude);
+			store.setLongtitude(longtitude);
+			store.setType(type);
+			store.setSource(StoreSource.REGISTRATION);
+			store.setStatus(StoreStatus.PENDING);
+			store.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+			store.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+			storeDao.save(store);
+		}
 	
 		Map<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> data = new HashMap<String, Object>();

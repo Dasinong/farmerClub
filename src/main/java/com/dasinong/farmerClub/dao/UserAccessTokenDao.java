@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dasinong.farmerClub.exceptions.GenerateUserAccessTokenException;
 import com.dasinong.farmerClub.exceptions.InvalidUserAccessTokenException;
@@ -19,6 +20,7 @@ import com.dasinong.farmerClub.util.Env;
 public class UserAccessTokenDao extends EntityHibernateDao<UserAccessToken>implements IUserAccessTokenDao {
 
 	@Override
+	@Transactional
 	public void deleteByUserIdAndAppId(Long userId, Long appId) {
 		Query query = this.getSessionFactory().getCurrentSession()
 				.createQuery("delete from UserAccessToken where userId = :userId and appId = :appId");
