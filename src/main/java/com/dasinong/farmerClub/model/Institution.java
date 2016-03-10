@@ -10,6 +10,7 @@ public class Institution implements Serializable {
 	public static final long DOWS = 1;
 	public static final long YANHUA = 2;
 	public static final long BASF = 3;
+	public static final long ZHNO =4;
 
 	private static final long serialVersionUID = 1L;
 

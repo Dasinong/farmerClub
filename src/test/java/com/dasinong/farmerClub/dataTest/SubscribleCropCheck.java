@@ -261,5 +261,26 @@ public class SubscribleCropCheck {
         Assert.assertEquals(371L, (long) step.getStepId());
         Assert.assertEquals("一般农事", step.getStepName());
 	}
+	
+	@Test
+	public void checkCorn() {
+		Crop crop = cropDao.findById(270L);
+		Assert.assertEquals("玉米", crop.getCropName());
+		Assert.assertEquals(12, crop.getSubStages().size());
+		Set<SubStage> subStages = crop.getSubStages();
+        SubStage substage = subStages.iterator().next();
+        Assert.assertEquals(126L, (long) substage.getSubStageId());
+        Assert.assertEquals("出苗期", substage.getSubStageName());
+        Assert.assertEquals(3, substage.getTaskSpecs().size());
+        Set<TaskSpec> taskSpecs = substage.getTaskSpecs();
+        TaskSpec taskSpec = taskSpecs.iterator().next();
+        Assert.assertEquals(306L, (long) taskSpec.getTaskSpecId());
+        Assert.assertEquals("一般农事", taskSpec.getTaskSpecName());
+        Assert.assertEquals(1, taskSpec.getSteps().size());
+        List<Step> steps = taskSpec.getSteps();
+        Step step = steps.iterator().next();
+        Assert.assertEquals(476L, (long) step.getStepId());
+        Assert.assertEquals("一般农事", step.getStepName());
+	}
 
 }

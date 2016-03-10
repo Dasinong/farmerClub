@@ -7,6 +7,7 @@ public class CropsForInstitution {
 	private static Long[] basfCropIds;
 	private static Long[] dowsCropIds;
 	private static Long[] yanhuaCropIds;
+	private static Long[] zhongnongCropIds;
 
 	public static Long[] getIds(Long instId) {
 		if (instId == Institution.BASF) {
@@ -18,6 +19,10 @@ public class CropsForInstitution {
 		}
 		
 		if (instId == Institution.YANHUA) {
+			return getIdsForYanhua();
+		}
+		
+		if (instId == Institution.ZHNO) {
 			return getIdsForYanhua();
 		}
 		
@@ -35,6 +40,17 @@ public class CropsForInstitution {
 			basfCropIds[4] = 48L;
 			basfCropIds[5] = 148L;
 			basfCropIds[6] = 202L;
+		}
+		
+		return basfCropIds;
+	}
+	
+	public static Long[] getIdsForZhongNong() {
+		// 玉米
+		if (zhongnongCropIds == null) {
+			zhongnongCropIds = new Long[2];
+			zhongnongCropIds[0] = 270L;
+			zhongnongCropIds[1] = 223L;
 		}
 		
 		return basfCropIds;
