@@ -299,7 +299,7 @@ public class UserController extends RequireUserLoginController {
 		}
 		user.setRefuid(refuid);
 		User refuser = userDao.findById(refuid);
-		refuser.setMemberPoints(refuser.getMemberPoints()+10);
+		refuser.setMemberPoints(refuser.getMemberPoints()+1);
 		refuser.updateMemberLevel();
 		userDao.update(refuser);
 		user.setInstitutionId(refuser.getInstitutionId());
@@ -325,6 +325,24 @@ public class UserController extends RequireUserLoginController {
 		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
 		user.setUserType(userType);
 		userDao.update(user);
+
+		result.put("respCode", 200);
+		result.put("message", "更新成功");
+		return result;
+	}
+	
+	@RequestMapping(value = "/getJifen", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Object getJifen(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		HttpServletRequestX requestX = new HttpServletRequestX(request);
+		User user = this.getLoginUser(request);
+
+		Long userId = requestX.getLong("userId");
+		
+
+		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
+		userDao.getJifen(userId);
 
 		result.put("respCode", 200);
 		result.put("message", "更新成功");

@@ -1,0 +1,81 @@
+ /* css reset */
+        html,body{margin:0;padding:0;border:0}
+        body{font-family:Arial,sans-serif;font-size:16px;background:#fff;color:#000;word-wrap:break-word;-webkit-text-size-adjust:none}
+        article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+        h1,h2,h3,h4,h5,h6{padding:0;margin:0}
+        table{border-collapse:collapse;border-spacing:0}
+        a{text-decoration:none}
+        ol,ul,p{padding:0;margin:0}
+        input,textarea{outline:0;-webkit-appearance:none;padding:0;margin:0}
+        ::-webkit-scrollbar{width:0;height:0}
+        a{color:#274E9C}
+        input,textarea{-webkit-tap-highlight-color:rgba(255,0,0,0)}
+        .clear:after{content:'';clear:both;overflow:hidden;height:0;display:block}
+
+        /* content */
+        body {
+            background-color: #efefef;
+            font-family: "微软雅黑";
+        }
+        .banner {
+            background-color: #fdc727;
+            height: 70px;
+            position: relative;
+        }
+        .banner .touxiang {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            text-align: center;
+            left: 50%;
+            margin-left: -50px;
+            bottom: -50px;
+            border-radius: 100px;
+        }
+        .detail {
+
+        }
+        .detail .title {
+            font-size: 18px;
+            text-align: center;
+            margin: 70px 0 20px;
+        }
+        .detail a {
+            display: block;
+            font-size: 16px;
+            color: #3181ed;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .circle {
+            text-align: center;
+        }
+        .circle-container {
+            position: relative;
+        }
+        .circles-number {
+            display: none;
+        }
+        .circle-content {
+            width: 220px;
+            height: 220px;
+            text-align: center;
+            margin: -220px auto 0;
+        }
+        .circle-text {
+            padding-top: 70px;
+            font-size: 30px;
+            color: #999;
+        }
+        .curr-number {
+            color: #fdc727;
+        }
+        .circle-prize i {
+            margin-top: 5px;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: url(./img/icon.png) 0 0 no-repeat;
+            margin-right: 2px;
+        }

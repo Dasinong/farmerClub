@@ -2,6 +2,7 @@ package com.dasinong.farmerClub.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.dasinong.farmerClub.model.Crop;
@@ -65,5 +66,17 @@ public class UserDao extends EntityHibernateDao<User>implements IUserDao {
 	public List<User> getAllUsersWithPassword() {
 		List<User> list = this.getHibernateTemplate().find("from User where password is not NULL");
 		return list;
+	}
+
+	@Override
+	public int getJifen(Long userId) {
+		String hql = "select memberPoints "
+				+ "from User"
+				+ "where userId="+userId;
+		Query query = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(hql);
+		
+		List<Integer> list = query.list();
+		if (list==null || list.size()==0) return 0; 
+		else return list.get(0);
 	}
 }

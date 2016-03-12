@@ -1,0 +1,46 @@
+        html,body{margin:0;padding:0;border:0}
+        body{font-family:Arial,sans-serif;font-size:16px;background:#fff;color:#000;word-wrap:break-word;-webkit-text-size-adjust:none}
+        article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+        h1,h2,h3,h4,h5,h6{padding:0;margin:0}
+        table{border-collapse:collapse;border-spacing:0}
+        a{text-decoration:none}
+        ol,ul,p{padding:0;margin:0}
+        input,textarea{outline:0;-webkit-appearance:none;padding:0;margin:0}
+        ::-webkit-scrollbar{width:0;height:0}
+        a{color:#274E9C}
+        input,textarea{-webkit-tap-highlight-color:rgba(255,0,0,0)}
+        .clear:after{content:'';clear:both;overflow:hidden;height:0;display:block}
+    
+        /* content */
+        body {
+            background-color: #efefef;
+            font-family: "微软雅黑";
+        }
+        .header img {
+            width: 100%;
+        }
+        .content {
+            margin: 15px;
+        }
+        .content h1,
+        .content h3,
+        .content p,
+        .content li {
+            line-height: 22px;
+        }
+        .content h1 {
+            font-size: 18px;
+            text-align: center;
+        }
+        .content h1,
+        .content h3 {
+            margin-top: 20px;
+        }
+        .content h3,
+        .content p {
+            font-size: 12px;
+        }
+        .content ul li {
+            font-size: 12px;
+            margin-left: 15px;
+        }

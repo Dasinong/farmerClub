@@ -20,4 +20,6 @@ public interface IUserDao extends IEntityDao<User> {
 
 	List<User> getAllUsersWithPassword();
 
+	int getJifen(Long userId);
+
 }

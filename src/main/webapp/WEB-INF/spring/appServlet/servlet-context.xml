@@ -41,7 +41,7 @@
 	</beans:bean>
 	
 	<!-- 处理器 -->  
-
 	<beans:bean name="/weatherAlert" class="com.dasinong.farmerClub.mvc.WeatherAlertController"/>
 	<beans:bean name="/baike" class="com.dasinong.farmerClub.mvc.BaiKeJspController"/>
+	<beans:bean name="/daren" class="com.dasinong.farmerClub.mvc.DarenJifenController"/>	
 </beans:beans>
