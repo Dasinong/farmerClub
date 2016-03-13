@@ -68,7 +68,7 @@
             var memberPoints = ${MemberPoints};
             var levelObj = getPointLevelObj(memberPoints);
             
-            $('.touxiang').attr('src', avatarUrl+'xxx');
+            $('.touxiang').attr('src', avatarUrl);
             $('.curr-number').text(memberPoints);
             if (levelObj.level < 5) {
                 $('.curr-buttom').text('/' + levelObj.levelNumber);

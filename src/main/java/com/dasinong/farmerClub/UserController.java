@@ -299,9 +299,11 @@ public class UserController extends RequireUserLoginController {
 		}
 		user.setRefuid(refuid);
 		User refuser = userDao.findById(refuid);
-		refuser.setMemberPoints(refuser.getMemberPoints()+1);
-		refuser.updateMemberLevel();
-		userDao.update(refuser);
+		if (refuser.getUserType() == UserType.JIANDADAREN){
+			refuser.setMemberPoints(refuser.getMemberPoints()+1);
+			refuser.updateMemberLevel();
+			userDao.update(refuser);
+		}
 		user.setInstitutionId(refuser.getInstitutionId());
 		userDao.update(user);
 		result.put("respCode", 200);
