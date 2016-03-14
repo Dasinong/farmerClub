@@ -23,7 +23,7 @@ public class CropsForInstitution {
 		}
 		
 		if (instId == Institution.ZHNO) {
-			return getIdsForYanhua();
+			return getIdsForZhongNong();
 		}
 		
 		return null;
