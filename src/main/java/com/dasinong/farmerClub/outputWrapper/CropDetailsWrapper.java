@@ -34,7 +34,7 @@ public class CropDetailsWrapper {
 				}
 				
 				substagews.add(new SubStageWrapper(ss));
-				if (ss.getSubStageId() == currentStageId) {
+				if (ss.getSubStageId().longValue() == currentStageId.longValue()) {
 					// Populate petdisspec
 					if (ss.getPetDisSpecs() != null) {
 						List<PetDisSpec> pdlist = new ArrayList<PetDisSpec>();

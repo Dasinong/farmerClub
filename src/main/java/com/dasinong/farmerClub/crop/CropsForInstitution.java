@@ -53,7 +53,7 @@ public class CropsForInstitution {
 			zhongnongCropIds[1] = 223L;
 		}
 		
-		return basfCropIds;
+		return zhongnongCropIds;
 	}
 	
 	public static Long[] getIdsForDows() {

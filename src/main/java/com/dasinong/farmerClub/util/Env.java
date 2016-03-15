@@ -46,6 +46,7 @@ public class Env {
 			CouponQRDir = "/Users/jiangsean/coupon"; //For testing only. Should point to where server locates
 			RefcodeQRDir = "/Users/jiangsean/refcode";
 			weatherAlert = false;
+			StockDir = "/Users/jiangsean/stock";
 		} else {
 			WorkingDir = "/data";
 			DataDir = "/usr/local/tomcat7/webapps/";
@@ -54,6 +55,7 @@ public class Env {
 			weatherAlert = true;
 			CouponQRDir = "/usr/local/tomcat7/webapps/pic/couponCampaign/QRCode"; //For testing only. Should point to where server locates
 			RefcodeQRDir = "/usr/local/tomcat7/webapps/pic/refCode";
+			StockDir = "/usr/local/tomcat7/webapps/pic/winsafestock";
 		}
 	}
 
@@ -61,6 +63,7 @@ public class Env {
 	public String BaseDATA;
 	public String WorkingDir;
 	public String DataDir;
+	public String StockDir;
 	public String LuceneDir;
 	public String CouponQRDir;
 	public String RefcodeQRDir;
