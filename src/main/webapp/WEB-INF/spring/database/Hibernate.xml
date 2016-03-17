@@ -62,6 +62,7 @@
                <value>/com/dasinong/farmerClub/model/CouponCampaign.hbm.xml</value>
                <value>/com/dasinong/farmerClub/model/Coupon.hbm.xml</value>
   		       <value>/com/dasinong/farmerClub/model/CouponRequest.hbm.xml</value>
+  		       <value>/com/dasinong/farmerClub/model/ProStock.hbm.xml</value>
 			</list>
     	</property>	
     </bean>

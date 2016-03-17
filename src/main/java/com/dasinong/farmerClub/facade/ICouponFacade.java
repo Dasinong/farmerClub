@@ -42,4 +42,14 @@ public interface ICouponFacade {
 
 	Date getCouponClaimTime(long couponId);
 
+	List<CouponCampaignWrapper> findDarenCampaigns(long institutionId, User user);
+
+	CouponCampaignWrapper getDarenCampaign(long campaignId, User user);
+
+	List<CouponWrapper> findCouponsByOwnerId(long ownerId, double lat, double lon);
+
+	List<CouponWrapper> findDarenCouponsByOwnerId(long ownerId, long refuid);
+
+	CouponWrapper bsfredeem(long couponId, long ownerId, long scannerId, boolean isDaren) throws Exception;
+
 }

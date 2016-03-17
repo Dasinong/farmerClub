@@ -45,6 +45,7 @@ public class User implements Serializable {
 	private int memberPoints;
 	private int memberLevel;
 	private Boolean isEmployee = false;
+	private Long winsafeid;
 	
 	private List<Coupon> coupons = null;
 
@@ -273,27 +274,26 @@ public class User implements Serializable {
 	}
 	
 	public void updateMemberLevel(){
-		if (this.memberPoints>=20){
+		if (this.memberPoints>=10){
 			this.memberLevel = 2;
 		}
-		if (this.memberPoints>=50){
+		if (this.memberPoints>=20){
 			this.memberLevel = 3;
 		}
-		if (this.memberPoints>=150){
+		if (this.memberPoints>=30){
 			this.memberLevel = 4;
 		}
-		if (this.memberPoints>=500){
+		if (this.memberPoints>=50){
 			this.memberLevel = 5;
 		}
-		if (this.memberPoints>=1200){
-			this.memberLevel = 6;
-		}
-		if (this.memberPoints>=2000){
-			this.memberLevel = 7;
-		}
-		if (this.memberPoints>=5000){
-			this.memberLevel = 8;
-		}
+	}
+
+	public Long getWinsafeid() {
+		return winsafeid;
+	}
+
+	public void setWinsafeid(Long winsafeid) {
+		this.winsafeid = winsafeid;
 	}
 	
 }

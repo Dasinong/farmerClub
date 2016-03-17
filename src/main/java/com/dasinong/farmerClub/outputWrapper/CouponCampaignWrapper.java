@@ -69,7 +69,7 @@ public class CouponCampaignWrapper {
 		this.amount = campaign.getAmount();
 		for (Store store : campaign.getRetailerStores()) {
 			if (((store.getLocation().getLatitude()-lat)*(store.getLocation().getLatitude()-lat)
-					+(store.getLocation().getLongtitude()-lon)*(store.getLocation().getLongtitude()-lon))<0.01){
+					+(store.getLocation().getLongtitude()-lon)*(store.getLocation().getLongtitude()-lon))<0.04){
 					this.stores.add(new StoreWrapper(store));
 			}
 		}

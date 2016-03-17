@@ -11,10 +11,15 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -212,6 +217,9 @@ public class WinsafeUtil {
 		return postFile(url,textMap,fileMap);
 	}
 
+	
+	
+	
 	public static void main(String[] args) {
 		WinsafeUtil winUtil = new WinsafeUtil();
 		String result = winUtil.getCustInfo("62269");

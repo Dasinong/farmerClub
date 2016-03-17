@@ -56,6 +56,12 @@ public class CouponFacade implements ICouponFacade {
 			throw new CanNotClaimMultipleCouponException();
 		}
 		
+		if (campaign.getUnclaimedVolume()<=0L){
+			CouponWarningShortMessage cwsm = new CouponWarningShortMessage(campaignId,0);
+			SMS.send(cwsm);
+			throw new NoMoreAvailableCouponException();
+		}
+		
 		Coupon coupon = null;
 		while (true) {
 			// Randomly pick a coupon so that race condition is less likely to happen
@@ -114,7 +120,6 @@ public class CouponFacade implements ICouponFacade {
 	public CouponWrapper redeem(long couponId, long ownerId, long scannerId) throws Exception {
 		System.out.println("User " + scannerId + " scanned coupon " + couponId);
 		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
-		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
 		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
 		IStoreDao storeDao = (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
 		Coupon coupon = couponDao.findById(couponId);
@@ -132,8 +137,58 @@ public class CouponFacade implements ICouponFacade {
 			throw new CouponAlreadyRedeemedException();
 		}
 		
-		if (((new Date()).getTime()-coupon.getCreatedAt().getTime())>(long) 3600*1000*24*31) {
-			throw new CampaignNotInRedeemRangeException();
+		if (!coupon.canBeRedeemed()){
+				throw new CampaignNotInRedeemRangeException();
+		}
+		
+		Store store = storeDao.getByOwnerId(scanner.getUserId());
+		if (store==null || !campaign.getRetailerStores().contains(store)){
+			throw new NotAuthorizedToScanCouponException();
+		}
+		
+		if (couponDao.countScannedCoupon(ownerId,campaign.getId())>200){
+			throw new CanNotScanMoreException();
+		}
+		
+		
+		coupon.setScanner(scanner);
+		coupon.setRedeemedAt(new Timestamp((new Date()).getTime()));
+		couponDao.save(coupon);
+
+		return new CouponWrapper(coupon);
+	}
+	
+	
+	@Override
+	public CouponWrapper bsfredeem(long couponId, long ownerId, long scannerId, boolean isDaren) throws Exception {
+		System.out.println("User " + scannerId + " scanned coupon " + couponId);
+		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
+		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
+		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
+		IStoreDao storeDao = (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
+		Coupon coupon = couponDao.findById(couponId);
+		
+		if (ownerId != coupon.getOwner().getUserId()) {
+			throw new CanNotRedeemOthersCouponException();
+		}
+		
+		User scanner = userDao.findById(scannerId);
+		
+		CouponCampaign campaign = coupon.getCampaign();
+		
+		if (coupon.isRedeemed()) {
+			throw new CouponAlreadyRedeemedException();
+		}
+		
+		if (isDaren){
+			if ((((new Date()).getTime()-coupon.getClaimedAt().getTime())>(long) 3600*1000*24*31) ||
+				(((new Date()).getTime()-coupon.getClaimedAt().getTime())<(long) 3600*1000*24*9)) {
+					throw new CampaignNotInRedeemRangeException();
+				}
+		}else{
+			if (((new Date()).getTime()-coupon.getClaimedAt().getTime())>(long) 3600*1000*24*31) {
+					throw new CampaignNotInRedeemRangeException();
+			}
 		}
 		
 		Store store = storeDao.getByOwnerId(scanner.getUserId());
@@ -166,6 +221,24 @@ public class CouponFacade implements ICouponFacade {
 		return campaignWrappers;
 	}
 	
+	
+	@Override
+	public List<CouponCampaignWrapper> findDarenCampaigns(long institutionId, User user) {
+		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
+		List<CouponCampaign> campaigns = campaignDao.findClaimable(institutionId);
+		
+		List<CouponCampaignWrapper> campaignWrappers = new ArrayList<CouponCampaignWrapper>();
+		
+		IStoreDao storeDao =  (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
+		Store store = storeDao.getByOwnerId(user.getRefuid());
+		List<Store> stores = new ArrayList<Store>();
+		stores.add(store);
+		for (CouponCampaign campaign : campaigns) {
+			campaignWrappers.add(new CouponCampaignWrapper(campaign,stores));
+		}
+		
+		return campaignWrappers;
+	}
 	
 	@Override
 	public List<CouponCampaignWrapper> findClaimableCampaigns(long institutionId, double lat,double lon) {
@@ -216,6 +289,17 @@ public class CouponFacade implements ICouponFacade {
 		}
 		return new CouponCampaignWrapper(campaign, store);
 	}
+	
+	@Override
+	public CouponCampaignWrapper getDarenCampaign(long campaignId, User user) {
+		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
+		IStoreDao storeDao =  (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
+		Store store = storeDao.getByOwnerId(user.getRefuid());
+		List<Store> stores = new ArrayList<Store>();
+		stores.add(store);
+		CouponCampaign campaign = campaignDao.findById(campaignId);
+		return new CouponCampaignWrapper(campaign, stores);
+	}
 
 	@Override
 	public List<CouponWrapper> findCouponsByOwnerId(long ownerId) {
@@ -229,6 +313,39 @@ public class CouponFacade implements ICouponFacade {
 		
 		return wrappers;
 	}
+	
+	@Override
+	public List<CouponWrapper> findCouponsByOwnerId(long ownerId, double lat, double lon) {
+		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
+		List<Coupon> coupons = couponDao.findByOwnerId(ownerId);
+		
+		List<CouponWrapper> wrappers = new ArrayList<CouponWrapper>();
+		for (Coupon coupon : coupons) {
+			//wrappers.add(new CouponWrapper(coupon, true /* expandCampaign */));
+			wrappers.add(new CouponWrapper(coupon, lat, lon));
+		}
+		
+		return wrappers;
+	}
+	
+	@Override
+	public List<CouponWrapper> findDarenCouponsByOwnerId(long ownerId, long refuid) {
+		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
+		IStoreDao storeDao =(IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
+		List<Store> stores = new ArrayList<Store>();
+		Store store = storeDao.getByOwnerId(refuid);
+		stores.add(store);
+		List<Coupon> coupons = couponDao.findByOwnerId(ownerId);
+		
+		List<CouponWrapper> wrappers = new ArrayList<CouponWrapper>();
+		for (Coupon coupon : coupons) {
+			wrappers.add(new CouponWrapper(coupon, stores));
+		}
+		
+		return wrappers;
+	}
+	
+	
 	
 	@Override
 	public List<CouponWrapper> findCouponsByOwnerId(long ownerId, boolean expand) {

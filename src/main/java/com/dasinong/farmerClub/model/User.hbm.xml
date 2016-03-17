@@ -81,6 +81,9 @@
         <property name="memberLevel" type="integer">
             <column name="memberLevel" />
         </property>
+        <property name="winsafeid" type="java.lang.Long">
+            <column name="winsafeid" />
+        </property>
         <bag name="coupons" table="coupon" inverse="false" lazy="true" fetch="select">
             <key>
                 <column name="ownerId" not-null="false" />

@@ -43,7 +43,7 @@ public class FieldWrapper implements Serializable {
 			for (SubStage ss : subStages) {
 				stagelist.add(new SubStageWrapper(ss));
 				
-				if (ss.getSubStageId() == field.getCurrentStageID()) {
+				if ((long) ss.getSubStageId() == (long) field.getCurrentStageID()) {
 					// Populate petdisspec
 					if (ss.getPetDisSpecs() != null) {
 						List<PetDisSpec> pdlist = new ArrayList<PetDisSpec>();

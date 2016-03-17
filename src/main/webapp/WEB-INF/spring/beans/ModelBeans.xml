@@ -117,4 +117,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     <bean id="couponRequestDao" class="com.dasinong.farmerClub.dao.CouponRequestDao">
         <property name="sessionFactory" ref="mySessionFactory"></property>
     </bean>
+    <bean id="proStockDao" class="com.dasinong.farmerClub.dao.ProStockDao">
+        <property name="sessionFactory" ref="mySessionFactory"></property>
+    </bean>
 </beans>

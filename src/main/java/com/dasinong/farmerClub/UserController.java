@@ -17,6 +17,7 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.dasinong.farmerClub.config.ClientConfig;
 import com.dasinong.farmerClub.dao.IInstitutionDao;
 import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.dao.UserDao;
@@ -309,6 +310,8 @@ public class UserController extends RequireUserLoginController {
 		result.put("respCode", 200);
 		result.put("message", "推荐用户设置成功");
 		result.put("data", new UserWrapper(user));
+		ClientConfig cc = new ClientConfig(user);
+		result.put("clientConfig", cc);
 		return result;
 	}
 

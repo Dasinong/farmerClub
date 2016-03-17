@@ -39,27 +39,30 @@ public class CouponCampaignController extends RequireUserLoginController {
 		CouponCampaignWrapper campaign;
 		User user = this.getLoginUser(request);
 		if (user!=null){
-			
 			HttpServletRequestX requestX = new HttpServletRequestX(request);
 			double lat = requestX.getDoubleOptional("lat",0.00);
 			double lon = requestX.getDoubleOptional("lon",0.00);
-							
-			if (lat==0.00 ||lon==0.00)
-			{
-				if (user.getFields()!=null && user.getFields().size()>0){
-					ILocationDao locationDao = (ILocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("locationDao");
-					//No session here. Manually check here. Consider to hide to transaction in facade in refactor. 
-					Long lid = user.getFields().iterator().next().getLocation().getLocationId();
-					Location l = locationDao.findById(lid);
-					lat = l.getLatitude();
-					lon = l.getLongtitude();
-					campaign =facade.getCampaign(id,lat,lon);
-				}else{
-					campaign = facade.getCampaign(id);
+					
+			if ("jiandadaren".equals(user.getUserType()) && (user.getRefuid()!=null)){
+				campaign = facade.getDarenCampaign(id,user);
+			}else{
+				if (lat==0.00 ||lon==0.00)
+				{
+					if (user.getFields()!=null && user.getFields().size()>0){
+						ILocationDao locationDao = (ILocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("locationDao");
+						//No session here. Manually check here. Consider to hide to transaction in facade in refactor. 
+						Long lid = user.getFields().iterator().next().getLocation().getLocationId();
+						Location l = locationDao.findById(lid);
+						lat = l.getLatitude();
+						lon = l.getLongtitude();
+						campaign =facade.getCampaign(id,lat,lon);
+					}else{
+						campaign = facade.getCampaign(id);
+					}
 				}
-			}
-			else{
-				campaign =facade.getCampaign(id,lat,lon);
+				else{
+					campaign =facade.getCampaign(id,lat,lon);
+				}
 			}
 			data.put("campaign", campaign);
 			result.put("respCode", 200);
@@ -88,23 +91,29 @@ public class CouponCampaignController extends RequireUserLoginController {
 			double lon = requestX.getDoubleOptional("lon",0.00);
 			ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
 			List<CouponCampaignWrapper> campaigns;
-			if (lat==0.00 ||lon==0.00)
-			{
-				if (user.getFields()!=null && user.getFields().size()>0){
-					ILocationDao locationDao = (ILocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("locationDao");
-					//No session here. Manually check here. Consider to hide to transaction in facade in refactor. 
-					Long lid = user.getFields().iterator().next().getLocation().getLocationId();
-					Location l = locationDao.findById(lid);
-					lat = l.getLatitude();
-					lon = l.getLongtitude();
-					campaigns = facade.findClaimableCampaigns(user.getInstitutionId(),lat,lon);
+			
+			//daren will use the location from its recommender
+			if ("jiandadaren".equals(user.getUserType()) && (user.getRefuid()!=null)){
+				campaigns = facade.findDarenCampaigns(user.getInstitutionId(),user);
+			}else{//other check by location
+				if (lat==0.00 ||lon==0.00)
+				{
+					if (user.getFields()!=null && user.getFields().size()>0){
+						ILocationDao locationDao = (ILocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("locationDao");
+						//No session here. Manually check here. Consider to hide to transaction in facade in refactor. 
+						Long lid = user.getFields().iterator().next().getLocation().getLocationId();
+						Location l = locationDao.findById(lid);
+						lat = l.getLatitude();
+						lon = l.getLongtitude();
+						campaigns = facade.findClaimableCampaigns(user.getInstitutionId(),lat,lon);
+					}
+					else{
+						campaigns = facade.findClaimableCampaigns(user.getInstitutionId());
+					}
 				}
 				else{
-					campaigns = facade.findClaimableCampaigns(user.getInstitutionId());
+					campaigns = facade.findClaimableCampaigns(user.getInstitutionId(),lat,lon);
 				}
-			}
-			else{
-				campaigns = facade.findClaimableCampaigns(user.getInstitutionId(),lat,lon);
 			}
 			
 			List<CouponWrapper> coupons = facade.findCouponsByOwnerId(user.getUserId(),false);
