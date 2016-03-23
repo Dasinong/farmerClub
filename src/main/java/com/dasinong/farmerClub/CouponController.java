@@ -34,10 +34,35 @@ public class CouponController extends RequireUserLoginController {
 		Map<String, Object> data = new HashMap<String, Object>();
 		User user = this.getLoginUser(request);
 		HttpServletRequestX requestX = new HttpServletRequestX(request);
+		double lat = requestX.getDoubleOptional("lat",0.00);
+		double lon = requestX.getDoubleOptional("lon",0.00);
 		
 		Long campaignId = requestX.getLong("campaignId");
 		ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
-		CouponWrapper coupon = facade.claim(campaignId, user.getUserId());
+		CouponWrapper coupon; 
+		
+		if ("jiandadaren".equals(user.getUserType()) && (user.getRefuid()!=null)){
+			coupon = facade.darenClaim(campaignId, user.getUserId(),user.getRefuid());
+		}else{
+			if (lat==0.00 ||lon==0.00)
+			{
+				if (user.getFields()!=null && user.getFields().size()>0){
+					ILocationDao locationDao = (ILocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("locationDao");
+					//No session here. Manually check here. Consider to hide to transaction in facade in refactor. 
+					Long lid = user.getFields().iterator().next().getLocation().getLocationId();
+					Location l = locationDao.findById(lid);
+					lat = l.getLatitude();
+					lon = l.getLongtitude();
+					coupon =facade.claim(campaignId, user.getUserId(),lat,lon);
+				}else{
+					coupon = facade.claim(campaignId, user.getUserId());
+				}
+			}
+			else{
+				coupon =facade.claim(campaignId, user.getUserId(),lat,lon);
+			}
+		}
+		
 		
 		data.put("coupon", coupon);
 		result.put("respCode", 200);

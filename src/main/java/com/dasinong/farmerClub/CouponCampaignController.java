@@ -44,7 +44,7 @@ public class CouponCampaignController extends RequireUserLoginController {
 			double lon = requestX.getDoubleOptional("lon",0.00);
 					
 			if ("jiandadaren".equals(user.getUserType()) && (user.getRefuid()!=null)){
-				campaign = facade.getDarenCampaign(id,user);
+				campaign = facade.getDarenCampaign(id,user.getRefuid());
 			}else{
 				if (lat==0.00 ||lon==0.00)
 				{
@@ -94,7 +94,7 @@ public class CouponCampaignController extends RequireUserLoginController {
 			
 			//daren will use the location from its recommender
 			if ("jiandadaren".equals(user.getUserType()) && (user.getRefuid()!=null)){
-				campaigns = facade.findDarenCampaigns(user.getInstitutionId(),user);
+				campaigns = facade.findDarenCampaigns(user.getInstitutionId(),user.getRefuid());
 			}else{//other check by location
 				if (lat==0.00 ||lon==0.00)
 				{

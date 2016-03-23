@@ -20,18 +20,18 @@ public class SubscribleCropTest {
 	@Test
 	public void  cropsForInstitution() {
 		Long[] ids = CropsForInstitution.getIds(1L);
-		Assert.assertEquals(ids.length,2);
+		Assert.assertEquals(ids.length,3);
 		ids = CropsForInstitution.getIds(2L);
-		Assert.assertEquals(ids.length,2);
+		Assert.assertEquals(ids.length,3);
 		ids = CropsForInstitution.getIds(3L);
 		Assert.assertEquals(ids.length,7);
 		ids = CropsForInstitution.getIds(4L);
-		Assert.assertEquals(ids.length,2);
+		Assert.assertEquals(ids.length,3);
 	}
 	
 	@Test
 	public void  cropsWithStage() {
 		Long[] ids = CropsWithSubstage.getIds();
-		Assert.assertEquals(ids.length,9);
+		Assert.assertEquals(ids.length,10);
 	}
 }

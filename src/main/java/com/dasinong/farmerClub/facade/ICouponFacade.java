@@ -3,6 +3,7 @@ package com.dasinong.farmerClub.facade;
 import java.util.Date;
 import java.util.List;
 
+import com.dasinong.farmerClub.model.Coupon;
 import com.dasinong.farmerClub.model.CouponRequest;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.outputWrapper.CouponCampaignWrapper;
@@ -42,14 +43,20 @@ public interface ICouponFacade {
 
 	Date getCouponClaimTime(long couponId);
 
-	List<CouponCampaignWrapper> findDarenCampaigns(long institutionId, User user);
-
-	CouponCampaignWrapper getDarenCampaign(long campaignId, User user);
+	CouponCampaignWrapper getDarenCampaign(long campaignId, long refuid);
 
 	List<CouponWrapper> findCouponsByOwnerId(long ownerId, double lat, double lon);
 
 	List<CouponWrapper> findDarenCouponsByOwnerId(long ownerId, long refuid);
 
 	CouponWrapper bsfredeem(long couponId, long ownerId, long scannerId, boolean isDaren) throws Exception;
+
+	Coupon claimCoupon(long campaignId, long ownerId) throws Exception;
+
+	CouponWrapper darenClaim(long campaignId, long ownerId, long refuid) throws Exception;
+
+	CouponWrapper claim(long campaignId, long ownerId, double lat, double lon) throws Exception;
+
+	List<CouponCampaignWrapper> findDarenCampaigns(long institutionId, long refuid);
 
 }

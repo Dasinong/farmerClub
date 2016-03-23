@@ -76,6 +76,6 @@
             display: inline-block;
             width: 30px;
             height: 30px;
-            background: url(./img/icon.png) 0 0 no-repeat;
+            background: url(../images/icon.png) 0 0 no-repeat;
             margin-right: 2px;
         }

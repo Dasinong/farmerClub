@@ -40,8 +40,32 @@ import com.dasinong.farmerClub.util.QRGenUtil;
 @Transactional
 public class CouponFacade implements ICouponFacade {
 	
+	
+	@Override
+	public CouponWrapper darenClaim(long campaignId, long ownerId, long refuid) throws Exception {
+		Coupon coupon  = claimCoupon(campaignId,ownerId);
+		IStoreDao storeDao =  (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
+		Store store = storeDao.getByOwnerId(refuid);
+		List<Store> stores = new ArrayList<Store>();
+		stores.add(store);
+		return new CouponWrapper(coupon,stores);
+	}
+	
 	@Override
 	public CouponWrapper claim(long campaignId, long ownerId) throws Exception {
+		Coupon coupon  = claimCoupon(campaignId,ownerId);
+		return new CouponWrapper(coupon,true);
+	}
+	
+	@Override
+	public CouponWrapper claim(long campaignId, long ownerId, double lat, double lon ) throws Exception {
+		Coupon coupon  = claimCoupon(campaignId,ownerId);
+		return new CouponWrapper(coupon,lat,lon);
+	}
+	
+	
+	@Override
+	public Coupon claimCoupon(long campaignId, long ownerId) throws Exception {
 		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
 		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
@@ -113,7 +137,7 @@ public class CouponFacade implements ICouponFacade {
 		}
 
 		campaignDao.decrementVolume(campaignId);
-		return new CouponWrapper(coupon,true);
+		return coupon;
 	}
 	
 	@Override
@@ -223,14 +247,14 @@ public class CouponFacade implements ICouponFacade {
 	
 	
 	@Override
-	public List<CouponCampaignWrapper> findDarenCampaigns(long institutionId, User user) {
+	public List<CouponCampaignWrapper> findDarenCampaigns(long institutionId, long refuid) {
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
 		List<CouponCampaign> campaigns = campaignDao.findClaimable(institutionId);
 		
 		List<CouponCampaignWrapper> campaignWrappers = new ArrayList<CouponCampaignWrapper>();
 		
 		IStoreDao storeDao =  (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
-		Store store = storeDao.getByOwnerId(user.getRefuid());
+		Store store = storeDao.getByOwnerId(refuid);
 		List<Store> stores = new ArrayList<Store>();
 		stores.add(store);
 		for (CouponCampaign campaign : campaigns) {
@@ -291,10 +315,10 @@ public class CouponFacade implements ICouponFacade {
 	}
 	
 	@Override
-	public CouponCampaignWrapper getDarenCampaign(long campaignId, User user) {
+	public CouponCampaignWrapper getDarenCampaign(long campaignId, long refuid) {
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
 		IStoreDao storeDao =  (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
-		Store store = storeDao.getByOwnerId(user.getRefuid());
+		Store store = storeDao.getByOwnerId(refuid);
 		List<Store> stores = new ArrayList<Store>();
 		stores.add(store);
 		CouponCampaign campaign = campaignDao.findById(campaignId);
@@ -452,4 +476,5 @@ public class CouponFacade implements ICouponFacade {
 			return cou.getClaimedAt();	
 		else return new Date();
 	}
+
 }

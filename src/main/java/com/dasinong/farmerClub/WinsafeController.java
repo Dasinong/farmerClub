@@ -1,6 +1,11 @@
 package com.dasinong.farmerClub;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -66,16 +71,21 @@ public class WinsafeController extends RequireUserLoginController {
 					result.put("data", data);
 				    if (stocking){
 				    	 IProStockDao proStockDao = (IProStockDao) ContextLoader.getCurrentWebApplicationContext().getBean("proStockDao");
-						 ProStock ps = new ProStock();
-						 
-						 ps.setUserid(user.getUserId());
-						 ps.setProdid(Long.parseLong(proid));
-						 ps.setProdname(prodName);
-						 ps.setProspecial(prospecial);
-						 ps.setScanat(new Date());
-						 ps.setBoxcode(boxcode);
-						 proStockDao.save(ps);
-						 result.put("message", "入库成功");
+						 ProStock ps = proStockDao.getByBoxcode(boxcode);
+				    	 if (ps==null){
+					    	 ps = new ProStock();
+							 
+							 ps.setUserid(user.getUserId());
+							 ps.setProdid(Long.parseLong(proid));
+							 ps.setProdname(prodName);
+							 ps.setProspecial(prospecial);
+							 ps.setScanat(new Date());
+							 ps.setBoxcode(boxcode);
+							 proStockDao.save(ps);
+							 result.put("message", "入库成功");
+				    	 }else{
+				    		 result.put("message", "已入库");
+				    	 }
 				    }
 				} 
 				else{
@@ -173,22 +183,81 @@ public class WinsafeController extends RequireUserLoginController {
 				
 				//this.servletContext.getRealPath("/");
 				String filePath = Env.getEnv().StockDir;
-				String fileName = filePath + "/" + file.getOriginalFilename();
+				String bvaid="";
+				if (user.getWinsafeid()==null || user.getWinsafeid() == 0L){
+					bvaid = "62269";
+		        }else{
+		        	bvaid = ""+user.getWinsafeid();
+		        }
+				String fileName = filePath + "/" + bvaid +"_"+ file.getOriginalFilename();
 				File dest = new File(fileName);
 				file.transferTo(dest);
+								
+				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+				String stockingInfo = null;
+				IProStockDao proStockDao = (IProStockDao) ContextLoader.getCurrentWebApplicationContext().getBean("proStockDao");
+			    
+				while((stockingInfo = br.readLine())!=null)
+				{
+					String times = stockingInfo.substring(5, 19);
+					SimpleDateFormat df = (SimpleDateFormat) DateFormat.getDateInstance();  
+					df.applyPattern("yyyyMMddHHmmss");
+					Date time = df.parse(times);
+					System.out.println(time);
+					String boxcode = stockingInfo.substring(19,45);
+					System.out.println(boxcode);
+					
+				    ProStock ps = proStockDao.getByBoxcode(boxcode);
+				    if (ps!=null){
+				    	System.out.println(ps.getBoxcode()+"已入库!");
+				    }
+				    else{
+				    	WinsafeUtil winsafe = new WinsafeUtil();
+						String winSafeResult = winsafe.getProductInfo(boxcode);
+					    try{
+					 		ObjectMapper mapper = new ObjectMapper();
+							JsonNode root = mapper.readTree(winSafeResult);
+							JsonNode returnCode = root.get("returnCode");
+							if (returnCode.getIntValue() == 0){
+								HashMap<String,String> data = new HashMap<String,String>();
+								JsonNode returnData = root.get("returnData").get(0);
+								boxcode = returnData.get("boxcode").getTextValue();
+								String proid = returnData.get("proid").getTextValue();
+								String prodName = returnData.get("proname").getTextValue();
+								String prospecial = returnData.get("prospecial").getTextValue();
+								
+								ps = new ProStock();
+								ps.setUserid(user.getUserId());
+								ps.setProdid(Long.parseLong(proid));
+								ps.setProdname(prodName);
+								ps.setProspecial(prospecial);
+								ps.setScanat(time);
+								ps.setBoxcode(boxcode);
+								proStockDao.save(ps);
+							}
+							else{
+								System.out.println(ps.getBoxcode()+"入库失败!");
+							}
+						}catch (Exception e) {
+							System.out.println("文件格式错误");
+							result.put("respCode", 307);
+							result.put("message", "文件格式错误");
+						}
+				    }
+				}
+				br.close();
+
 				WinsafeUtil winsafe = new WinsafeUtil();
 				String winSafeResult = "";
-		        if (user.getWinsafeid()==null || user.getWinsafeid() == 0L){
-		        	winSafeResult = winsafe.stockScan("62269",fileName);
-		        }else{
-		        	winSafeResult = winsafe.stockScan(""+user.getWinsafeid(),fileName);
-		        }
+				//work around now. Should guarantee user is registered
+				winSafeResult = winsafe.stockScan(bvaid,fileName);
+			
 				result.put("data", dest );
 				result.put("winsafe", winSafeResult );
 				result.put("respCode", 200);
 				result.put("message", "上传成功");
 				return result;
-			}	else{
+			}else{
 				result.put("respCode", 405);
 				result.put("message", "上传文件为空");
 				return result;

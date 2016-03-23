@@ -48,9 +48,10 @@ public class CropsForInstitution {
 	public static Long[] getIdsForZhongNong() {
 		// 玉米
 		if (zhongnongCropIds == null) {
-			zhongnongCropIds = new Long[2];
+			zhongnongCropIds = new Long[3];
 			zhongnongCropIds[0] = 270L;
 			zhongnongCropIds[1] = 223L;
+			zhongnongCropIds[2] = 331L;
 		}
 		
 		return zhongnongCropIds;
@@ -59,9 +60,10 @@ public class CropsForInstitution {
 	public static Long[] getIdsForDows() {
 		// 小麦和水稻
 		if (dowsCropIds == null) {
-			dowsCropIds = new Long[2];
+			dowsCropIds = new Long[3];
 			dowsCropIds[0] = 173L;
 			dowsCropIds[1] = 223L;
+			dowsCropIds[2] = 331L;
 		}
 		
 		return dowsCropIds;
@@ -70,9 +72,10 @@ public class CropsForInstitution {
 	public static Long[] getIdsForYanhua() {
 		// 小麦和水稻
 		if (yanhuaCropIds == null) {
-			yanhuaCropIds = new Long[2];
+			yanhuaCropIds = new Long[3];
 			yanhuaCropIds[0] = 173L;
 			yanhuaCropIds[1] = 223L;
+			yanhuaCropIds[2] = 331L;
 		}
 		
 		return yanhuaCropIds;

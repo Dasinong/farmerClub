@@ -281,16 +281,19 @@ public class UserController extends RequireUserLoginController {
 				return result;
 			}
 
+			/*
 			if (user.getUserType() != null) {
 				throw new UserTypeAlreadyDefinedException(user.getUserId(), user.getUserType());
-			}
+			}*/
 
 			user.setInstitutionId(ins.getId());
-			user.setUserType(UserType.SALES);
+			user.setUserType(UserType.FARMER);
 			userDao.update(user);
 			result.put("respCode", 200);
 			result.put("message", "绑定机构码成功");
 			result.put("data", new UserWrapper(user));
+			ClientConfig cc = new ClientConfig(user);
+			result.put("clientConfig", cc);
 			return result;
 		}
 

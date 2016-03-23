@@ -8,4 +8,6 @@ public interface IProStockDao extends IEntityDao<ProStock> {
 
 	List<Object[]> countStockByUserid(long userId);
 
+	ProStock getByBoxcode(String boxcode);
+
 }
