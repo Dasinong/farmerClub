@@ -173,14 +173,15 @@ public class WinsafeController extends RequireUserLoginController {
 	@ResponseBody
 	public Object stockScan(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception  {
 		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("respCode", 200);
+		result.put("message", "上传成功");
 		User user = this.getLoginUser(request);
 		if (user == null) {
 			throw new UserIsNotLoggedInException();
 		}
 		MultipartFile file = request.getFile("file");
         try{
-			if (!file.isEmpty()) {
-				
+			if (!file.isEmpty()) {				
 				//this.servletContext.getRealPath("/");
 				String filePath = Env.getEnv().StockDir;
 				String bvaid="";
@@ -196,26 +197,26 @@ public class WinsafeController extends RequireUserLoginController {
 				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
 				String stockingInfo = null;
 				IProStockDao proStockDao = (IProStockDao) ContextLoader.getCurrentWebApplicationContext().getBean("proStockDao");
-			    
-				while((stockingInfo = br.readLine())!=null)
-				{
-					String times = stockingInfo.substring(5, 19);
-					SimpleDateFormat df = (SimpleDateFormat) DateFormat.getDateInstance();  
-					df.applyPattern("yyyyMMddHHmmss");
-					Date time = df.parse(times);
-					System.out.println(time);
-					String boxcode = stockingInfo.substring(19,45);
-					System.out.println(boxcode);
-					
-				    ProStock ps = proStockDao.getByBoxcode(boxcode);
-				    if (ps!=null){
-				    	System.out.println(ps.getBoxcode()+"已入库!");
-				    }
-				    else{
-				    	WinsafeUtil winsafe = new WinsafeUtil();
-						String winSafeResult = winsafe.getProductInfo(boxcode);
-					    try{
-					 		ObjectMapper mapper = new ObjectMapper();
+				try{
+					while((stockingInfo = br.readLine())!=null)
+					{
+						String times = stockingInfo.substring(5, 19);
+						SimpleDateFormat df = (SimpleDateFormat) DateFormat.getDateInstance();  
+						df.applyPattern("yyyyMMddHHmmss");
+						Date time = df.parse(times);
+						System.out.println(time);
+						String boxcode = stockingInfo.substring(19,45);
+						System.out.println(boxcode);
+						
+					    ProStock ps = proStockDao.getByBoxcode(boxcode);
+					    if (ps!=null){
+					    	System.out.println(ps.getBoxcode()+"已入库!");
+					    }
+					    else{
+					    	WinsafeUtil winsafe = new WinsafeUtil();
+							String winSafeResult = winsafe.getProductInfo(boxcode);
+						    
+						 	ObjectMapper mapper = new ObjectMapper();
 							JsonNode root = mapper.readTree(winSafeResult);
 							JsonNode returnCode = root.get("returnCode");
 							if (returnCode.getIntValue() == 0){
@@ -225,7 +226,7 @@ public class WinsafeController extends RequireUserLoginController {
 								String proid = returnData.get("proid").getTextValue();
 								String prodName = returnData.get("proname").getTextValue();
 								String prospecial = returnData.get("prospecial").getTextValue();
-								
+									
 								ps = new ProStock();
 								ps.setUserid(user.getUserId());
 								ps.setProdid(Long.parseLong(proid));
@@ -237,15 +238,18 @@ public class WinsafeController extends RequireUserLoginController {
 							}
 							else{
 								System.out.println(ps.getBoxcode()+"入库失败!");
+								result.put("message", "部分产品入库失败，详见日志");
 							}
-						}catch (Exception e) {
-							System.out.println("文件格式错误");
-							result.put("respCode", 307);
-							result.put("message", "文件格式错误");
-						}
-				    }
+							
+					    }
+					}
+				}catch (Exception e) {
+					System.out.println("文件格式错误");
+					result.put("respCode", 307);
+					result.put("message", "文件格式错误");
+				}finally{
+					br.close();
 				}
-				br.close();
 
 				WinsafeUtil winsafe = new WinsafeUtil();
 				String winSafeResult = "";
@@ -254,8 +258,6 @@ public class WinsafeController extends RequireUserLoginController {
 			
 				result.put("data", dest );
 				result.put("winsafe", winSafeResult );
-				result.put("respCode", 200);
-				result.put("message", "上传成功");
 				return result;
 			}else{
 				result.put("respCode", 405);

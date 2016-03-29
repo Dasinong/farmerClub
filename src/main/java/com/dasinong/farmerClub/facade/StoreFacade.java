@@ -26,48 +26,62 @@ import com.dasinong.farmerClub.util.HttpServletRequestX;
 public class StoreFacade implements IStoreFacade {
 
 	@Override
-	public Object create(User user, String name, String desc, Long locationId, String streetAndNumber, Double latitude,
+	public StoreWrapper createOrUpdate(User user, String name, String desc, Long locationId, String streetAndNumber, Double latitude,
 			Double longtitude, String ownerName, String phone, StoreSource source, int type) throws Exception {
 		IStoreDao storeDao = (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
-		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
 		ILocationDao locDao = (ILocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("locationDao");
-		IPetDisSpecDao petDisSpecDao = (IPetDisSpecDao) ContextLoader.getCurrentWebApplicationContext().getBean("petDisSpecDao");
-		
 		Location loc = locDao.findById(locationId);
-		
+				
 		// If store is added from registration flow, user type must be retailer
 		if (source.equals(StoreSource.REGISTRATION) && !UserType.isRetailer(user)) {
 			throw new RequireUserTypeException(user.getUserType());
 		}
 
+		//Store and user has one-one relationship. Judge new store by ownerId instead of storeId.
 		Store store = storeDao.getByOwnerId(user.getUserId());
+		boolean isNew = false;
 		if (store==null){
 			store = new Store();
-			store.setName(name);
-			store.setDesc(desc);
-			store.setLocation(loc);
-			store.setStreetAndNumber(streetAndNumber);
-			store.setContactName(ownerName);
-			store.setOwnerId(user.getUserId());
-			store.setPhone(phone);
-			store.setLatitude(latitude);
-			store.setLongtitude(longtitude);
-			store.setType(type);
-			store.setSource(StoreSource.REGISTRATION);
-			store.setStatus(StoreStatus.PENDING);
+			isNew=true;
+		}
+		
+		store.setName(name);
+		store.setDesc(desc);
+		store.setLocation(loc);
+		store.setStreetAndNumber(streetAndNumber);
+		store.setContactName(ownerName);
+		store.setOwnerId(user.getUserId());
+		store.setPhone(phone);
+		store.setLatitude(latitude);
+		store.setLongtitude(longtitude);
+		store.setType(type);
+		store.setSource(StoreSource.REGISTRATION);
+		store.setStatus(StoreStatus.PENDING);
+		if (isNew){
 			store.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-			store.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+		}
+		store.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+		
+		if (isNew){
 			storeDao.save(store);
 		}
+		else{
+			storeDao.update(store);
+		}
 	
-		Map<String, Object> result = new HashMap<String, Object>();
-		HashMap<String, Object> data = new HashMap<String, Object>();
 		StoreWrapper sw = new StoreWrapper(store);
-		data.put("store", sw);
-		result.put("respCode", 200);
-		result.put("message", "农资店创建成功");
-		result.put("data", data);
-		return result;
+		return sw;
 	}
-
+	
+	
+	@Override
+	public StoreWrapper get(User user) throws Exception {
+		IStoreDao storeDao = (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
+		Store store = storeDao.getByOwnerId(user.getUserId());
+		if (store==null) return null;
+		else{
+			StoreWrapper sw = new StoreWrapper(store);
+			return sw;
+		}
+	}
 }

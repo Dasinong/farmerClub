@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 //The Http wrapper to integrate with winsafe system
 public class WinsafeUtil {
-	private String ServerUrl="http://180.166.205.22:8001/bva/";
+	private String ServerUrl="http://basf.winsafe.cn/bva/";
 	private String username="apiuser";
 	private String password="a123456";
 	
