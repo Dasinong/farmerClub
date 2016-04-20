@@ -76,7 +76,7 @@ public class UserLoginController extends BaseController {
 			rtyCount++;
 			Thread.sleep(50);
 		}
-		QRGenUtil.gen("function=refcode&code=", Env.getEnv().RefcodeQRDir, ""+user.getUserId());
+		QRGenUtil.gen("function=refcode&code="+user.getRefcode(), Env.getEnv().RefcodeQRDir, ""+user.getUserId());
 
 		UserWrapper userWrapper = new UserWrapper(user);
 		result.put("data", userWrapper);

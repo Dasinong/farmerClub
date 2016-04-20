@@ -36,17 +36,17 @@ public class InitializeCouponCampaign {
 		ICouponDao couponDao = (ICouponDao) applicationContext.getBean("couponDao");
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) applicationContext.getBean("couponCampaignDao");
 		IStoreDao storeDao = (IStoreDao) applicationContext.getBean("storeDao");
-		Institution inst = instDao.findById(3L);
+		Institution inst = instDao.findById(100L);
 		List<Store> stores = new ArrayList<Store>();
-		Store store = storeDao.findById(16L);
+		Store store = storeDao.findById(23L);
 		stores.add(store);
 		
 		CouponCampaign campaign = (new CouponCampaignMutator(couponDao, campaignDao))
-				.setName("健达电子样品卷")
-				.setDescription("请凭该样品卷到巴斯夫指定零售店领取价值36元的样品。该卷领取后一个月失效。")
+				.setName("天气测试")
+				.setDescription("天气测试")
 				.setInstitution(inst)
-				.setType(CouponCampaignType.SAMPLE)
-				.setVolume(10000)
+				.setType(CouponCampaignType.INSURANCE)
+				.setVolume(100)
 				.setAmount(0)
 				.setRetailerStores(stores)
 				.setRedeemTimeStart(Timestamp.valueOf("2016-03-20 00:00:00"))

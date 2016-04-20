@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
 
+import com.dasinong.farmerClub.coupon.CouponCampaignType;
 import com.dasinong.farmerClub.coupon.CouponLocker;
 import com.dasinong.farmerClub.coupon.exceptions.CampaignNotInClaimRangeException;
 import com.dasinong.farmerClub.coupon.exceptions.CampaignNotInRedeemRangeException;
@@ -43,7 +44,7 @@ public class CouponFacade implements ICouponFacade {
 	
 	@Override
 	public CouponWrapper darenClaim(long campaignId, long ownerId, long refuid) throws Exception {
-		Coupon coupon  = claimCoupon(campaignId,ownerId);
+		Coupon coupon  = claimCoupon(campaignId,ownerId,-1L);
 		IStoreDao storeDao =  (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
 		Store store = storeDao.getByOwnerId(refuid);
 		List<Store> stores = new ArrayList<Store>();
@@ -52,20 +53,20 @@ public class CouponFacade implements ICouponFacade {
 	}
 	
 	@Override
-	public CouponWrapper claim(long campaignId, long ownerId) throws Exception {
-		Coupon coupon  = claimCoupon(campaignId,ownerId);
+	public CouponWrapper claim(long campaignId, long ownerId, long amount) throws Exception {
+		Coupon coupon  = claimCoupon(campaignId,ownerId, amount);
 		return new CouponWrapper(coupon,true);
 	}
 	
 	@Override
-	public CouponWrapper claim(long campaignId, long ownerId, double lat, double lon ) throws Exception {
-		Coupon coupon  = claimCoupon(campaignId,ownerId);
+	public CouponWrapper claim(long campaignId, long ownerId, double lat, double lon, long amount) throws Exception {
+		Coupon coupon  = claimCoupon(campaignId,ownerId, amount);
 		return new CouponWrapper(coupon,lat,lon);
 	}
 	
 	
 	@Override
-	public Coupon claimCoupon(long campaignId, long ownerId) throws Exception {
+	public Coupon claimCoupon(long campaignId, long ownerId, long amount) throws Exception {
 		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
 		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
@@ -76,8 +77,10 @@ public class CouponFacade implements ICouponFacade {
 		}
 		
 		List<Coupon> coupons = couponDao.findByOwnerIdAndCampaignId(ownerId, campaignId);
-		if (coupons.size() > 0) {
-			throw new CanNotClaimMultipleCouponException();
+		if (campaign.getType()!=CouponCampaignType.INSURANCE){
+			if (coupons.size() > 0) {
+				throw new CanNotClaimMultipleCouponException();
+			}
 		}
 		
 		if (campaign.getUnclaimedVolume()<=0L){
@@ -124,10 +127,15 @@ public class CouponFacade implements ICouponFacade {
 		}
 		
 		try {
-			QRGenUtil.gen("function=coupon&userId="+ownerId+"&couponId="+coupon.getId()+"&campaignId="+campaignId, Env.getEnv().CouponQRDir, ""+coupon.getId());
+			if(campaign.getType()==CouponCampaignType.INSURANCE && amount!=-1L){
+				coupon.setAmount(amount);
+			}
+			
+			QRGenUtil.gen("function=coupon&userId="+ownerId+"&couponId="+coupon.getId()+"&campaignId="+campaignId+
+					"&amount="+coupon.getAmount(), Env.getEnv().CouponQRDir, ""+coupon.getId());
 			User owner = userDao.findById(ownerId);
 			coupon.setOwner(owner);
-			coupon.setClaimedAt(new Timestamp((new Date()).getTime()));
+			coupon.setClaimedAt(new Timestamp((new Date()).getTime()));			
 			couponDao.save(coupon);
 		} catch (Exception ex) {
 			// Unlock the coupon
@@ -139,6 +147,8 @@ public class CouponFacade implements ICouponFacade {
 		campaignDao.decrementVolume(campaignId);
 		return coupon;
 	}
+	
+	
 	
 	@Override
 	public CouponWrapper redeem(long couponId, long ownerId, long scannerId) throws Exception {

@@ -18,8 +18,6 @@ public interface ICouponFacade {
 	
 	public CouponCampaignWrapper getCampaign(long campaignId, double lat, double lon);
 	
-	public CouponWrapper claim(long campaignId, long ownerId) throws Exception;
-	
 	public CouponWrapper redeem(long couponId, long ownerId, long scannerId) throws Exception;
 	
 	public List<CouponWrapper> findCouponsByOwnerId(long ownerId);
@@ -51,12 +49,14 @@ public interface ICouponFacade {
 
 	CouponWrapper bsfredeem(long couponId, long ownerId, long scannerId, boolean isDaren) throws Exception;
 
-	Coupon claimCoupon(long campaignId, long ownerId) throws Exception;
-
 	CouponWrapper darenClaim(long campaignId, long ownerId, long refuid) throws Exception;
 
-	CouponWrapper claim(long campaignId, long ownerId, double lat, double lon) throws Exception;
+	public CouponWrapper claim(long campaignId, long ownerId, long amount) throws Exception;
+	
+	CouponWrapper claim(long campaignId, long ownerId, double lat, double lon, long amount) throws Exception;
 
 	List<CouponCampaignWrapper> findDarenCampaigns(long institutionId, long refuid);
+
+	Coupon claimCoupon(long campaignId, long ownerId, long amount) throws Exception;
 
 }

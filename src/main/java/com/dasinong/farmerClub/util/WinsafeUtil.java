@@ -222,16 +222,18 @@ public class WinsafeUtil {
 	
 	public static void main(String[] args) {
 		WinsafeUtil winUtil = new WinsafeUtil();
-		String result = winUtil.getCustInfo("62269");
+		//String result = winUtil.getCustInfo("62269");
+		//System.out.println(result);
+		String result = winUtil.getProductInfo("U0110125511350B05##110113");
 		System.out.println(result);
-		result = winUtil.getProductInfo("U0110125511350B05##110113");
+		result = winUtil.getProductInfo("B115010198604###1505070004");
 		System.out.println(result);
-		result = winUtil.getCustStockReport("60001", "201401");
-		System.out.println(result);
-		result = winUtil.antiFake("0730000001009591");
-		System.out.println(result);
-		result = winUtil.stockScan("62269","/Users/jiangsean/622692_20160315101011.txt");
-		System.out.println(result);
+		//result = winUtil.getCustStockReport("60001", "201401");
+		//System.out.println(result);
+		//result = winUtil.antiFake("0730000001009591");
+		//System.out.println(result);
+		//result = winUtil.stockScan("62269","/Users/jiangsean/622692_20160315101011.txt");
+		//System.out.println(result);
 		
 	}
 

@@ -47,8 +47,9 @@ public class BatchGenerateRef {
 				"file:./src/main/webapp/WEB-INF/spring/database/ScriptDataSource.xml",
 				"file:./src/main/webapp/WEB-INF/spring/database/Hibernate.xml");
 		IUserDao userDao = (IUserDao) applicationContext.getBean("userDao");
-
-		for(long i = 4437; i<=4437;i++){
+		//addMissingRef();
+		
+		for(long i = 1; i<=7700;i++){
 			User user = userDao.findById(i);
 			if (user!=null){
 			System.out.println(user.getUserId());

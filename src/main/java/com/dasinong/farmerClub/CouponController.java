@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
+import com.dasinong.farmerClub.coupon.CouponCampaignType;
 import com.dasinong.farmerClub.dao.ILocationDao;
 import com.dasinong.farmerClub.exceptions.UserIsNotLoggedInException;
 import com.dasinong.farmerClub.facade.ICouponFacade;
+import com.dasinong.farmerClub.model.CouponCampaign;
 import com.dasinong.farmerClub.model.Location;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.outputWrapper.CouponCampaignWrapper;
@@ -38,11 +40,34 @@ public class CouponController extends RequireUserLoginController {
 		double lon = requestX.getDoubleOptional("lon",0.00);
 		
 		Long campaignId = requestX.getLong("campaignId");
+		Long amount = requestX.getLongOptional("amount", -1L);
 		ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
 		CouponWrapper coupon; 
 		
-		if ("jiandadaren".equals(user.getUserType()) && (user.getRefuid()!=null)){
-			coupon = facade.darenClaim(campaignId, user.getUserId(),user.getRefuid());
+		CouponCampaignWrapper cc = facade.getCampaign(campaignId);
+		if (cc.type!=CouponCampaignType.INSURANCE)
+		{
+			if ("jiandadaren".equals(user.getUserType()) && (user.getRefuid()!=null)){
+				coupon = facade.darenClaim(campaignId, user.getUserId(),user.getRefuid());
+			}else{
+				if (lat==0.00 ||lon==0.00)
+				{
+					if (user.getFields()!=null && user.getFields().size()>0){
+						ILocationDao locationDao = (ILocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("locationDao");
+						//No session here. Manually check here. Consider to hide to transaction in facade in refactor. 
+						Long lid = user.getFields().iterator().next().getLocation().getLocationId();
+						Location l = locationDao.findById(lid);
+						lat = l.getLatitude();
+						lon = l.getLongtitude();
+						coupon =facade.claim(campaignId, user.getUserId(),lat,lon,-1L);
+					}else{
+						coupon = facade.claim(campaignId, user.getUserId(),-1L);
+					}
+				}
+				else{
+					coupon =facade.claim(campaignId, user.getUserId(),lat,lon,-1L);
+				}
+			}
 		}else{
 			if (lat==0.00 ||lon==0.00)
 			{
@@ -53,13 +78,13 @@ public class CouponController extends RequireUserLoginController {
 					Location l = locationDao.findById(lid);
 					lat = l.getLatitude();
 					lon = l.getLongtitude();
-					coupon =facade.claim(campaignId, user.getUserId(),lat,lon);
+					coupon =facade.claim(campaignId,user.getUserId(), lat,lon,amount);
 				}else{
-					coupon = facade.claim(campaignId, user.getUserId());
+					coupon = facade.claim(campaignId, user.getUserId(),amount);
 				}
 			}
 			else{
-				coupon =facade.claim(campaignId, user.getUserId(),lat,lon);
+				coupon =facade.claim(campaignId, user.getUserId(),lat,lon,amount);
 			}
 		}
 		
