@@ -89,12 +89,13 @@ public class ImportBVAAccount {
 				else{
 					try{
 			
-					User user = generateBVAUser(cellphone,jn.get("contactname").getTextValue(),jn.get("custid").getLongValue());
+					User user = generateBVAUser(cellphone,jn.get("contactname").getTextValue(),Long.parseLong(jn.get("custid").getTextValue()));
 					if (userDao.findByCellphone(cellphone)!=null){
 						user = userDao.findByCellphone(cellphone);
 						user.setUserName(jn.get("contactname").getTextValue());
+						user.setWinsafeid(Long.parseLong(jn.get("custid").getTextValue()));
 						userDao.update(user);
-						System.out.println(user.getUserName());
+						System.out.println(user.getUserName()+user.getWinsafeid());
 						alreadyInsert++;
 					}
 					else{

@@ -58,4 +58,15 @@ public class PetDisSpecController extends RequireUserLoginController {
 		petSoluFacade = (IPetSoluFacade) ContextLoader.getCurrentWebApplicationContext().getBean("petSoluFacade");
 		return petSoluFacade.getPetSoluDetail(petSoluId);
 	}
+	
+	@RequestMapping(value = "/getFormattedPetSolu", produces = "application/json")
+	@ResponseBody
+	public Object getFormattedPetSolu(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpServletRequestX requestX = new HttpServletRequestX(request);
+
+		Long petSoluId = requestX.getLong("petSoluId");
+
+		petSoluFacade = (IPetSoluFacade) ContextLoader.getCurrentWebApplicationContext().getBean("petSoluFacade");
+		return petSoluFacade.getFormattedPetSoluDetail(petSoluId);
+	}
 }
