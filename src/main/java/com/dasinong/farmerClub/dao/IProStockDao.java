@@ -10,4 +10,6 @@ public interface IProStockDao extends IEntityDao<ProStock> {
 
 	ProStock getByBoxcode(String boxcode);
 
+	long computeAuth(long prodId, long userId);
+
 }

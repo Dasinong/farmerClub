@@ -56,7 +56,7 @@ public class BSFReport {
 		//巴斯夫总下载人数
 		
 		//巴斯夫分地区店铺激活数／达人总数
-		String[] provinces  = new String[]{"上海","浙江","山东","辽宁"};
+		String[] provinces  = new String[]{"上海","浙江","山东","辽宁","河北","广东","广西"};
 		for(int c=0;c<provinces.length;c++){
 			query = "SELECT count(*) FROM farmer_club.user,farmer_club.store,farmer_club.location where userType=\"jiandadaren\""
 					+ " and store.ownerId=user.refuid" +
@@ -215,7 +215,7 @@ public class BSFReport {
 	
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException{
-		String content = generateReport(2016,4,3);
+		String content = generateReport(2016,5,3);
 		System.out.println(content);
 		
 

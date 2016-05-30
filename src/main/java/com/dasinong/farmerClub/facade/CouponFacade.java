@@ -18,10 +18,13 @@ import com.dasinong.farmerClub.coupon.exceptions.CanNotScanMoreException;
 import com.dasinong.farmerClub.coupon.exceptions.CouponAlreadyRedeemedException;
 import com.dasinong.farmerClub.coupon.exceptions.NoMoreAvailableCouponException;
 import com.dasinong.farmerClub.coupon.exceptions.NotAuthorizedToScanCouponException;
+import com.dasinong.farmerClub.coupon.exceptions.NotEnoughAmountException;
+import com.dasinong.farmerClub.coupon.exceptions.NotEnoughAuthException;
 import com.dasinong.farmerClub.coupon.exceptions.OnlyRetailerCanSeeScannedCouponsException;
 import com.dasinong.farmerClub.dao.ICouponCampaignDao;
 import com.dasinong.farmerClub.dao.ICouponDao;
 import com.dasinong.farmerClub.dao.ICouponRequestDao;
+import com.dasinong.farmerClub.dao.IProStockDao;
 import com.dasinong.farmerClub.dao.IStoreDao;
 import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.model.Coupon;
@@ -76,6 +79,7 @@ public class CouponFacade implements ICouponFacade {
 			throw new CampaignNotInClaimRangeException();
 		}
 		
+		
 		List<Coupon> coupons = couponDao.findByOwnerIdAndCampaignId(ownerId, campaignId);
 		if (campaign.getType()!=CouponCampaignType.INSURANCE){
 			if (coupons.size() > 0) {
@@ -128,7 +132,10 @@ public class CouponFacade implements ICouponFacade {
 		
 		try {
 			if(campaign.getType()==CouponCampaignType.INSURANCE && amount!=-1L){
-				coupon.setAmount(amount);
+				{
+					if (amount<3L && amount>0) throw new NotEnoughAmountException();
+				}
+				coupon.setAmount(amount*150);
 			}
 			
 			QRGenUtil.gen("function=coupon&userId="+ownerId+"&couponId="+coupon.getId()+"&campaignId="+campaignId+
@@ -180,7 +187,7 @@ public class CouponFacade implements ICouponFacade {
 			throw new NotAuthorizedToScanCouponException();
 		}
 		
-		if (couponDao.countScannedCoupon(ownerId,campaign.getId())>200){
+		if (couponDao.countScannedCoupon(ownerId,campaign.getId())>200L){
 			throw new CanNotScanMoreException();
 		}
 		
@@ -225,12 +232,33 @@ public class CouponFacade implements ICouponFacade {
 			}
 		}
 		
+		
+		
 		Store store = storeDao.getByOwnerId(scanner.getUserId());
 		if (store==null || !campaign.getRetailerStores().contains(store)){
 			throw new NotAuthorizedToScanCouponException();
 		}
 		
-		if (couponDao.countScannedCoupon(ownerId,campaign.getId())>20){
+		//Hard coded: for insurance event
+		if (coupon.getType() == CouponCampaignType.INSURANCE){
+			IProStockDao psdDao = (IProStockDao) ContextLoader.getCurrentWebApplicationContext().getBean("proStockDao");
+			long auth=1000; 
+			if (coupon.getCampaign().getId() == 15){ //凯润
+				auth = auth + 150*4*psdDao.computeAuth(11L, scannerId);
+				auth = auth + 150*4*psdDao.computeAuth(164L, scannerId);
+			}else if (coupon.getCampaign().getId() == 16){ //健达
+				auth = auth + 150*4*psdDao.computeAuth(115L, scannerId);
+				auth = auth + 150*10*psdDao.computeAuth(181L, scannerId);
+			}
+			
+			long scanned = couponDao.sumScannedCoupon(coupon.getCampaign().getId(), scannerId);
+			if (scanned>auth){
+				throw new NotEnoughAuthException();
+				//throw 授权已满异常
+			}
+		}
+		
+		if (couponDao.countScannedCoupon(ownerId,campaign.getId())>20L){
 			throw new CanNotScanMoreException();
 		}
 		

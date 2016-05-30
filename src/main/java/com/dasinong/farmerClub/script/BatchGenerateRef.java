@@ -49,7 +49,10 @@ public class BatchGenerateRef {
 		IUserDao userDao = (IUserDao) applicationContext.getBean("userDao");
 		//addMissingRef();
 		
-		for(long i = 1; i<=7700;i++){
+		//for(long i = 8398; i<=8506;i++){
+		//for(long i = 8543; i<=8633;i++){ //Dows hlg
+		//for(long i = 8700; i<=8740;i++){ //BSF gd
+		for(long i = 8785; i<=8799;i++){
 			User user = userDao.findById(i);
 			if (user!=null){
 			System.out.println(user.getUserId());

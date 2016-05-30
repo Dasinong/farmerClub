@@ -65,11 +65,19 @@ public class CouponDao extends EntityHibernateDao<Coupon>implements ICouponDao {
 	}
 	
 	@Override
-	public int countScannedCoupon(long campaignId,long scannerId) {
+	public long countScannedCoupon(long campaignId,long scannerId) {
 		HibernateTemplate template = this.getHibernateTemplate();
 		String hql = "select count(*) from Coupon where campaignId="+ campaignId +" and scannerId="+scannerId;
 		Long count = (Long)getHibernateTemplate().find(hql).listIterator().next();
 		return count.intValue();
 	}
-
+	
+	@Override
+	public long sumScannedCoupon(long campaignId,long scannerId) {
+		HibernateTemplate template = this.getHibernateTemplate();
+		String hql = "select sum(amount) from Coupon where campaignId="+ campaignId +" and scannerId="+scannerId;
+		Long count = (Long)getHibernateTemplate().find(hql).listIterator().next();
+		return (count==null)?0:count.intValue();
+	}
+	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.hibernate.Query;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dasinong.farmerClub.model.ProStock;
@@ -30,5 +31,14 @@ public class ProStockDao extends EntityHibernateDao<ProStock> implements IProSto
 		}
 		if (list==null || list.size()==0) return null;
 		else return (ProStock) list.get(0);
+	}
+	
+	@Override
+	@Transactional
+	public long computeAuth(long prodId, long userId){
+		HibernateTemplate template = this.getHibernateTemplate();
+		String hql = "select count(*) from ProStock where prodId="+ prodId +" and userId="+userId;
+		Long count = (Long)getHibernateTemplate().find(hql).listIterator().next();
+		return count.intValue();
 	}
 }

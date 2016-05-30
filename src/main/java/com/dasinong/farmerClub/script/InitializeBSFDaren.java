@@ -2,12 +2,10 @@ package com.dasinong.farmerClub.script;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -87,14 +85,14 @@ public class InitializeBSFDaren{
 		IStoreDao storeDao = (IStoreDao) applicationContext.getBean("storeDao");
 		
 		
-		String csvFile = "/Users/jiangsean/daren/daren.csv";
+		String csvFile = "/Users/jiangsean/fujiandaren.csv";
 	    File file = new File(csvFile);
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
 		while ((line = reader.readLine()) != null) {
 		    
 			String[] units = line.split(",");
-			String daren_Cell = units[11];
+			String daren_Cell = units[9];
 			User daren =  userDao.findByCellphone(daren_Cell);
 			if (daren!=null){
 				System.out.println(daren.getUserId());
@@ -114,9 +112,9 @@ public class InitializeBSFDaren{
 					userDao.save(retailer);
 					System.out.println("new retailer" + retailer.getUserId());
 					
-					String name = units[9];
+					String name = units[6];
 					Long ownerId = retailer.getUserId();
-					String streetAndNumber = units[8];
+					String streetAndNumber = units[1]+units[2]+units[3];
 					String phone = retailer.getCellPhone();
 					String contactName = retailer.getUserName();
 					String desc = units[0];
@@ -155,32 +153,49 @@ public class InitializeBSFDaren{
 				"file:./src/main/webapp/WEB-INF/spring/database/ScriptDataSource.xml",
 				"file:./src/main/webapp/WEB-INF/spring/database/Hibernate.xml");
 		IUserDao userDao = (IUserDao) applicationContext.getBean("userDao");
-		String csvFile = "/Users/jiangsean/daren/daren.csv";
+		String csvFile = "/Users/jiangsean/fujiandaren.csv";
 	    File file = new File(csvFile);
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
-		long idcount = 4001;
+		long idcount = 4801;
 		while ((line = reader.readLine()) != null) {
 			
 			String[] units = line.split(",");
-			String name= units[10];
-			String cellphone = units[11];
-			User user = new User();
-			user.setUserId(idcount);
-			user.setUserName(name);
-			user.setCellPhone(cellphone);
-			user.setChannel("internal");
-			user.setInstitutionId(Institution.BASF);
+			String name= units[8];
+			String cellphone = units[9];
+			User user = userDao.findByCellphone(cellphone);
+			if (user==null){
+				user = new User();
+				user.setUserId(idcount);
+				user.setUserName(name);
+				user.setCellPhone(cellphone);
+				user.setChannel("internal");
+				user.setInstitutionId(Institution.BASF);
+				
+				user.setUserType("jiandadaren");
+				user.setCreateAt(new Date());
+				user.setUpdateAt(new Date());
+				user.setLastLogin(new Date());
+				user.setAuthenticated(true);
+				user.setPictureId("default.jpg");
+				user.setRefcode(""+idcount);
+				idcount++;
+				userDao.save(user);
+			}
+			else{
+				user.setUserName(name);
+				user.setChannel("internal");
+				user.setInstitutionId(Institution.BASF);
+				
+				user.setUserType("jiandadaren");
+				user.setCreateAt(new Date());
+				user.setUpdateAt(new Date());
+				user.setLastLogin(new Date());
+				user.setAuthenticated(true);
+				user.setPictureId("default.jpg");
+				userDao.update(user);
+			}
 			
-			user.setUserType("jiandadaren");
-			user.setCreateAt(new Date());
-			user.setUpdateAt(new Date());
-			user.setLastLogin(new Date());
-			user.setAuthenticated(true);
-			user.setPictureId("default.jpg");
-			user.setRefcode(""+idcount);
-			idcount++;
-			userDao.save(user);
 			System.out.println(user.getUserId());
 		}
 		reader.close();
@@ -191,6 +206,7 @@ public class InitializeBSFDaren{
 				"file:./src/main/webapp/WEB-INF/spring/beans/ModelBeans.xml",
 				"file:./src/main/webapp/WEB-INF/spring/database/ScriptDataSource.xml",
 				"file:./src/main/webapp/WEB-INF/spring/database/Hibernate.xml");
+		/*
 		IStoreDao storeDao = (IStoreDao) applicationContext.getBean("storeDao");
 		for(long i=267L;i<=325;i++){
 			Store store = storeDao.findById(i);
@@ -199,7 +215,9 @@ public class InitializeBSFDaren{
 			store.setName(name);
 			storeDao.update(store);
 			System.out.println(store.getId());
-		}
+		}*/
+		//loadUser();
+		loadRetailerAndManager();
 		
 		
 	}

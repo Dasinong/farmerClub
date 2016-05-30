@@ -20,6 +20,8 @@ import com.dasinong.farmerClub.coupon.exceptions.CanNotClaimMultipleCouponExcept
 import com.dasinong.farmerClub.coupon.exceptions.CouponAlreadyRedeemedException;
 import com.dasinong.farmerClub.coupon.exceptions.NoMoreAvailableCouponException;
 import com.dasinong.farmerClub.coupon.exceptions.NotAuthorizedToScanCouponException;
+import com.dasinong.farmerClub.coupon.exceptions.NotEnoughAmountException;
+import com.dasinong.farmerClub.coupon.exceptions.NotEnoughAuthException;
 import com.dasinong.farmerClub.coupon.exceptions.CanNotRedeemOthersCouponException;
 import com.dasinong.farmerClub.coupon.exceptions.CanNotScanMoreException;
 import com.dasinong.farmerClub.dao.IUserDao;
@@ -346,6 +348,25 @@ public class BaseController {
 		return result;
 	}
 
+	@ResponseStatus(value = HttpStatus.OK)
+	@ExceptionHandler(NotEnoughAmountException.class)
+	@ResponseBody
+	public Object handleNotEnoughAmounteException(HttpServletRequest req, Exception exception) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("respCode", 2106);
+		result.put("message", "购买数量太少无法申领卷");
+		return result;
+	}
+	
+	@ResponseStatus(value = HttpStatus.OK)
+	@ExceptionHandler(NotEnoughAuthException.class)
+	@ResponseBody
+	public Object handleNotEnoughAuthException(HttpServletRequest req, Exception exception) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("respCode", 2107);
+		result.put("message", "店铺授权已用满，请入库更多产品");
+		return result;
+	}
 	/**
 	 * This catches every exception and returns 500 which means uncaught
 	 * internal error.

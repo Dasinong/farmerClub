@@ -17,7 +17,8 @@ public class ClientConfig {
 			this.isDaren = false;
 		}
 		else{
-			this.enableWelfare = user.getInstitutionId()==3L;
+			this.enableWelfare = (user.getInstitutionId()==3L || user.getInstitutionId()==1L 
+					|| user.getInstitutionId()==100L);
 			this.isDaren = "jiandadaren".equals(user.getUserType());
 		}
 	}
