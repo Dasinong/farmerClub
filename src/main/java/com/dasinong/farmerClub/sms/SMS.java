@@ -15,6 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -101,10 +102,9 @@ public class SMS {
 		}
 	}
 
+	@Transactional
 	private static void sendOneByOne(IShortMessage message) throws Exception {
-		IShortMessageRecordDao smrDao = (IShortMessageRecordDao) ContextLoader.getCurrentWebApplicationContext()
-				.getBean("shortMessageRecordDao");
-
+		IShortMessageRecordDao smrDao = (IShortMessageRecordDao) ContextLoader.getCurrentWebApplicationContext().getBean("shortMessageRecordDao");
 		String productId = message.getSmsProductId();
 		String content = message.getContent();
 		String[] receivers = message.getReceivers();

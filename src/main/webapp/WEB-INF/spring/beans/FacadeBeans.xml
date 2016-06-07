@@ -54,4 +54,5 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
    
    <bean id="cropFacade" class="com.dasinong.farmerClub.facade.CropFacade" >
    </bean>
+   
 </beans>

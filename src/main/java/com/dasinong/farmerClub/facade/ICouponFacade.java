@@ -1,6 +1,7 @@
 package com.dasinong.farmerClub.facade;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import com.dasinong.farmerClub.model.Coupon;
@@ -47,16 +48,17 @@ public interface ICouponFacade {
 
 	List<CouponWrapper> findDarenCouponsByOwnerId(long ownerId, long refuid);
 
-	CouponWrapper bsfredeem(long couponId, long ownerId, long scannerId, boolean isDaren) throws Exception;
-
+	//CouponWrapper bsfredeem(long couponId, long ownerId, long scannerId, boolean isDaren) throws Exception;
+	HashMap<String,Object> bsfredeem(long couponId, long ownerId, long scannerId, boolean isDaren) throws Exception;
+	
 	CouponWrapper darenClaim(long campaignId, long ownerId, long refuid) throws Exception;
 
-	public CouponWrapper claim(long campaignId, long ownerId, long amount) throws Exception;
+	public CouponWrapper claim(long campaignId, long ownerId, String comment) throws Exception;
 	
-	CouponWrapper claim(long campaignId, long ownerId, double lat, double lon, long amount) throws Exception;
+	CouponWrapper claim(long campaignId, long ownerId, double lat, double lon, String comment) throws Exception;
 
 	List<CouponCampaignWrapper> findDarenCampaigns(long institutionId, long refuid);
 
-	Coupon claimCoupon(long campaignId, long ownerId, long amount) throws Exception;
+	Coupon claimCoupon(long campaignId, long ownerId, String amount) throws Exception;
 
 }

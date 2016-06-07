@@ -24,6 +24,7 @@ public class CouponWrapper {
 	public Timestamp redeemedAt;
 	public Timestamp createdAt;
 	public String claimerCell;
+	public String comment;
 	
 	public CouponWrapper(Coupon coupon) {
 		this(coupon, false);
@@ -53,6 +54,7 @@ public class CouponWrapper {
 		this.redeemedAt = coupon.getRedeemedAt();
 		this.createdAt = coupon.getCreatedAt();
 		this.displayStatus = coupon.getDisplayStatus();
+		this.comment = coupon.getComment();
 		
 	}
 	
@@ -76,6 +78,7 @@ public class CouponWrapper {
 		this.redeemedAt = coupon.getRedeemedAt();
 		this.createdAt = coupon.getCreatedAt();
 		this.displayStatus = coupon.getDisplayStatus();
+		this.comment = coupon.getComment();
 		
 	}
 	
@@ -99,6 +102,6 @@ public class CouponWrapper {
 		this.redeemedAt = coupon.getRedeemedAt();
 		this.createdAt = coupon.getCreatedAt();
 		this.displayStatus = coupon.getDisplayStatus();
-		
+		this.comment = coupon.getComment();		
 	}
 }

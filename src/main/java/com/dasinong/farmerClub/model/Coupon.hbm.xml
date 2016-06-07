@@ -31,5 +31,7 @@
         <property name="claimedAt" type="timestamp" column="claimedAt" />
         <property name="redeemedAt" type="timestamp" column="redeemedAt" />
         <property name="createdAt" type="timestamp" column="createdAt" />
+        <property name="p1amount" type="double" column="p1amount" />
+        <property name="p2amount" type="double" column="p2amount" />
     </class>
 </hibernate-mapping>

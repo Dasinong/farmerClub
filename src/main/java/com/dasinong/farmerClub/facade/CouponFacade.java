@@ -3,11 +3,13 @@ package com.dasinong.farmerClub.facade;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
 
+import com.dasinong.farmerClub.sms.EventMessage;
 import com.dasinong.farmerClub.coupon.CouponCampaignType;
 import com.dasinong.farmerClub.coupon.CouponLocker;
 import com.dasinong.farmerClub.coupon.exceptions.CampaignNotInClaimRangeException;
@@ -47,7 +49,7 @@ public class CouponFacade implements ICouponFacade {
 	
 	@Override
 	public CouponWrapper darenClaim(long campaignId, long ownerId, long refuid) throws Exception {
-		Coupon coupon  = claimCoupon(campaignId,ownerId,-1L);
+		Coupon coupon  = claimCoupon(campaignId,ownerId,"");
 		IStoreDao storeDao =  (IStoreDao) ContextLoader.getCurrentWebApplicationContext().getBean("storeDao");
 		Store store = storeDao.getByOwnerId(refuid);
 		List<Store> stores = new ArrayList<Store>();
@@ -56,20 +58,20 @@ public class CouponFacade implements ICouponFacade {
 	}
 	
 	@Override
-	public CouponWrapper claim(long campaignId, long ownerId, long amount) throws Exception {
-		Coupon coupon  = claimCoupon(campaignId,ownerId, amount);
+	public CouponWrapper claim(long campaignId, long ownerId, String comment) throws Exception {
+		Coupon coupon  = claimCoupon(campaignId,ownerId, comment);
 		return new CouponWrapper(coupon,true);
 	}
 	
 	@Override
-	public CouponWrapper claim(long campaignId, long ownerId, double lat, double lon, long amount) throws Exception {
-		Coupon coupon  = claimCoupon(campaignId,ownerId, amount);
+	public CouponWrapper claim(long campaignId, long ownerId, double lat, double lon, String comment) throws Exception {
+		Coupon coupon  = claimCoupon(campaignId,ownerId, comment);
 		return new CouponWrapper(coupon,lat,lon);
 	}
 	
 	
 	@Override
-	public Coupon claimCoupon(long campaignId, long ownerId, long amount) throws Exception {
+	public Coupon claimCoupon(long campaignId, long ownerId, String comment) throws Exception {
 		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
 		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
@@ -131,15 +133,18 @@ public class CouponFacade implements ICouponFacade {
 		}
 		
 		try {
-			if(campaign.getType()==CouponCampaignType.INSURANCE && amount!=-1L){
+			if(campaign.getType()==CouponCampaignType.INSURANCE && comment!=null && !comment.equals("")){
 				{
-					if (amount<3L && amount>0) throw new NotEnoughAmountException();
+					double[] amounts = parseInsComment(comment);
+					if (amounts[0]<1L && amounts[1]<3L) throw new NotEnoughAmountException();
+					coupon.setP1amount(amounts[0]); //凯润
+					coupon.setP2amount(amounts[1]); //健达
 				}
-				coupon.setAmount(amount*150);
 			}
 			
 			QRGenUtil.gen("function=coupon&userId="+ownerId+"&couponId="+coupon.getId()+"&campaignId="+campaignId+
-					"&amount="+coupon.getAmount(), Env.getEnv().CouponQRDir, ""+coupon.getId());
+					"&amount="+coupon.getAmount()+"&comment="+coupon.getComment(), 
+					Env.getEnv().CouponQRDir, ""+coupon.getId());
 			User owner = userDao.findById(ownerId);
 			coupon.setOwner(owner);
 			coupon.setClaimedAt(new Timestamp((new Date()).getTime()));			
@@ -201,8 +206,9 @@ public class CouponFacade implements ICouponFacade {
 	
 	
 	@Override
-	public CouponWrapper bsfredeem(long couponId, long ownerId, long scannerId, boolean isDaren) throws Exception {
+	public HashMap<String,Object> bsfredeem(long couponId, long ownerId, long scannerId, boolean isDaren) throws Exception {
 		System.out.println("User " + scannerId + " scanned coupon " + couponId);
+		HashMap<String,Object> result=new HashMap<String,Object>();
 		ICouponDao couponDao = (ICouponDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponDao");
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponCampaignDao");
 		IUserDao userDao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
@@ -242,23 +248,43 @@ public class CouponFacade implements ICouponFacade {
 		//Hard coded: for insurance event
 		if (coupon.getType() == CouponCampaignType.INSURANCE){
 			IProStockDao psdDao = (IProStockDao) ContextLoader.getCurrentWebApplicationContext().getBean("proStockDao");
-			long auth=1000; 
-			if (coupon.getCampaign().getId() == 15){ //凯润
-				auth = auth + 150*4*psdDao.computeAuth(11L, scannerId);
-				auth = auth + 150*4*psdDao.computeAuth(164L, scannerId);
-			}else if (coupon.getCampaign().getId() == 16){ //健达
-				auth = auth + 150*4*psdDao.computeAuth(115L, scannerId);
-				auth = auth + 150*10*psdDao.computeAuth(181L, scannerId);
+			double kairunauth = 0; //凯润
+			double jiandaauth = 0; //健达
+			if (coupon.getCampaign().getId() == 15){ 
+				kairunauth = kairunauth + 150*4*psdDao.computeAuth(11L, scannerId);
+				kairunauth = kairunauth + 150*4*psdDao.computeAuth(164L, scannerId);
+			    jiandaauth = jiandaauth + 150*4*psdDao.computeAuth(115L, scannerId);
+			    jiandaauth = jiandaauth + 150*10*psdDao.computeAuth(181L, scannerId);
 			}
 			
-			long scanned = couponDao.sumScannedCoupon(coupon.getCampaign().getId(), scannerId);
-			if (scanned>auth){
-				throw new NotEnoughAuthException();
+			double kairunsum = couponDao.sumP1amount(coupon.getCampaign().getId(), scannerId)+coupon.getP1amount();
+			double jiandasum = couponDao.sumP2amount(coupon.getCampaign().getId(), scannerId)+coupon.getP2amount();
+			if (kairunsum+coupon.getP1amount()>kairunauth || 
+					jiandasum+coupon.getP2amount()>jiandaauth){
+				throw new NotEnoughAuthException(jiandaauth,jiandasum,kairunauth,kairunsum);
 				//throw 授权已满异常
+			}else{
+				StringBuilder msg = new StringBuilder();
+				msg.append("健达授权："+ jiandaauth + "L ");
+				msg.append("已扫描："+ jiandasum + "L");
+				msg.append("凯润授权："+ kairunauth + "L ");
+				msg.append("已扫描："+ kairunsum + "L");
+				result.put("message", msg.toString());
+				
+				if (campaign.getId()==15L){
+					try{
+						User receiver = userDao.findById(ownerId);
+						EventMessage message = new EventMessage(1000L, receiver.getCellPhone(), 
+								"恭喜你已经成功加入巴斯夫香蕉关爱基金活动！");
+						SMS.send(message);
+					}catch(Exception e){
+						System.out.println("发送通知失败");
+					}
+				}
 			}
 		}
 		
-		if (couponDao.countScannedCoupon(ownerId,campaign.getId())>20L){
+		if (couponDao.countScannedCoupon(ownerId,campaign.getId())>200L){
 			throw new CanNotScanMoreException();
 		}
 		
@@ -267,7 +293,10 @@ public class CouponFacade implements ICouponFacade {
 		coupon.setRedeemedAt(new Timestamp((new Date()).getTime()));
 		couponDao.save(coupon);
 
-		return new CouponWrapper(coupon);
+		CouponWrapper cw = new CouponWrapper(coupon);
+		
+		result.put("coupon",cw);
+		return result;
 	}
 	
 	@Override
@@ -515,4 +544,11 @@ public class CouponFacade implements ICouponFacade {
 		else return new Date();
 	}
 
+	private double[] parseInsComment(String comment){
+		double[] result = new double[2];
+		String[] contents= comment.split(";");
+		result[0] = Double.parseDouble(contents[0].split(":")[1]); //凯润
+		result[1] = Double.parseDouble(contents[1].split(":")[1]); //健达
+		return result;
+	}
 }

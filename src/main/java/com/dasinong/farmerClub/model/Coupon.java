@@ -20,6 +20,12 @@ public class Coupon {
 	private Timestamp redeemedAt;
 	private Timestamp createdAt;
 	
+	//Supports tracing two product amount.
+	private double p1amount; //凯润
+	private double p2amount; //健达
+	
+	private String comment;
+	
 	public Coupon() {}
 	
 	public long getId() {
@@ -125,4 +131,29 @@ public class Coupon {
 		}
 	}
 
+	public double getP1amount() {
+		return p1amount;
+	}
+
+	public void setP1amount(double p1amount) {
+		this.p1amount = p1amount;
+	}
+
+	public double getP2amount() {
+		return p2amount;
+	}
+
+	public void setP2amount(double p2amount) {
+		this.p2amount = p2amount;
+	}
+
+	public String getComment() {
+		this.setComment();
+		return comment;
+	}
+	
+	public void setComment() {
+		this.comment = "凯润："+ p1amount + "L；健达："+p2amount+"L";
+	}
+	
 }

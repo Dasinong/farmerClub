@@ -364,7 +364,7 @@ public class BaseController {
 	public Object handleNotEnoughAuthException(HttpServletRequest req, Exception exception) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("respCode", 2107);
-		result.put("message", "店铺授权已用满，请入库更多产品");
+		result.put("message", exception.toString());
 		return result;
 	}
 	/**

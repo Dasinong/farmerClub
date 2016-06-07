@@ -40,7 +40,8 @@ public class CouponController extends RequireUserLoginController {
 		double lon = requestX.getDoubleOptional("lon",0.00);
 		
 		Long campaignId = requestX.getLong("campaignId");
-		Long amount = requestX.getLongOptional("amount", -1L);
+		//Long amount = requestX.getLongOptional("amount", -1L);
+		String comment = requestX.getStringOptional("comment", "");
 		ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
 		CouponWrapper coupon; 
 		
@@ -59,13 +60,13 @@ public class CouponController extends RequireUserLoginController {
 						Location l = locationDao.findById(lid);
 						lat = l.getLatitude();
 						lon = l.getLongtitude();
-						coupon =facade.claim(campaignId, user.getUserId(),lat,lon,-1L);
+						coupon =facade.claim(campaignId, user.getUserId(),lat,lon,"");
 					}else{
-						coupon = facade.claim(campaignId, user.getUserId(),-1L);
+						coupon = facade.claim(campaignId, user.getUserId(),"");
 					}
 				}
 				else{
-					coupon =facade.claim(campaignId, user.getUserId(),lat,lon,-1L);
+					coupon =facade.claim(campaignId, user.getUserId(),lat,lon,"");
 				}
 			}
 		}else{
@@ -78,13 +79,13 @@ public class CouponController extends RequireUserLoginController {
 					Location l = locationDao.findById(lid);
 					lat = l.getLatitude();
 					lon = l.getLongtitude();
-					coupon =facade.claim(campaignId,user.getUserId(), lat,lon,amount);
+					coupon =facade.claim(campaignId,user.getUserId(), lat,lon,comment);
 				}else{
-					coupon = facade.claim(campaignId, user.getUserId(),amount);
+					coupon = facade.claim(campaignId, user.getUserId(),comment);
 				}
 			}
 			else{
-				coupon =facade.claim(campaignId, user.getUserId(),lat,lon,amount);
+				coupon =facade.claim(campaignId, user.getUserId(),lat,lon,comment);
 			}
 		}
 		
@@ -110,15 +111,19 @@ public class CouponController extends RequireUserLoginController {
 		ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
 		CouponWrapper coupon;
 		if(user.getInstitutionId() == 3L){
-			coupon = facade.bsfredeem(couponId, userId, user.getUserId(),"jiandadaren".equals(user.getUserType()));
+			data = facade.bsfredeem(couponId, userId, user.getUserId(),"jiandadaren".equals(user.getUserType()));
+			result.put("respCode", 200);
+			result.put("message", data.get("message"));
+			result.put("data", data);
 		}else{
 			coupon = facade.redeem(couponId, userId, user.getUserId());
+			data.put("coupon", coupon);
+			result.put("respCode", 200);
+			result.put("message", "获取成功");
+			result.put("data", data);
 		}
+
 		
-		data.put("coupon", coupon);
-		result.put("respCode", 200);
-		result.put("message", "获取成功");
-		result.put("data", data);
 		return result;	
 	}
 	
