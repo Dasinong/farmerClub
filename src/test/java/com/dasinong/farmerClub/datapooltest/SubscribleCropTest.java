@@ -26,7 +26,7 @@ public class SubscribleCropTest {
 		ids = CropsForInstitution.getIds(3L);
 		Assert.assertEquals(ids.length,7);
 		ids = CropsForInstitution.getIds(4L);
-		Assert.assertEquals(ids.length,3);
+		Assert.assertEquals(ids.length,6);
 	}
 	
 	@Test

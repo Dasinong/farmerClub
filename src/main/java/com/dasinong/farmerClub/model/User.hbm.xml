@@ -90,5 +90,8 @@
             </key>
             <one-to-many class="com.dasinong.farmerClub.model.Coupon"></one-to-many>
         </bag>
+        <property name="region" type="string">
+            <column name="region" />
+        </property>
     </class>
 </hibernate-mapping>

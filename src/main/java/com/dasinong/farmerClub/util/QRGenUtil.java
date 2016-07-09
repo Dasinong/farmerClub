@@ -30,7 +30,7 @@ public class QRGenUtil {
 	    File myFile = new File(filePath);
 	    try {
 	        Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
-	        hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+	        hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
 	        QRCodeWriter qrCodeWriter = new QRCodeWriter();
 	        BitMatrix byteMatrix = qrCodeWriter.encode(myCodeText,BarcodeFormat.QR_CODE, size, size, hintMap);
 	        int CrunchifyWidth = byteMatrix.getWidth();

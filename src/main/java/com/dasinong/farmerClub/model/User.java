@@ -46,6 +46,7 @@ public class User implements Serializable {
 	private int memberLevel;
 	private Boolean isEmployee = false;
 	private Long winsafeid;
+	private String region;
 	
 	private List<Coupon> coupons = null;
 
@@ -294,6 +295,14 @@ public class User implements Serializable {
 
 	public void setWinsafeid(Long winsafeid) {
 		this.winsafeid = winsafeid;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 	
 }

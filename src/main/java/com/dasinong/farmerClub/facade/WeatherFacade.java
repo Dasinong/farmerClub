@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.context.ContextLoader;
 
 import com.dasinong.farmerClub.dao.IMonitorLocationDao;
+import com.dasinong.farmerClub.dao.IUserDao;
 import com.dasinong.farmerClub.datapool.AllMonitorLocation;
 import com.dasinong.farmerClub.model.MonitorLocation;
+import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.ruleEngine.rules.Rule;
 import com.dasinong.farmerClub.util.LunarHelper;
 import com.dasinong.farmerClub.weather.All24h;
@@ -178,6 +180,33 @@ public class WeatherFacade implements IWeatherFacade {
 			result.put("respCode", 405);
 			result.put("message", "初始化检测地址列表出错");
 			return result;
+		}
+	}
+	
+	@Override
+	public void setUserRegion(User user, double lat, double lon) {
+		try {
+			Long mlId = AllMonitorLocation.getInstance().getNearest(lat, lon);
+			IMonitorLocationDao locDao = (IMonitorLocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("monitorLocationDao");
+			IUserDao userdao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
+			MonitorLocation loc = locDao.findByCode(mlId);
+			user.setRegion(loc.getCityDetail());
+		    userdao.update(user);
+		}catch(Exception e){
+			
+		}
+	}
+	
+	@Override
+	public void setUserRegion(User user, Long mlid) {
+		try {
+			IMonitorLocationDao locDao = (IMonitorLocationDao) ContextLoader.getCurrentWebApplicationContext().getBean("monitorLocationDao");
+			IUserDao userdao = (IUserDao) ContextLoader.getCurrentWebApplicationContext().getBean("userDao");
+			MonitorLocation loc = locDao.findByCode(mlid);
+			user.setRegion(loc.getCityDetail());
+		    userdao.update(user);
+		}catch(Exception e){
+			
 		}
 	}
 }

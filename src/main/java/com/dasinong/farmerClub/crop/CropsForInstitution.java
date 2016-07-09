@@ -48,10 +48,13 @@ public class CropsForInstitution {
 	public static Long[] getIdsForZhongNong() {
 		// 玉米
 		if (zhongnongCropIds == null) {
-			zhongnongCropIds = new Long[3];
+			zhongnongCropIds = new Long[6];
 			zhongnongCropIds[0] = 270L;
 			zhongnongCropIds[1] = 223L;
 			zhongnongCropIds[2] = 331L;
+			zhongnongCropIds[3] = 173L;
+			zhongnongCropIds[4] = 86L;
+			zhongnongCropIds[5] = 63L;
 		}
 		
 		return zhongnongCropIds;

@@ -76,7 +76,7 @@ public class CouponDao extends EntityHibernateDao<Coupon>implements ICouponDao {
 	public double sumP1amount(long campaignId,long scannerId) {
 		HibernateTemplate template = this.getHibernateTemplate();
 		String hql = "select sum(p1amount) from Coupon where campaignId="+ campaignId +" and scannerId="+scannerId;
-		Double sum = (double)getHibernateTemplate().find(hql).listIterator().next();
+		Double sum = (Double) getHibernateTemplate().find(hql).listIterator().next();
 		return (sum==null)?0:sum.doubleValue();
 	}
 	

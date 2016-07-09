@@ -297,13 +297,14 @@ public class UserController extends RequireUserLoginController {
 			return result;
 		}
 
+		
 		// Referred by user
-		if (user.getUserType() == UserType.SALES) {
-			throw new SalesPeopleCannotBeReferredException(user.getUserId());
+		if (user.getUserType()!=null && user.getUserType().equals(UserType.SALES)) {
+				throw new SalesPeopleCannotBeReferredException(user.getUserId());
 		}
 		user.setRefuid(refuid);
 		User refuser = userDao.findById(refuid);
-		if (refuser.getUserType() == UserType.JIANDADAREN){
+		if (refuser.getUserType()!=null && refuser.getUserType().equals(UserType.JIANDADAREN)){
 			refuser.setMemberPoints(refuser.getMemberPoints()+1);
 			refuser.updateMemberLevel();
 			userDao.update(refuser);

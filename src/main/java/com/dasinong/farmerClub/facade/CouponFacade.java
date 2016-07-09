@@ -136,7 +136,7 @@ public class CouponFacade implements ICouponFacade {
 			if(campaign.getType()==CouponCampaignType.INSURANCE && comment!=null && !comment.equals("")){
 				{
 					double[] amounts = parseInsComment(comment);
-					if (amounts[0]<1L && amounts[1]<3L) throw new NotEnoughAmountException();
+					if (amounts[0]<3L && amounts[1]<1L) throw new NotEnoughAmountException();
 					coupon.setP1amount(amounts[0]); //凯润
 					coupon.setP2amount(amounts[1]); //健达
 				}
@@ -251,16 +251,38 @@ public class CouponFacade implements ICouponFacade {
 			double kairunauth = 0; //凯润
 			double jiandaauth = 0; //健达
 			if (coupon.getCampaign().getId() == 15){ 
-				kairunauth = kairunauth + 150*4*psdDao.computeAuth(11L, scannerId);
-				kairunauth = kairunauth + 150*4*psdDao.computeAuth(164L, scannerId);
-			    jiandaauth = jiandaauth + 150*4*psdDao.computeAuth(115L, scannerId);
-			    jiandaauth = jiandaauth + 150*10*psdDao.computeAuth(181L, scannerId);
+				kairunauth = kairunauth + 4*psdDao.computeAuth(11L, scannerId);
+				kairunauth = kairunauth + 5*psdDao.computeAuth(12L, scannerId);
+				kairunauth = kairunauth + 10*psdDao.computeAuth(13L, scannerId);
+				kairunauth = kairunauth + 20*psdDao.computeAuth(89L, scannerId);
+				kairunauth = kairunauth + 6*psdDao.computeAuth(90L, scannerId);
+				kairunauth = kairunauth + 6*psdDao.computeAuth(95L, scannerId);
+				kairunauth = kairunauth + 10*psdDao.computeAuth(97L, scannerId);
+				kairunauth = kairunauth + 10*psdDao.computeAuth(107L, scannerId);
+				kairunauth = kairunauth + 10*psdDao.computeAuth(129L, scannerId);
+				kairunauth = kairunauth + 4*psdDao.computeAuth(164L, scannerId);
+				kairunauth = kairunauth + 6*psdDao.computeAuth(165L, scannerId);
+				kairunauth = kairunauth + 10*psdDao.computeAuth(166L, scannerId);
+				kairunauth = kairunauth + 10*psdDao.computeAuth(167L, scannerId);
+				kairunauth = kairunauth + 10*psdDao.computeAuth(168L, scannerId);
+				kairunauth = kairunauth + 20*psdDao.computeAuth(169L, scannerId);
+				kairunauth = kairunauth + 10*psdDao.computeAuth(170L, scannerId);
+				kairunauth = kairunauth + 5*psdDao.computeAuth(184L, scannerId);
+				kairunauth = kairunauth + 200*psdDao.computeAuth(191L, scannerId);
+
+
+			    jiandaauth = jiandaauth + 4*psdDao.computeAuth(115L, scannerId);
+			    jiandaauth = jiandaauth + 10*psdDao.computeAuth(116L, scannerId);
+			    jiandaauth = jiandaauth + 10*psdDao.computeAuth(141L, scannerId);
+			    jiandaauth = jiandaauth + 10*psdDao.computeAuth(179L, scannerId);
+			    jiandaauth = jiandaauth + 10*psdDao.computeAuth(181L, scannerId);
+			    jiandaauth = jiandaauth + 20*psdDao.computeAuth(182L, scannerId);
 			}
 			
 			double kairunsum = couponDao.sumP1amount(coupon.getCampaign().getId(), scannerId)+coupon.getP1amount();
 			double jiandasum = couponDao.sumP2amount(coupon.getCampaign().getId(), scannerId)+coupon.getP2amount();
-			if (kairunsum+coupon.getP1amount()>kairunauth || 
-					jiandasum+coupon.getP2amount()>jiandaauth){
+			if (kairunsum>kairunauth || 
+					jiandasum>jiandaauth){
 				throw new NotEnoughAuthException(jiandaauth,jiandasum,kairunauth,kairunsum);
 				//throw 授权已满异常
 			}else{

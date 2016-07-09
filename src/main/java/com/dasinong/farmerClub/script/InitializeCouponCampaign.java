@@ -42,17 +42,17 @@ public class InitializeCouponCampaign {
 		stores.add(store);
 		
 		CouponCampaign campaign = (new CouponCampaignMutator(couponDao, campaignDao))
-				.setName("巴斯夫香蕉关爱基金")
+				.setName("陶氏产品代金卷")
 				.setDescription("当地发生14级以上的台风，会根据香港天文台气象（http://www.hko.gov.hk/contentc.htm）记录，由系统发送领取券给台风影响区域内的参与关爱基金的农户。")
 				.setInstitution(inst)
-				.setType(CouponCampaignType.INSURANCE)
+				.setType(CouponCampaignType.CASH)
 				.setVolume(5000)
-				.setAmount(0)
+				.setAmount(5)
 				.setRetailerStores(stores)
-				.setRedeemTimeStart(Timestamp.valueOf("2016-03-20 00:00:00"))
+				.setRedeemTimeStart(Timestamp.valueOf("2016-05-20 00:00:00"))
 				.setRedeemTimeEnd(Timestamp.valueOf("2016-08-20 00:00:00"))
-				.setClaimTimeStart(Timestamp.valueOf("2016-03-01 00:00:00"))
-				.setClaimTimeEnd(Timestamp.valueOf("2016-08-20 00:00:00"))
+				.setClaimTimeStart(Timestamp.valueOf("2016-05-30 00:00:00"))
+				.setClaimTimeEnd(Timestamp.valueOf("2016-08-30 00:00:00"))
 				.setPictureUrl("event.png;")
 				.save();
 	}

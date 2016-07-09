@@ -225,10 +225,10 @@ public class WinsafeUtil {
 		//String result = winUtil.getCustInfo("62269");
 		//System.out.println(result);
 		//String result = winUtil.getProductInfo("U0110125511350B05##110113");
-		String result = winUtil.getCustInfo("");
-		System.out.println(result);
-		//result = winUtil.getProductInfo("B115010198604###1505070004");
+		//String result = winUtil.getCustInfo("");
 		//System.out.println(result);
+		String result = winUtil.getProductInfo("U013005226302###150524000");
+		System.out.println(result);
 		//result = winUtil.getCustStockReport("60001", "201401");
 		//System.out.println(result);
 		//result = winUtil.antiFake("0730000001009591");

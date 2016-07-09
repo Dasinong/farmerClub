@@ -47,9 +47,15 @@ public class WeatherController extends BaseController {
 		if (mlid == -1L) {
 			double lat = requestX.getDouble("lat");
 			double lon = requestX.getDouble("lon");
+			if (user.getRegion() == null || user.getRegion().isEmpty()){
+				wf.setUserRegion(user, lat, lon);
+			}
 			return wf.getWeather(lat, lon);
 		}
 
+		if (user.getRegion() == null || user.getRegion().isEmpty()){
+			wf.setUserRegion(user, mlid);
+		}
 		return wf.getWeather(mlid);
 	}
 
