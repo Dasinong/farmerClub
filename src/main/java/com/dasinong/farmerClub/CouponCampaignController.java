@@ -2,6 +2,7 @@ package com.dasinong.farmerClub;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import com.dasinong.farmerClub.coupon.CustomizeCouponCampaignFilter;
 import com.dasinong.farmerClub.dao.ILocationDao;
 import com.dasinong.farmerClub.exceptions.UserIsNotLoggedInException;
 import com.dasinong.farmerClub.facade.ICouponFacade;
+import com.dasinong.farmerClub.facade.IWeatherFacade;
 import com.dasinong.farmerClub.model.Location;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.outputWrapper.CouponCampaignWrapper;
@@ -89,6 +91,16 @@ public class CouponCampaignController extends RequireUserLoginController {
 			HttpServletRequestX requestX = new HttpServletRequestX(request);
 			double lat = requestX.getDoubleOptional("lat",0.00);
 			double lon = requestX.getDoubleOptional("lon",0.00);
+			//Insert user region if it send in lat lon info
+			if (lat!=0.00 || lon !=0.00){
+				try{
+					IWeatherFacade wf = (IWeatherFacade) ContextLoader.getCurrentWebApplicationContext().getBean("weatherFacade");
+					wf.setUserRegion(user, lat, lon);
+				}catch (Exception e){ 
+					
+				}
+			}
+
 			ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
 			List<CouponCampaignWrapper> campaigns;
 			
@@ -135,6 +147,14 @@ public class CouponCampaignController extends RequireUserLoginController {
 				data.put("campaigns", bsfcampaigns);
 			}
 			else{
+				//Post process of 25 yuan juan
+				Iterator<CouponCampaignWrapper> iter = campaigns.iterator();  
+				while(iter.hasNext()){  
+					CouponCampaignWrapper c = iter.next();  
+				    if(c.id==16L && (user.getRegion()==null || !user.getRegion().contains("黑龙江") )){  
+				        iter.remove();  
+				    }  
+				}
 				data.put("campaigns", campaigns);
 			}
 		}

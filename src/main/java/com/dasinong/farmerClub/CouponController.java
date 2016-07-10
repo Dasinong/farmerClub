@@ -1,6 +1,7 @@
 package com.dasinong.farmerClub;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import com.dasinong.farmerClub.coupon.CouponCampaignType;
 import com.dasinong.farmerClub.dao.ILocationDao;
 import com.dasinong.farmerClub.exceptions.UserIsNotLoggedInException;
 import com.dasinong.farmerClub.facade.ICouponFacade;
+import com.dasinong.farmerClub.model.Coupon;
 import com.dasinong.farmerClub.model.CouponCampaign;
 import com.dasinong.farmerClub.model.Location;
 import com.dasinong.farmerClub.model.User;
@@ -163,7 +165,7 @@ public class CouponController extends RequireUserLoginController {
 				coupons = facade.findCouponsByOwnerId(user.getUserId(), lat, lon);
 			}
 		}
-		
+	
 		data.put("coupons", coupons);
 		result.put("respCode", 200);
 		result.put("message", "获取成功");

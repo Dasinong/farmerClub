@@ -26,12 +26,15 @@ import com.dasinong.farmerClub.coupon.exceptions.OnlyRetailerCanSeeScannedCoupon
 import com.dasinong.farmerClub.dao.ICouponCampaignDao;
 import com.dasinong.farmerClub.dao.ICouponDao;
 import com.dasinong.farmerClub.dao.ICouponRequestDao;
+import com.dasinong.farmerClub.dao.IMonitorLocationDao;
 import com.dasinong.farmerClub.dao.IProStockDao;
 import com.dasinong.farmerClub.dao.IStoreDao;
 import com.dasinong.farmerClub.dao.IUserDao;
+import com.dasinong.farmerClub.datapool.AllMonitorLocation;
 import com.dasinong.farmerClub.model.Coupon;
 import com.dasinong.farmerClub.model.CouponCampaign;
 import com.dasinong.farmerClub.model.CouponRequest;
+import com.dasinong.farmerClub.model.MonitorLocation;
 import com.dasinong.farmerClub.model.Store;
 import com.dasinong.farmerClub.model.User;
 import com.dasinong.farmerClub.model.UserType;
