@@ -37,6 +37,7 @@ public class CouponWrapper {
 		
 		if (expandCampaign) {
 			this.campaign = new CouponCampaignWrapper(coupon.getCampaign());
+			this.campaignId = this.campaign.id;
 		} else {
 			this.campaignId = coupon.getCampaign().getId();
 		}
@@ -49,7 +50,6 @@ public class CouponWrapper {
 		if (coupon.getScanner() != null) {
 			this.scannerId = coupon.getScanner().getUserId();
 		}
-		
 		this.claimedAt = coupon.getClaimedAt();
 		this.redeemedAt = coupon.getRedeemedAt();
 		this.createdAt = coupon.getCreatedAt();
@@ -63,7 +63,7 @@ public class CouponWrapper {
 		this.amount = coupon.getAmount();
 		this.type = coupon.getType();
 		this.campaign = new CouponCampaignWrapper(coupon.getCampaign(),lat,lon);
-		
+		this.campaignId = this.campaign.id;
 		
 		if (coupon.getOwner() != null) {
 			this.ownerId = coupon.getOwner().getUserId();
@@ -73,7 +73,7 @@ public class CouponWrapper {
 		if (coupon.getScanner() != null) {
 			this.scannerId = coupon.getScanner().getUserId();
 		}
-		
+
 		this.claimedAt = coupon.getClaimedAt();
 		this.redeemedAt = coupon.getRedeemedAt();
 		this.createdAt = coupon.getCreatedAt();
@@ -87,7 +87,7 @@ public class CouponWrapper {
 		this.amount = coupon.getAmount();
 		this.type = coupon.getType();
 		this.campaign = new CouponCampaignWrapper(coupon.getCampaign(),stores);
-		
+		this.campaignId = this.campaign.id;
 		
 		if (coupon.getOwner() != null) {
 			this.ownerId = coupon.getOwner().getUserId();
@@ -97,7 +97,7 @@ public class CouponWrapper {
 		if (coupon.getScanner() != null) {
 			this.scannerId = coupon.getScanner().getUserId();
 		}
-		
+
 		this.claimedAt = coupon.getClaimedAt();
 		this.redeemedAt = coupon.getRedeemedAt();
 		this.createdAt = coupon.getCreatedAt();

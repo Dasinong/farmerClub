@@ -34,5 +34,14 @@
         <property name="contactNumber" type="string">
             <column name="contactNumber" length="20"/>
         </property>
+        <property name="address" type="string">
+            <column name="address" length="45"/>
+        </property>
+        <property name="userid" type="long">
+            <column name="userid"/>
+        </property>
+        <property name="postcode" type="string">
+            <column name="postcode" length="10"/>
+        </property>
     </class>
 </hibernate-mapping>

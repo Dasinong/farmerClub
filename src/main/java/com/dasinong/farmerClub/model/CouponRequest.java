@@ -11,15 +11,16 @@ public class CouponRequest {
 	private String experience;
 	private String productUseHistory;
 	private String contactNumber;
+	private String address;
+	private long userid;
+	private String postcode;
 	
 	public CouponRequest(){
 		
 	}
 	
-	
-	
 	public CouponRequest(String name, String company, String crop, double area, double yield, String experience,
-			String productUseHistory, String contactNumber) {
+			String productUseHistory, String contactNumber, String address, long userid, String postcode) {
 		super();
 		this.name = name;
 		this.company = company;
@@ -29,6 +30,9 @@ public class CouponRequest {
 		this.experience = experience;
 		this.productUseHistory = productUseHistory;
 		this.contactNumber = contactNumber;
+		this.address = address;
+		this.userid =userid;
+		this.postcode = postcode;
 	}
 
 
@@ -87,6 +91,22 @@ public class CouponRequest {
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
-	
-	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public long getUserid() {
+		return userid;
+	}
+	public void setUserid(long userid) {
+		this.userid = userid;
+	}
+	public String getPostcode() {
+		return postcode;
+	}
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
 }

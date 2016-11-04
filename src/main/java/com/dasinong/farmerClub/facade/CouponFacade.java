@@ -511,8 +511,8 @@ public class CouponFacade implements ICouponFacade {
 	
 	@Override
 	public void saveCouponRequest(String name,String company, String crop, double area, double yield, String experience,
-				String productUseHistory, String contactNumber){
-		CouponRequest cr = new CouponRequest(name,company,crop,area,yield,experience,productUseHistory,contactNumber);
+				String productUseHistory, String contactNumber, String address, long userid, String postcode){
+		CouponRequest cr = new CouponRequest(name,company,crop,area,yield,experience,productUseHistory,contactNumber,address,userid,postcode);
 
 		ICouponRequestDao couponRequestDao = (ICouponRequestDao) ContextLoader.getCurrentWebApplicationContext().getBean("couponRequestDao");
 		couponRequestDao.save(cr);

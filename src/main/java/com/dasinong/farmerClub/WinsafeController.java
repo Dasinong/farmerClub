@@ -1,8 +1,10 @@
 package com.dasinong.farmerClub;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -83,6 +85,36 @@ public class WinsafeController extends RequireUserLoginController {
 							 ps.setBoxcode(boxcode);
 							 proStockDao.save(ps);
 							 result.put("message", "入库成功");
+							 
+							 try{
+								Long winsafeId = user.getWinsafeid();
+								if (winsafeId==0L){
+									winsafeId=62269L;
+								}
+								DateFormat df =new SimpleDateFormat("yyyyMMddHHmmss");
+								String fileName= ""+winsafeId+"_"+df.format(new Date())+".txt";
+								//File f = new File();
+								StringBuilder content = new StringBuilder();
+								content.append("*****");
+								content.append(df.format(new Date()));
+								content.append(boxcode);
+								content.append("7");
+								File f = new File(Env.getEnv().StockDir,fileName);
+								if (!f.exists()){f.createNewFile();}
+								FileWriter fileWritter = new FileWriter(f.getPath(),true);
+					            BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+					            bufferWritter.write(content.toString());
+					            bufferWritter.close();
+								
+								String saveFileResult = "";
+								//work around now. Should guarantee user is registered
+								saveFileResult = winsafe.stockScan(winsafeId.toString(),f.getPath());
+								System.out.println("boxcode:"+ boxcode + " stocked. "+saveFileResult);
+							 }catch(Exception e){
+								 System.out.println("Issue in upload stock file content");
+							 }
+							 
+							 
 				    	 }else{
 				    		 result.put("message", "已入库");
 				    	 }

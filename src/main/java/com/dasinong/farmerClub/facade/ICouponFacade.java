@@ -28,7 +28,7 @@ public interface ICouponFacade {
 	public GroupedScannedCouponsWrapper groupScannedCouponsByCampaignId(long scannerId) throws Exception;
 
 	void saveCouponRequest(String name, String company, String crop, double area, double yield, String experience,
-			String productUseHistory, String contactNumber) throws Exception;
+			String productUseHistory, String contactNumber, String address, long userid, String postcode) throws Exception;
 
 	List<CouponCampaignWrapper> findClaimableCampaigns(long institutionId);
 

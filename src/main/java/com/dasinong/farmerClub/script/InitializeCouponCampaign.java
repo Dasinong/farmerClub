@@ -36,24 +36,24 @@ public class InitializeCouponCampaign {
 		ICouponDao couponDao = (ICouponDao) applicationContext.getBean("couponDao");
 		ICouponCampaignDao campaignDao = (ICouponCampaignDao) applicationContext.getBean("couponCampaignDao");
 		IStoreDao storeDao = (IStoreDao) applicationContext.getBean("storeDao");
-		Institution inst = instDao.findById(3L);
+		Institution inst = instDao.findById(1L);
 		List<Store> stores = new ArrayList<Store>();
 		Store store = storeDao.findById(23L);
 		stores.add(store);
 		
 		CouponCampaign campaign = (new CouponCampaignMutator(couponDao, campaignDao))
-				.setName("陶氏产品代金卷")
-				.setDescription("当地发生14级以上的台风，会根据香港天文台气象（http://www.hko.gov.hk/contentc.htm）记录，由系统发送领取券给台风影响区域内的参与关爱基金的农户。")
+				.setName("俱乐部用户回馈")
+				.setDescription("俱乐部用户回馈抽奖活动。凡使用过陶氏代金券的用户都可以参加。")
 				.setInstitution(inst)
 				.setType(CouponCampaignType.CASH)
-				.setVolume(5000)
-				.setAmount(5)
+				.setVolume(1500)
+				.setAmount(1)
 				.setRetailerStores(stores)
-				.setRedeemTimeStart(Timestamp.valueOf("2016-05-20 00:00:00"))
-				.setRedeemTimeEnd(Timestamp.valueOf("2016-08-20 00:00:00"))
-				.setClaimTimeStart(Timestamp.valueOf("2016-05-30 00:00:00"))
-				.setClaimTimeEnd(Timestamp.valueOf("2016-08-30 00:00:00"))
-				.setPictureUrl("event.png;")
+				.setRedeemTimeStart(Timestamp.valueOf("2016-09-30 00:00:00"))
+				.setRedeemTimeEnd(Timestamp.valueOf("2016-11-30 00:00:00"))
+				.setClaimTimeStart(Timestamp.valueOf("2016-09-15 00:00:00"))
+				.setClaimTimeEnd(Timestamp.valueOf("2016-11-15 00:00:00"))
+				.setPictureUrl("sample.png;")
 				.save();
 	}
 }

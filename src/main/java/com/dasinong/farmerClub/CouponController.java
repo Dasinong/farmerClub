@@ -195,6 +195,7 @@ public class CouponController extends RequireUserLoginController {
 	public Object postRequestCoupon(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		User user = this.getLoginUser(request);
+		long userid = user.getUserId();
 		HttpServletRequestX requestX = new HttpServletRequestX(request);
 		String name = requestX.getString("name");
 		String company = requestX.getString("company");
@@ -204,9 +205,11 @@ public class CouponController extends RequireUserLoginController {
 		String experience = requestX.getString("experience");  
 		String productUseHistory = requestX.getString("productUseHistory");
 		String contactNumber = requestX.getString("contactNumber");
+		String address = requestX.getStringOptional("address","");
+		String postcode = requestX.getStringOptional("postcode","");
 		
 		ICouponFacade facade = (ICouponFacade) ContextLoader.getCurrentWebApplicationContext().getBean("couponFacade");
-		facade.saveCouponRequest(name,company,crop,area,yield,experience,productUseHistory,contactNumber);
+		facade.saveCouponRequest(name,company,crop,area,yield,experience,productUseHistory,contactNumber,address,userid,postcode);
 		
 		result.put("respCode", 200);
 		result.put("message", "认领成功");
